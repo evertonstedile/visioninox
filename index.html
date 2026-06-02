@@ -1,0 +1,1063 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vision Inox — Análise de Mercado & Estratégia de Entrada</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;0,700;1,300;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=Bebas+Neue&display=swap" rel="stylesheet">
+<style>
+:root {
+  --coal:    #0D0D0D;
+  --carbon:  #151515;
+  --char:    #1C1C1C;
+  --steel:   #272727;
+  --ember:   #E05C0A;
+  --flame:   #F07830;
+  --gold:    #E8A020;
+  --inox:    #A8B8C0;
+  --white:   #F4EEE4;
+  --muted:   #6A6A6A;
+  --border:  rgba(255,255,255,0.07);
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+
+body{
+  background:var(--coal);
+  color:var(--white);
+  font-family:'DM Sans',sans-serif;
+  font-size:16px;
+  line-height:1.6;
+  overflow-x:hidden;
+}
+
+/* ─── PROGRESS ─── */
+#prog{
+  position:fixed;top:0;left:0;height:2px;width:0%;
+  background:linear-gradient(90deg,var(--ember),var(--gold));
+  z-index:1000;transition:width .08s linear;
+}
+
+/* ─── NAV ─── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:1.1rem 3rem;
+  background:rgba(13,13,13,.88);
+  backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--border);
+}
+.nav-brand{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.25rem;font-weight:700;letter-spacing:.04em;
+  color:var(--white);
+}
+.nav-brand b{color:var(--ember);font-weight:700;}
+.nav-tag{
+  font-size:.68rem;font-weight:500;
+  letter-spacing:.18em;text-transform:uppercase;
+  color:var(--muted);
+}
+
+/* ─── HELPERS ─── */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .65s ease,transform .65s ease;}
+.reveal.on{opacity:1;transform:none;}
+.d1{transition-delay:.08s}.d2{transition-delay:.16s}.d3{transition-delay:.24s}
+.d4{transition-delay:.32s}.d5{transition-delay:.40s}
+
+.eyebrow{
+  display:flex;align-items:center;gap:.7rem;
+  font-size:.67rem;font-weight:600;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--ember);
+  margin-bottom:1.2rem;
+}
+.eyebrow::before{content:'';display:block;width:1.8rem;height:2px;background:var(--ember);}
+
+h2.st{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(2.2rem,4.5vw,3.8rem);
+  font-weight:700;line-height:1.1;
+  color:var(--white);margin-bottom:.9rem;
+}
+h2.st em{font-style:italic;color:var(--ember);}
+
+.lead{
+  font-size:.98rem;color:var(--muted);
+  max-width:540px;line-height:1.75;
+  font-weight:300;margin-bottom:3.5rem;
+}
+
+.callout{
+  border-left:3px solid var(--ember);
+  padding:1.4rem 1.8rem;
+  background:rgba(224,92,10,.05);
+  border-radius:0 3px 3px 0;
+  margin:1.8rem 0;
+}
+.callout p{font-size:.9rem;color:var(--white);font-weight:300;line-height:1.7;}
+.callout strong{color:var(--ember);font-weight:600;}
+
+.divider{width:100%;height:1px;background:var(--border);}
+
+section.wrap{padding:7rem 3rem;max-width:1200px;margin:0 auto;}
+
+/* ─── HERO ─── */
+#hero{
+  min-height:100vh;display:flex;flex-direction:column;
+  justify-content:center;align-items:center;
+  text-align:center;position:relative;
+  padding:0 3rem;overflow:hidden;
+}
+.hbg{
+  position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 75% 55% at 50% 90%,rgba(224,92,10,.13) 0%,transparent 70%),
+    radial-gradient(ellipse 45% 35% at 75% 25%,rgba(232,160,32,.07) 0%,transparent 60%),
+    #0D0D0D;
+}
+.hbg::after{
+  content:'';position:absolute;inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='.035'/%3E%3C/svg%3E");
+  pointer-events:none;
+}
+.hc{position:relative;z-index:1;max-width:860px;}
+
+.hbadge{
+  display:inline-flex;align-items:center;gap:.55rem;
+  border:1px solid rgba(224,92,10,.35);border-radius:100px;
+  padding:.35rem .95rem;
+  font-size:.67rem;font-weight:600;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--ember);
+  margin-bottom:2.2rem;
+  animation:fadeUp .9s ease .2s both;
+}
+.hbadge::before{
+  content:'●';font-size:.45rem;
+  animation:blink 2.2s infinite;
+}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.25}}
+
+h1.htitle{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(3rem,7vw,6.2rem);
+  font-weight:700;line-height:1.04;
+  color:var(--white);margin-bottom:1.8rem;
+  animation:fadeUp 1s ease .4s both;
+}
+h1.htitle em{font-style:italic;color:var(--ember);}
+
+.hsub{
+  font-size:1.05rem;color:var(--muted);
+  max-width:520px;margin:0 auto 3rem;
+  font-weight:300;line-height:1.75;
+  animation:fadeUp .9s ease .7s both;
+}
+
+.hmeta{
+  display:flex;align-items:center;justify-content:center;
+  gap:1.8rem;animation:fadeUp .9s ease 1s both;
+}
+.hmi{
+  font-size:.67rem;font-weight:500;
+  letter-spacing:.12em;text-transform:uppercase;
+  color:var(--muted);
+}
+.hmi span{color:var(--inox);}
+.hmd{width:1px;height:18px;background:var(--border);}
+
+.hscroll{
+  position:absolute;bottom:2.2rem;left:50%;transform:translateX(-50%);
+  display:flex;flex-direction:column;align-items:center;gap:.45rem;
+  color:var(--muted);font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;
+  animation:fadeUp .8s ease 1.4s both;
+}
+.hsl{
+  width:1px;height:38px;
+  background:linear-gradient(to bottom,var(--ember),transparent);
+  animation:sline 2.2s ease-in-out infinite;
+}
+@keyframes sline{
+  0%{transform:scaleY(0);transform-origin:top}
+  49%{transform:scaleY(1);transform-origin:top}
+  50%{transform:scaleY(1);transform-origin:bottom}
+  100%{transform:scaleY(0);transform-origin:bottom}
+}
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(22px)}
+  to{opacity:1;transform:none}
+}
+
+/* ─── BIG NUMBERS ─── */
+.ng{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  border:1px solid var(--border);border-radius:3px;overflow:hidden;
+}
+.nc{
+  padding:2.8rem 2.2rem;
+  border-right:1px solid var(--border);
+  position:relative;transition:background .25s ease;
+}
+.nc:last-child{border-right:none;}
+.nc:hover{background:var(--char);}
+.nc::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,var(--ember),transparent);
+  opacity:0;transition:opacity .25s ease;
+}
+.nc:hover::before{opacity:1;}
+.nv{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(2.8rem,4.5vw,4.2rem);
+  color:var(--ember);line-height:1;
+  margin-bottom:.45rem;letter-spacing:.02em;
+}
+.nl{font-size:.84rem;color:var(--muted);line-height:1.55;font-weight:300;}
+.nl strong{display:block;color:var(--white);font-weight:500;margin-bottom:.25rem;}
+
+/* ─── 2-COL LAYOUT ─── */
+.two{display:grid;grid-template-columns:1fr 1fr;gap:5.5rem;align-items:start;}
+
+/* ─── TRENDS ─── */
+.tg{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:1.5px;background:var(--border);
+  border:1px solid var(--border);border-radius:3px;overflow:hidden;
+}
+.tc{
+  background:var(--carbon);padding:2.2rem;
+  transition:background .2s ease;
+}
+.tc:hover{background:var(--char);}
+.ti{font-size:1.6rem;margin-bottom:1rem;display:block;}
+.tth{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.25rem;font-weight:600;
+  color:var(--white);margin-bottom:.5rem;
+}
+.td{font-size:.83rem;color:var(--muted);line-height:1.6;font-weight:300;}
+
+/* ─── COMPETITOR MAP ─── */
+.ctiers{
+  display:flex;flex-direction:column;gap:1.5px;
+  border:1px solid var(--border);border-radius:3px;overflow:hidden;
+}
+.crow{
+  display:grid;grid-template-columns:148px 1fr;
+  background:var(--carbon);
+}
+.crow:last-child{border-bottom:none;}
+.clabel{
+  padding:1.8rem 1.5rem;
+  border-right:1px solid var(--border);
+  display:flex;flex-direction:column;justify-content:center;
+}
+.cname{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:.82rem;letter-spacing:.18em;
+  color:var(--ember);margin-bottom:.25rem;
+}
+.cprice{font-size:.7rem;color:var(--muted);font-weight:300;}
+.cplayers{
+  padding:1.4rem 1.8rem;
+  display:flex;flex-wrap:wrap;gap:.55rem;align-items:center;
+}
+.pt{
+  padding:.28rem .75rem;border-radius:100px;
+  font-size:.72rem;font-weight:500;
+  border:1px solid var(--steel);color:var(--inox);
+  transition:all .18s ease;cursor:default;
+}
+.pt:hover{border-color:var(--ember);color:var(--ember);}
+.pt.lead{
+  border-color:rgba(224,92,10,.4);
+  color:var(--flame);background:rgba(224,92,10,.07);
+}
+.pt.opp{
+  border-color:rgba(232,160,32,.45);
+  color:var(--gold);background:rgba(232,160,32,.07);
+  border-style:dashed;font-weight:600;
+}
+.cnote{font-size:.7rem;color:var(--muted);font-style:italic;font-weight:300;}
+
+/* ─── PAINS ─── */
+.pg{
+  display:grid;grid-template-columns:repeat(2,1fr);
+  gap:1.5px;background:var(--border);
+  border:1px solid var(--border);border-radius:3px;overflow:hidden;
+}
+.pc{
+  background:var(--carbon);padding:2.5rem;
+  position:relative;overflow:hidden;
+}
+.pnum{
+  font-family:'Bebas Neue',sans-serif;font-size:5rem;
+  color:rgba(224,92,10,.07);
+  position:absolute;top:.3rem;right:1.2rem;
+  line-height:1;user-select:none;
+}
+.pth{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.35rem;font-weight:600;
+  color:var(--white);margin-bottom:.5rem;
+}
+.pd{font-size:.86rem;color:var(--muted);line-height:1.6;font-weight:300;}
+
+/* ─── THE WINDOW ─── */
+#window{
+  background:linear-gradient(140deg,#E05C0A 0%,#B83B00 100%);
+  padding:8rem 3rem;text-align:center;position:relative;overflow:hidden;
+}
+#window::before{
+  content:'';position:absolute;inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.6' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='.06'/%3E%3C/svg%3E");
+  pointer-events:none;
+}
+.wi{position:relative;z-index:1;max-width:860px;margin:0 auto;}
+.wq{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(1.3rem,2.5vw,2rem);
+  font-style:italic;font-weight:300;
+  color:rgba(255,255,255,.82);
+  line-height:1.45;margin-bottom:1.2rem;
+}
+.ws{
+  font-size:.65rem;font-weight:600;letter-spacing:.18em;
+  text-transform:uppercase;color:rgba(255,255,255,.45);
+  margin-bottom:3.5rem;
+}
+.wt{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(3rem,9vw,7rem);
+  font-weight:700;color:#fff;
+  line-height:.95;margin-bottom:1.5rem;
+}
+.wsub{
+  font-size:1.05rem;color:rgba(255,255,255,.72);
+  max-width:580px;margin:0 auto;
+  font-weight:300;line-height:1.75;
+}
+
+/* ─── PILLARS ─── */
+.pillars{
+  display:grid;grid-template-columns:repeat(2,1fr);
+  gap:1.5px;background:var(--border);
+  border:1px solid var(--border);border-radius:3px;overflow:hidden;
+}
+.pl{
+  background:var(--carbon);padding:2.8rem;
+  transition:background .2s ease;
+}
+.pl:hover{background:var(--char);}
+.pln{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:.78rem;letter-spacing:.2em;
+  color:var(--ember);margin-bottom:1.3rem;
+}
+.plh{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.55rem;font-weight:700;
+  color:var(--white);margin-bottom:.75rem;line-height:1.2;
+}
+.pld{font-size:.88rem;color:var(--muted);line-height:1.7;font-weight:300;}
+.pld strong{color:var(--inox);font-weight:500;}
+
+/* ─── BARS CHART ─── */
+.bars{display:flex;flex-direction:column;gap:.9rem;margin-top:1.5rem;}
+.brow{display:flex;align-items:center;gap:1rem;}
+.btrack{flex:1;height:6px;background:var(--steel);border-radius:3px;overflow:hidden;}
+.bfill{height:100%;border-radius:3px;background:var(--ember);}
+.blabel{font-size:.77rem;color:var(--muted);white-space:nowrap;min-width:200px;}
+
+/* ─── ECOMM ─── */
+.eg{display:grid;grid-template-columns:repeat(2,1fr);gap:1.8rem;margin-bottom:3rem;}
+.ec{
+  border:1px solid var(--border);border-radius:3px;overflow:hidden;
+}
+.ech{
+  padding:1.4rem 1.8rem;border-bottom:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;
+}
+.ecn{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:1rem;letter-spacing:.1em;color:var(--white);
+}
+.ecr{
+  font-size:.62rem;font-weight:600;letter-spacing:.12em;
+  text-transform:uppercase;padding:.22rem .7rem;border-radius:100px;
+}
+.ecr.tr{background:rgba(224,92,10,.14);color:var(--flame);border:1px solid rgba(224,92,10,.3);}
+.ecr.br{background:rgba(168,184,192,.09);color:var(--inox);border:1px solid rgba(168,184,192,.28);}
+.ecb{padding:1.8rem;}
+.ecp{list-style:none;display:flex;flex-direction:column;gap:.75rem;}
+.ecp li{
+  font-size:.86rem;color:var(--muted);
+  line-height:1.5;padding-left:1.2rem;
+  position:relative;font-weight:300;
+}
+.ecp li::before{content:'→';position:absolute;left:0;color:var(--ember);}
+
+/* ─── SEASONAL BAR ─── */
+.sbar{
+  display:grid;grid-template-columns:repeat(12,1fr);
+  gap:5px;margin-bottom:.8rem;
+}
+.mb{display:flex;flex-direction:column;align-items:center;gap:.4rem;}
+.mf{width:100%;border-radius:2px;}
+.mf.h{background:var(--ember);}
+.mf.m{background:rgba(224,92,10,.32);}
+.mf.l{background:var(--steel);}
+.ml{font-size:.58rem;font-weight:500;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);}
+
+/* ─── STEPS ─── */
+.steps{display:flex;flex-direction:column;gap:1.5px;}
+.si{
+  display:grid;grid-template-columns:70px 1fr auto;
+  align-items:center;gap:2rem;
+  padding:1.8rem 2.2rem;
+  background:var(--carbon);
+  border:1px solid var(--border);border-radius:3px;
+  transition:all .2s ease;
+  margin-bottom:1.5px;
+}
+.si:hover{background:var(--char);border-color:rgba(224,92,10,.28);transform:translateX(4px);}
+.sn{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:2rem;color:var(--ember);opacity:.45;line-height:1;
+}
+.sc h4{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.2rem;font-weight:600;
+  color:var(--white);margin-bottom:.25rem;
+}
+.sc p{font-size:.83rem;color:var(--muted);font-weight:300;line-height:1.5;}
+.badge{
+  font-size:.62rem;font-weight:600;letter-spacing:.12em;
+  text-transform:uppercase;padding:.22rem .75rem;border-radius:100px;white-space:nowrap;
+}
+.bn{background:rgba(224,92,10,.14);color:var(--ember);border:1px solid rgba(224,92,10,.28);}
+.bs{background:rgba(232,160,32,.1);color:var(--gold);border:1px solid rgba(232,160,32,.28);}
+.bx{background:rgba(168,184,192,.08);color:var(--inox);border:1px solid rgba(168,184,192,.2);}
+
+/* ─── CLOSING ─── */
+#closing{
+  background:var(--carbon);border-top:1px solid var(--border);
+  padding:8rem 3rem;text-align:center;
+}
+.ci{max-width:680px;margin:0 auto;}
+.ct{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(2.4rem,5vw,3.8rem);
+  font-weight:700;color:var(--white);
+  margin-bottom:1.2rem;line-height:1.1;
+}
+.ct em{font-style:italic;color:var(--ember);}
+.csub{
+  font-size:.96rem;color:var(--muted);
+  margin-bottom:3rem;font-weight:300;line-height:1.75;
+}
+.citems{
+  display:flex;flex-direction:column;gap:.9rem;
+  text-align:left;margin-bottom:3.5rem;
+}
+.citem{
+  display:flex;align-items:flex-start;gap:1rem;
+  padding:1.3rem 1.8rem;
+  border:1px solid var(--border);border-radius:3px;
+  transition:border-color .2s ease;
+}
+.citem:hover{border-color:rgba(224,92,10,.25);}
+.ccheck{color:var(--ember);font-size:.9rem;margin-top:.1rem;flex-shrink:0;}
+.cit strong{display:block;color:var(--white);font-size:.9rem;margin-bottom:.18rem;}
+.cit span{font-size:.8rem;color:var(--muted);font-weight:300;}
+.cfooter{
+  font-size:.67rem;font-weight:500;
+  letter-spacing:.15em;text-transform:uppercase;color:var(--muted);
+}
+
+/* ─── FOOTER ─── */
+footer{
+  padding:1.8rem 3rem;
+  border-top:1px solid var(--border);
+  display:flex;justify-content:space-between;align-items:center;
+}
+.fl{
+  font-family:'Cormorant Garamond',serif;
+  font-size:.95rem;color:var(--muted);
+}
+.fl b{color:var(--ember);}
+.fr{
+  font-size:.65rem;font-weight:500;
+  letter-spacing:.13em;text-transform:uppercase;color:var(--muted);
+}
+
+/* ─── 3-COL MINI GRID ─── */
+.mg3{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;}
+.mc{
+  padding:1.7rem;border:1px solid var(--border);
+  border-radius:3px;transition:border-color .2s ease;
+}
+.mc:hover{border-color:rgba(224,92,10,.25);}
+.mc .ey{
+  font-size:.65rem;font-weight:600;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--ember);margin-bottom:.75rem;
+}
+.mc p{font-size:.83rem;color:var(--muted);line-height:1.6;font-weight:300;}
+
+/* ─── RESPONSIVE ─── */
+@media(max-width:900px){
+  nav{padding:1rem 1.5rem;}
+  section.wrap{padding:5rem 1.5rem;}
+  .ng{grid-template-columns:1fr;}
+  .nc{border-right:none;border-bottom:1px solid var(--border);}
+  .two{grid-template-columns:1fr;gap:2rem;}
+  .tg{grid-template-columns:1fr 1fr;}
+  .pg{grid-template-columns:1fr;}
+  .pillars{grid-template-columns:1fr;}
+  .eg{grid-template-columns:1fr;}
+  .mg3{grid-template-columns:1fr 1fr;}
+  .crow{grid-template-columns:110px 1fr;}
+  .si{grid-template-columns:48px 1fr;}
+  .badge{display:none;}
+  #window{padding:5rem 1.5rem;}
+  #closing{padding:5rem 1.5rem;}
+}
+@media(max-width:600px){
+  .tg{grid-template-columns:1fr;}
+  .mg3{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<div id="prog"></div>
+
+<nav>
+  <div class="nav-brand">Vision<b>.</b>Inox</div>
+  <div class="nav-tag">Diagnóstico Estratégico · Junho 2026</div>
+</nav>
+
+
+<!-- ══════════ HERO ══════════ -->
+<section id="hero">
+  <div class="hbg"></div>
+  <div class="hc">
+    <div class="hbadge">Análise de Mercado · Confidencial</div>
+    <h1 class="htitle">A brasa premium do Brasil<br><em>está em aberto.</em></h1>
+    <p class="hsub">O mercado de churrasqueiras cresce acima de 5% ao ano — mas no Brasil, a oportunidade real não está no volume. Está numa lacuna que o líder de mercado assumiu não conseguir preencher.</p>
+    <div class="hmeta">
+      <div class="hmi">Cliente <span>Vision Inox</span></div>
+      <div class="hmd"></div>
+      <div class="hmi">Segmento <span>Churrasqueiras + Camping</span></div>
+      <div class="hmd"></div>
+      <div class="hmi">Objetivo <span>Entrada no E-commerce</span></div>
+    </div>
+  </div>
+  <div class="hscroll"><div class="hsl"></div><span>scroll</span></div>
+</section>
+
+<div class="divider"></div>
+
+
+<!-- ══════════ BRASIL ══════════ -->
+<section class="wrap reveal">
+  <div class="eyebrow">O Contexto Brasileiro</div>
+  <div class="two">
+    <div>
+      <h2 class="st">Churrasco é cultura.<br><em>Não é tendência.</em></h2>
+      <div class="callout">
+        <p><strong>73% dos brasileiros</strong> consomem carne principalmente em casa. <strong>62%</strong> citam o churrasco como ocasião frequente. O movimento de varanda gourmet e churrasqueira residencial é estrutural — e não vai voltar atrás.</p>
+      </div>
+      <p style="font-size:.88rem;color:var(--muted);line-height:1.7;font-weight:300;">O Brasil não é só um país que faz churrasco. É o <strong style="color:var(--white)">3º maior consumidor de carne bovina do mundo</strong>, com uma cultura de fogo que migrou definitivamente para dentro de casa no pós-pandemia e puxou junto a demanda por equipamentos premium.</p>
+    </div>
+    <div>
+      <div class="ng">
+        <div class="nc reveal d1">
+          <div class="nv" data-target="24.6" data-suffix=" kg">0</div>
+          <div class="nl"><strong>per capita/ano</strong>de carne bovina — 3º maior consumidor mundial (OCDE)</div>
+        </div>
+        <div class="nc reveal d2">
+          <div class="nv" data-target="62" data-suffix="%">0</div>
+          <div class="nl"><strong>dos brasileiros</strong>fazem churrasco como ocasião frequente</div>
+        </div>
+        <div class="nc reveal d3">
+          <div class="nv" data-prefix="R$" data-target="1.2" data-suffix=" bi">0</div>
+          <div class="nl"><strong>movimentados em 2025</strong>no foodservice de churrasco — alta de 39% em relação a 2024</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+
+<!-- ══════════ GLOBAL ══════════ -->
+<section class="wrap reveal">
+  <div class="eyebrow">O Mercado Global</div>
+  <div class="two">
+    <div>
+      <h2 class="st">USD 6,36 bi em 2026.<br><em>Crescendo.</em></h2>
+      <p style="font-size:.95rem;color:var(--muted);line-height:1.8;font-weight:300;margin-bottom:1.5rem;">Mercado global de churrasqueiras chega a USD 8,14 bilhões até 2031 (CAGR 5,06%). Os segmentos que mais crescem são exatamente os que a Vision pode atacar.</p>
+      <div class="bars">
+        <div class="brow"><div class="btrack"><div class="bfill" style="width:78%"></div></div><div class="blabel">Gás — 47,88% do mercado</div></div>
+        <div class="brow"><div class="btrack"><div class="bfill" style="width:55%;background:var(--flame)"></div></div><div class="blabel">Elétrica — vendas +46% (2025)</div></div>
+        <div class="brow"><div class="btrack"><div class="bfill" style="width:42%;background:var(--gold)"></div></div><div class="blabel">Portátil — CAGR 6,06% ↑ mais rápido</div></div>
+        <div class="brow"><div class="btrack"><div class="bfill" style="width:28%;background:var(--inox);opacity:.6"></div></div><div class="blabel">Smart/IoT — CAGR 6,63%</div></div>
+        <div class="brow"><div class="btrack"><div class="bfill" style="width:68%;background:rgba(224,92,10,.4)"></div></div><div class="blabel">Residencial — 67,92% do total</div></div>
+      </div>
+    </div>
+    <div>
+      <div class="callout">
+        <p><strong>O que isso significa para o Brasil:</strong> a demanda se concentra em residencial, portátil e formatos que cabem em apartamento. É exatamente o oposto do que está sendo ofertado no mercado nacional — grandes churrasqueiras fixas de alvenaria.</p>
+      </div>
+      <div style="margin-top:1.5rem;padding:1.8rem;border:1px solid var(--border);border-radius:3px;">
+        <div style="font-size:.65rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-bottom:.8rem;">Camping & Outdoor</div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:2.4rem;color:var(--gold);margin-bottom:.4rem;">USD 22 bi</div>
+        <p style="font-size:.83rem;color:var(--muted);font-weight:300;line-height:1.6;">Mercado global de equipamentos de camping em 2026 — CAGR 5,9%. O varejo online cresce 8,1% ao ano, o canal mais acelerado do setor.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+
+<!-- ══════════ TRENDS ══════════ -->
+<section class="wrap reveal">
+  <div class="eyebrow">Tendências que Moldam o Futuro</div>
+  <h2 class="st">O que está <em>mudando agora.</em></h2>
+  <p class="lead">O consumidor brasileiro não quer só uma churrasqueira. Quer um símbolo do seu estilo de vida — e está disposto a pagar por isso.</p>
+
+  <div class="tg">
+    <div class="tc reveal d1">
+      <span class="ti">🏠</span>
+      <div class="tth">Premiumização Residencial</div>
+      <p class="td">A varanda gourmet virou requisito imobiliário. A churrasqueira é o centro do espaço — exige design, acabamento e durabilidade à altura do investimento no imóvel.</p>
+    </div>
+    <div class="tc reveal d2">
+      <span class="ti">🏢</span>
+      <div class="tth">Churrasco no Apartamento</div>
+      <p class="td">Urbanização empurrou a demanda por churrasqueiras sem fumaça, elétricas, a gás e portáteis. Novos públicos, novos formatos — nova janela de produto.</p>
+    </div>
+    <div class="tc reveal d3">
+      <span class="ti">🥩</span>
+      <div class="tth">Cortes Premium & Experiência</div>
+      <p class="td">Quem paga R$ 200/kg de picanha não assa em equipamento barato. O churrasco virou ritual — e a churrasqueira precisa estar à altura do protagonismo.</p>
+    </div>
+    <div class="tc reveal d1">
+      <span class="ti">🌊</span>
+      <div class="tth">O Litoral Sem Solução</div>
+      <p class="td">7.400 km de costa, mais de 50 milhões de habitantes em cidades litorâneas. A maresia destrói churrasqueiras de aço carbono — e o mercado ainda não tem uma resposta premium de qualidade.</p>
+    </div>
+    <div class="tc reveal d2">
+      <span class="ti">🎒</span>
+      <div class="tth">Camping & Overlanding</div>
+      <p class="td">O Ministério do Turismo aponta campismo como tendência mais forte de 2025. O boom pós-pandemia é permanente — e o grill portátil é parte essencial do kit.</p>
+    </div>
+    <div class="tc reveal d3">
+      <span class="ti">♻️</span>
+      <div class="tth">Durabilidade como Valor</div>
+      <p class="td">78% dos consumidores valorizam produção sustentável. "Comprar uma vez, durar para sempre" ressoa com quem rejeita o descartável — e o inox é a resposta natural.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+
+<!-- ══════════ COMPETITORS ══════════ -->
+<section class="wrap reveal">
+  <div class="eyebrow">Mapa Competitivo</div>
+  <h2 class="st">Quem está <em>no jogo agora.</em></h2>
+  <p class="lead">O mercado tem quatro camadas bem definidas — cada uma com suas regras, seus públicos e suas vulnerabilidades.</p>
+
+  <div class="ctiers">
+    <div class="crow reveal d1">
+      <div class="clabel">
+        <div class="cname">Topo</div>
+        <div class="cprice">R$ 5.000–40.000+</div>
+      </div>
+      <div class="cplayers">
+        <span class="pt">Weber-Stephen (EUA)</span>
+        <span class="pt">Traeger</span>
+        <span class="pt">Napoleon</span>
+        <span class="pt">Char-Broil</span>
+        <span class="cnote">← importados, aspiracionais, gás — inacessíveis para a maioria</span>
+      </div>
+    </div>
+    <div class="crow reveal d2">
+      <div class="clabel">
+        <div class="cname">Premium Inox</div>
+        <div class="cprice">R$ 2.500–5.000</div>
+      </div>
+      <div class="cplayers">
+        <span class="pt">MoviNox Gourmet</span>
+        <span class="pt">Caixa de Fogo</span>
+        <span class="pt">Grill Land</span>
+        <span class="pt">Pantheon Inox</span>
+        <span class="pt">Brava</span>
+        <span class="pt">Hot Box</span>
+        <span class="pt opp">Vision Inox ✦</span>
+      </div>
+    </div>
+    <div class="crow reveal d3">
+      <div class="clabel">
+        <div class="cname">Médio</div>
+        <div class="cprice">R$ 400–2.500</div>
+      </div>
+      <div class="cplayers">
+        <span class="pt lead">Tramontina ★</span>
+        <span class="pt">Weber (BR)</span>
+        <span class="pt">Mor</span>
+        <span class="pt">Apolo</span>
+        <span class="pt">Pro Tork</span>
+        <span class="cnote">← Tramontina é o benchmark de qualidade percebida</span>
+      </div>
+    </div>
+    <div class="crow reveal d4">
+      <div class="clabel">
+        <div class="cname">Entrada</div>
+        <div class="cprice">R$ 100–400</div>
+      </div>
+      <div class="cplayers">
+        <span class="pt">Genéricos Marketplace</span>
+        <span class="pt">Aço carbono portátil</span>
+        <span class="pt">Grelhas avulsas</span>
+        <span class="cnote">← preço, sem diferencial, guerra de centavos</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout">
+    <p>O segmento premium inox (R$ 2.500–5.000) é <strong>pulverizado e sem marcas fortes</strong>. A maioria são fabricantes-vendedores genéricos de marketplace, sem narrativa, sem design assinado, sem construção de marca. <strong>Esse é o espaço em branco que a Vision pode ocupar.</strong></p>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+
+<!-- ══════════ PAIN POINTS ══════════ -->
+<section class="wrap reveal">
+  <div class="eyebrow">O Que o Consumidor Reclama</div>
+  <h2 class="st">As dores que <em>ninguém resolve.</em></h2>
+  <p class="lead">Análise de avaliações reais nos principais canais revela um padrão consistente de insatisfação — e abre espaço para quem fizer o produto certo.</p>
+
+  <div class="pg">
+    <div class="pc reveal d1">
+      <div class="pnum">01</div>
+      <div class="pth">Limpeza difícil</div>
+      <p class="pd">Principal reclamação. Gordura acumulada em cantos de difícil acesso, peças que não são removíveis. O churrasco acaba bem — a limpeza, nunca.</p>
+    </div>
+    <div class="pc reveal d2">
+      <div class="pnum">02</div>
+      <div class="pth">Construção frágil</div>
+      <p class="pd">Aço fino, solda fraca, peças que torcem com o calor. Produto que parece robusto na caixa e decepciona na terceira churrasqueira. Falta engenharia real.</p>
+    </div>
+    <div class="pc reveal d3">
+      <div class="pnum">03</div>
+      <div class="pth">Ferrugem prematura</div>
+      <p class="pd">Especialmente crítico no litoral. A Tramontina avisa nos próprios anúncios que o produto esmaltado corrode mais rápido em regiões com maresia — um problema sem solução para 50 milhões de pessoas.</p>
+    </div>
+    <div class="pc reveal d4">
+      <div class="pnum">04</div>
+      <div class="pth">Controle de temperatura instável</div>
+      <p class="pd">Sem regulagem de altura precisa, a carne queima por fora e fica crua por dentro. A parrilla com elevatória resolve — mas poucos fabricantes executam isso bem.</p>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════ THE WINDOW ══════════ -->
+<div id="window" class="reveal">
+  <div class="wi">
+    <div class="wq">"Em ambiente com maresia e umidade excessiva, a estrutura poderá apresentar corrosão de forma acelerada. Recomendamos que os cuidados sejam redobrados."</div>
+    <div class="ws">— Tramontina, sobre sua própria churrasqueira. No próprio anúncio de produto.</div>
+    <div class="wt">ESSA É A<br>JANELA.</div>
+    <p class="wsub">O líder de mercado admite publicamente que seu produto não é adequado para o litoral brasileiro. São 7.400 km de costa, mais de 50 milhões de consumidores — e nenhuma marca com autoridade real para ocupar esse espaço com inox de verdade.</p>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+
+<!-- ══════════ PILLARS ══════════ -->
+<section class="wrap reveal">
+  <div class="eyebrow">Estratégia de Diferenciação</div>
+  <h2 class="st">Quatro pilares para <em>entrar e ganhar.</em></h2>
+  <p class="lead">Diferenciação real não é um argumento — é uma combinação de posicionamento, produto, marca e estratégia de entrada que se reforçam mutuamente.</p>
+
+  <div class="pillars">
+    <div class="pl reveal d1">
+      <div class="pln">01 — Posicionamento</div>
+      <div class="plh">A churrasqueira<br>que o litoral merece</div>
+      <p class="pld">Ownar a narrativa <strong>anticorrosão / litoral</strong> como categoria. Inox 304 de verdade, soldas TIG, <strong>garantia anticorrosão de 10 anos</strong>. O que a Tramontina não dá com tranquilidade, a Vision dá com DNA industrial. <em>"Feita para o litoral, boa para o Brasil inteiro."</em></p>
+    </div>
+    <div class="pl reveal d2">
+      <div class="pln">02 — Produto</div>
+      <div class="plh">Resolver as dores.<br>Não só "ter inox."</div>
+      <p class="pld"><strong>Gaveta coletora removível</strong> — limpeza sem dor. Montagem sem ferramenta. Regulagem de altura suave e precisa. <strong>Acabamento premium visível:</strong> solda invisível, polimento escovado assinado. Modularidade para ticket médio e recompra.</p>
+    </div>
+    <div class="pl reveal d3">
+      <div class="pln">03 — Marca</div>
+      <div class="plh">Autoral. Com história.<br>Com autoridade.</div>
+      <p class="pld">Enquanto concorrentes são fabricantes genéricos, Vision tem uma narrativa real: <strong>engenharia de inox industrial — antes em cervejarias e farmacêuticas, agora na sua brasa.</strong> Padrão industrial aplicado ao consumo. Ninguém no segmento tem essa história.</p>
+    </div>
+    <div class="pl reveal d4">
+      <div class="pln">04 — Entrada</div>
+      <div class="plh">Produto-herói<br>R$ 800–1.500 primeiro.</div>
+      <p class="pld">Não brigue a R$ 4.000 no tráfego frio — o CAC mata antes de tracionar. Lançar uma <strong>parrilla compacta de bancada ou portátil premium</strong> como porta de entrada. Gera reviews, prova social e dados. Depois, upsell natural para a parrilla completa.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+
+<!-- ══════════ ECOMMERCE ══════════ -->
+<section class="wrap reveal">
+  <div class="eyebrow">Estratégia de E-commerce</div>
+  <h2 class="st">Como entrar e <em>tracionar.</em></h2>
+  <p class="lead">Dois palcos, um objetivo: Mercado Livre para volume e reviews, loja própria para marca e margem. Um alimenta o outro.</p>
+
+  <div class="eg">
+    <div class="ec reveal d1">
+      <div class="ech">
+        <div class="ecn">Mercado Livre</div>
+        <div class="ecr tr">Tração + Reviews</div>
+      </div>
+      <div class="ecb">
+        <ul class="ecp">
+          <li>Onde o volume e a busca por churrasqueira vivem hoje</li>
+          <li>Reviews = ranqueamento = vendas orgânicas no longo prazo</li>
+          <li>Seeding agressivo nas primeiras semanas para construir prova social</li>
+          <li>Full + Fulfillment para frete grátis e alta conversão</li>
+          <li>Listings otimizados com as keywords de intenção (litoral, inox, parrilla)</li>
+        </ul>
+      </div>
+    </div>
+    <div class="ec reveal d2">
+      <div class="ech">
+        <div class="ecn">Loja Própria</div>
+        <div class="ecr br">Marca + Margem</div>
+      </div>
+      <div class="ecb">
+        <ul class="ecp">
+          <li>Margem cheia e dados de cliente para CRM e remarketing</li>
+          <li>Storytelling e narrativa de marca sem limitação de plataforma</li>
+          <li>Upsell e cross-sell — acessórios, kits, projetos personalizados</li>
+          <li>Canal direto para projetos de área gourmet e PJ</li>
+          <li>Base de dados própria — ativo que pertence à marca, não ao ML</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div style="border:1px solid var(--border);border-radius:3px;padding:2.2rem;margin-bottom:2.5rem;">
+    <div class="eyebrow" style="margin-bottom:1.4rem;">Sazonalidade — Quando o Mercado Pulsa</div>
+    <div class="sbar">
+      <div class="mb"><div class="mf h" style="height:58px"></div><div class="ml">jan</div></div>
+      <div class="mb"><div class="mf m" style="height:32px"></div><div class="ml">fev</div></div>
+      <div class="mb"><div class="mf l" style="height:18px"></div><div class="ml">mar</div></div>
+      <div class="mb"><div class="mf l" style="height:16px"></div><div class="ml">abr</div></div>
+      <div class="mb"><div class="mf l" style="height:20px"></div><div class="ml">mai</div></div>
+      <div class="mb"><div class="mf l" style="height:18px"></div><div class="ml">jun</div></div>
+      <div class="mb"><div class="mf m" style="height:34px"></div><div class="ml">jul</div></div>
+      <div class="mb"><div class="mf m" style="height:40px"></div><div class="ml">ago</div></div>
+      <div class="mb"><div class="mf h" style="height:62px"></div><div class="ml">set</div></div>
+      <div class="mb"><div class="mf m" style="height:38px"></div><div class="ml">out</div></div>
+      <div class="mb"><div class="mf h" style="height:54px"></div><div class="ml">nov</div></div>
+      <div class="mb"><div class="mf m" style="height:44px"></div><div class="ml">dez</div></div>
+    </div>
+    <p style="font-size:.78rem;color:var(--muted);font-weight:300;">Picos: Janeiro (verão), Setembro (primavera/pré-verão), Novembro (Black Friday/Dia dos Pais). <strong style="color:var(--inox)">Lançamento ideal: Agosto</strong> — constrói reviews antes do pico de setembro.</p>
+  </div>
+
+  <div class="mg3">
+    <div class="mc reveal d1">
+      <div class="ey">Conteúdo Orgânico</div>
+      <p>Vídeos de uso (brasa, regulagem, limpeza em 30s). UGC de churrasqueiros. Comparativo inox vs. esmaltado no litoral — o conteúdo que o consumidor quer ver.</p>
+    </div>
+    <div class="mc reveal d2">
+      <div class="ey">Influenciadores</div>
+      <p>Perfis de churrasco têm audiência enorme no IG, YouTube e TikTok. Performam muito melhor que anúncio frio para produto de ticket alto — custo de aquisição radicalmente menor.</p>
+    </div>
+    <div class="mc reveal d3">
+      <div class="ey">SEO & Busca Paga</div>
+      <p>"Churrasqueira inox litoral", "parrilla sem ferrugem", "churrasqueira maresia". Intenção de compra altíssima, concorrência orgânica baixa — janela aberta para dominar.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+
+<!-- ══════════ CAMPING ══════════ -->
+<section class="wrap reveal">
+  <div class="eyebrow">Fase 2</div>
+  <div class="two">
+    <div>
+      <h2 class="st">Camping &<br><em>Overlanding.</em></h2>
+      <p style="font-size:.95rem;color:var(--muted);line-height:1.8;font-weight:300;margin-bottom:1.5rem;">O boom é real e permanente. USD 22 bilhões em equipamentos de camping em 2026, crescendo 5,9% ao ano. Varejo online: 8,1% CAGR — o canal mais acelerado.</p>
+      <p style="font-size:.95rem;color:var(--muted);line-height:1.8;font-weight:300;">Ministério do Turismo aponta campismo como tendência mais forte de 2025. O movimento pós-pandemia consolidou um novo estilo de vida — e ele precisa de grill.</p>
+    </div>
+    <div>
+      <div class="callout">
+        <p><strong>Onde o inox ganha no camping:</strong> car-camping, glamping e overlanding — onde durabilidade vale mais que gramagem. Fogareiro inox, parrilla portátil, kit cozinha dobrável. Mesma competência fabril, novo posicionamento.</p>
+      </div>
+      <div style="margin-top:1.5rem;padding:1.5rem 1.8rem;border:1px solid rgba(232,160,32,.2);border-radius:3px;background:rgba(232,160,32,.03);">
+        <p style="font-size:.84rem;color:var(--muted);line-height:1.6;font-weight:300;"><span style="color:var(--gold);font-weight:600;">Nota estratégica:</span> fase 2 após consolidação no core de churrasqueiras. Dispersar foco no início é o erro mais comum. Um frente de cada vez.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+
+<!-- ══════════ NEXT STEPS ══════════ -->
+<section class="wrap reveal">
+  <div class="eyebrow">Próximos Passos</div>
+  <h2 class="st">O que precisa <em>acontecer agora.</em></h2>
+  <p class="lead">Cinco ações que transformam diagnóstico em resultado — na sequência correta e com o timing certo.</p>
+
+  <div class="steps">
+    <div class="si reveal d1">
+      <div class="sn">01</div>
+      <div class="sc">
+        <h4>Definir o SKU-herói e a linha de entrada</h4>
+        <p>Parrilla compacta de bancada ou portátil premium (R$ 800–1.500). O produto que valida o mercado, gera os primeiros reviews e abre a porta para o premium.</p>
+      </div>
+      <div class="badge bn">Agora</div>
+    </div>
+    <div class="si reveal d2">
+      <div class="sn">02</div>
+      <div class="sc">
+        <h4>Teardown competitivo + benchmarking</h4>
+        <p>Comprar 2–3 unidades dos concorrentes diretos (MoviNox, Caixa de Fogo, Tramontina inox) e analisar acabamento, montagem, limpeza e oportunidades de superação.</p>
+      </div>
+      <div class="badge bn">Agora</div>
+    </div>
+    <div class="si reveal d3">
+      <div class="sn">03</div>
+      <div class="sc">
+        <h4>Arquitetura da marca + identidade visual</h4>
+        <p>Naming da linha, posicionamento verbal, identidade visual premium. O que vai aparecer na caixa, no marketplace e no feed — precisa estar pronto antes do produto chegar ao cliente.</p>
+      </div>
+      <div class="badge bs">Semana 2</div>
+    </div>
+    <div class="si reveal d4">
+      <div class="sn">04</div>
+      <div class="sc">
+        <h4>Loja Nuvemshop + listings Mercado Livre</h4>
+        <p>Estrutura mínima de e-commerce com plano de seeding de reviews. Fotografias e vídeos com foco nas dores: limpeza, durabilidade, resistência à maresia. Listings com SEO.</p>
+      </div>
+      <div class="badge bs">Semana 3–4</div>
+    </div>
+    <div class="si reveal d5">
+      <div class="sn">05</div>
+      <div class="sc">
+        <h4>Lançamento, tráfego e parceiros de conteúdo</h4>
+        <p>Ativação de influenciadores de churrasco, tráfego pago (remarketing + fundo de funil), calendário de conteúdo orgânico e metas de reviews para ranqueamento no ML.</p>
+      </div>
+      <div class="badge bx">Mês 2</div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════ CLOSING ══════════ -->
+<div id="closing">
+  <div class="ci reveal">
+    <div class="eyebrow" style="justify-content:center;">O Próximo Passo</div>
+    <div class="ct">Da estratégia<br>para a <em>execução.</em></div>
+    <p class="csub">Este diagnóstico é o ponto de partida. O que foi mapeado aqui precisa virar produto, marca, loja e distribuição — com velocidade suficiente para capturar a janela antes que ela se feche.</p>
+
+    <div class="citems">
+      <div class="citem">
+        <div class="ccheck">◆</div>
+        <div class="cit">
+          <strong>Branding & Identidade de Marca</strong>
+          <span>Naming, posicionamento verbal, identidade visual, tom de voz, embalagem premium</span>
+        </div>
+      </div>
+      <div class="citem">
+        <div class="ccheck">◆</div>
+        <div class="cit">
+          <strong>E-commerce & Estrutura Digital</strong>
+          <span>Loja própria, integração Mercado Livre, fotografias de produto, copy e listings otimizados</span>
+        </div>
+      </div>
+      <div class="citem">
+        <div class="ccheck">◆</div>
+        <div class="cit">
+          <strong>Conteúdo & Presença Orgânica</strong>
+          <span>Estratégia de conteúdo, produção de vídeo, Instagram, parcerias com influenciadores de churrasco</span>
+        </div>
+      </div>
+      <div class="citem">
+        <div class="ccheck">◆</div>
+        <div class="cit">
+          <strong>Tráfego Pago & Growth</strong>
+          <span>Meta Ads, Google Shopping, campanhas no ML, funil de aquisição e retenção de clientes</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="cfooter">Análise preparada em Junho de 2026 · Uso Confidencial · Vision Inox</div>
+  </div>
+</div>
+
+<footer>
+  <div class="fl">Vision<b>.</b>Inox — Diagnóstico Estratégico</div>
+  <div class="fr">Mercado Churrasqueiras + E-commerce · 2026</div>
+</footer>
+
+
+<script>
+// Progress bar
+const prog = document.getElementById('prog');
+window.addEventListener('scroll', () => {
+  const st = window.scrollY;
+  const dh = document.body.scrollHeight - window.innerHeight;
+  prog.style.width = (st / dh * 100) + '%';
+}, {passive: true});
+
+// Reveal on scroll
+const ro = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('on'); });
+}, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
+
+// Number counters
+function runCounter(el) {
+  const target = parseFloat(el.dataset.target);
+  const prefix = el.dataset.prefix || '';
+  const suffix = el.dataset.suffix || '';
+  const isInt = Number.isInteger(target);
+  const duration = 1600, fps = 50;
+  const inc = target / fps;
+  let cur = 0, frame = 0;
+  const t = setInterval(() => {
+    frame++;
+    cur = Math.min(cur + inc, target);
+    el.textContent = prefix + (isInt ? Math.floor(cur) : cur.toFixed(1)) + suffix;
+    if (frame >= fps) {
+      el.textContent = prefix + (isInt ? target : target.toFixed(1)) + suffix;
+      clearInterval(t);
+    }
+  }, duration / fps);
+}
+const co = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting && !e.target.dataset.counted) {
+      e.target.dataset.counted = '1';
+      runCounter(e.target);
+    }
+  });
+}, { threshold: 0.5 });
+document.querySelectorAll('[data-target]').forEach(el => co.observe(el));
+</script>
+</body>
+</html>
