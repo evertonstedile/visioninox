@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Proposta Estratégica — Vision Inox × Everton Stedile</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;700;800;900&family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,700&family=Fraunces:ital,opsz,wght@1,9..144,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#090909;--bg-2:#0e0e12;--bg-3:#131318;--surface:#17171d;--surface-2:#1d1d24;
+  --s1:#edeff2;--s2:#c2c5cc;--s3:#8a8d95;--s4:#54575f;
+  --e1:#ff4500;--e2:#ff7a1a;--e3:#ffb02e;
+  --cyan:#00e5ff;--cyan-dim:rgba(0,229,255,.55);
+  --text:#ececef;--dim:#9a9da5;--faint:#65686f;
+  --line:rgba(255,255,255,.08);--line2:rgba(255,255,255,.13);
+  --eg:rgba(255,90,20,.5);
+  --fd:'Fraunces',Georgia,serif;--fs:'Archivo',-apple-system,sans-serif;
+  --maxw:1180px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;background:var(--bg)}
+body{background:var(--bg);color:var(--text);font-family:var(--fs);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0;z-index:1;pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E");
+  opacity:.035;mix-blend-mode:overlay}
+::selection{background:var(--e1);color:#fff}
+
+/* ── PROGRESS ── */
+#pbar{position:fixed;top:0;left:0;height:2px;width:0%;z-index:200;
+  background:linear-gradient(90deg,var(--e1),var(--e3));box-shadow:0 0 12px var(--eg)}
+
+/* ── HERO ── */
+#track{height:560vh;position:relative;z-index:2}
+#stage{position:sticky;top:0;height:100vh;width:100%;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.bl{position:absolute;inset:0;pointer-events:none}
+#bg0{background:var(--bg);z-index:0}
+#bg1{z-index:1;background:radial-gradient(ellipse 100% 90% at 50% 55%,#02111e,#090909 65%);opacity:0}
+#bg2{z-index:2;background:radial-gradient(ellipse 80% 55% at 50% 100%,rgba(255,60,0,.3),transparent 65%);opacity:0}
+#bg3{z-index:3;background:linear-gradient(165deg,#0a1825,#112535 35%,#0d1e2e 65%,#090909);opacity:0;display:flex;align-items:center;justify-content:center}
+.slot-box{border:1px dashed rgba(255,255,255,.1);border-radius:14px;padding:44px 70px;background:rgba(255,255,255,.025);text-align:center}
+.slot-box p{font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.22);line-height:2.2}
+#svgwrap{position:absolute;z-index:10;width:min(76vw,710px);top:50%;left:50%;transform:translate(-50%,-52%);pointer-events:none}
+#psv{width:100%;height:auto;overflow:visible}
+#psvg{position:absolute;inset:0;width:100%;height:100%;z-index:15;pointer-events:none}
+.pt{position:absolute;z-index:20;pointer-events:none;opacity:0}
+.kk{font-family:var(--fs);font-size:10.5px;font-weight:800;letter-spacing:.28em;text-transform:uppercase;display:block;margin-bottom:14px}
+.kk.cy{color:var(--cyan)}.kk.em{color:var(--e2)}
+.ht{font-family:var(--fd);font-weight:400;letter-spacing:-.025em;line-height:1.02}
+.ht.lg{font-size:clamp(40px,7.2vw,88px)}.ht.md{font-size:clamp(28px,4.2vw,52px)}
+.htsub{font-size:clamp(14px,1.6vw,18px);color:rgba(236,236,239,.55);margin-top:14px;max-width:440px;line-height:1.55}
+em.cy{color:var(--cyan);font-style:italic}em.em{color:var(--e2);font-style:italic}
+#dots{position:absolute;right:3.5vw;top:50%;transform:translateY(-50%);z-index:30;display:flex;flex-direction:column;gap:10px}
+.dot{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,.14);transition:background .4s,transform .4s}
+.dot.on{background:var(--e2);transform:scale(1.5)}
+#scue{position:absolute;bottom:6vh;left:50%;transform:translateX(-50%);z-index:30;display:flex;align-items:center;gap:12px;transition:opacity .6s}
+#scue.gone{opacity:0}
+#scue span{font-size:10px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.28)}
+.sbar{width:38px;height:1px;background:rgba(255,255,255,.1);overflow:hidden;position:relative}
+.sbar::after{content:"";position:absolute;inset:0;width:45%;background:var(--e2);animation:sb 2s ease-in-out infinite}
+@keyframes sb{0%{transform:translateX(-110%)}100%{transform:translateX(240%)}}
+
+/* ── PROPOSTA ── */
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 32px;position:relative;z-index:2}
+section{position:relative;z-index:2}
+h2,h3{font-family:var(--fd);font-weight:400;line-height:1.02;letter-spacing:-.02em}
+.kicker{font-family:var(--fs);font-weight:700;font-size:12px;letter-spacing:.28em;text-transform:uppercase;color:var(--e2);display:inline-block}
+.kicker.steel{color:var(--s3)}
+.lead{font-size:clamp(17px,2vw,21px);color:var(--dim);line-height:1.55}
+.ember-text{color:var(--e2)}.steel-grad{background:linear-gradient(180deg,var(--s1),var(--s3));-webkit-background-clip:text;background-clip:text;color:transparent}
+em.f{font-style:italic;font-family:var(--fd)}
+.num-tag{font-weight:800;font-size:13px;color:var(--e2);letter-spacing:.1em;margin-right:14px}
+.rv{opacity:0;transform:translateY(34px);transition:opacity 1s cubic-bezier(.2,.7,.2,1),transform 1s cubic-bezier(.2,.7,.2,1)}
+.rv.in{opacity:1;transform:none}
+.rv.d1{transition-delay:.08s}.rv.d2{transition-delay:.16s}.rv.d3{transition-delay:.24s}
+.rv.d4{transition-delay:.32s}.rv.d5{transition-delay:.40s}
+.sec{padding:clamp(90px,13vh,160px) 0}
+.sec-head{max-width:760px;margin-bottom:60px}
+.sec-head h2{font-size:clamp(32px,5vw,62px);margin-top:20px}
+.sec-head .lead{margin-top:26px}
+
+/* manifesto */
+.manifesto{background:linear-gradient(180deg,var(--bg),var(--bg-2));border-block:1px solid var(--line)}
+.manifesto .big{font-family:var(--fd);font-size:clamp(30px,4.6vw,58px);font-weight:300;line-height:1.18;letter-spacing:-.02em;max-width:14ch}
+.manifesto .big strong{font-weight:500;font-style:italic;color:var(--e2)}
+
+/* stats */
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.stat{background:var(--bg-2);padding:38px 30px}
+.stat .v{font-family:var(--fd);font-size:clamp(34px,4.4vw,52px);font-weight:400;background:linear-gradient(180deg,var(--s1),var(--s3));-webkit-background-clip:text;background-clip:text;color:transparent;line-height:1}
+.stat .v .u{font-size:.5em;color:var(--e2);-webkit-text-fill-color:var(--e2)}
+.stat .k{margin-top:16px;color:var(--dim);font-size:14.5px;line-height:1.45}
+
+/* callout */
+.callout{border-left:2px solid var(--e1);padding:6px 0 6px 26px;margin-top:46px;max-width:720px}
+.callout p{font-family:var(--fd);font-size:clamp(19px,2.3vw,26px);font-weight:300;line-height:1.4;color:var(--s1)}
+.callout p strong{font-style:italic;color:var(--e2);font-weight:500}
+
+/* diff */
+.diff{background:var(--bg-2)}
+.diff-row{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--line);border-radius:16px;overflow:hidden;margin-bottom:22px;background:var(--bg)}
+.diff-pain{padding:34px;border-right:1px solid var(--line)}
+.diff-sol{padding:34px;background:linear-gradient(180deg,rgba(255,69,0,.05),rgba(255,69,0,.01))}
+.diff-tag{font-size:11px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;margin-bottom:16px;display:flex;align-items:center;gap:9px}
+.diff-pain .diff-tag{color:var(--s3)}.diff-sol .diff-tag{color:var(--e2)}
+.diff-tag .dot2{width:7px;height:7px;border-radius:50%}
+.diff-pain .dot2{background:var(--s3)}.diff-sol .dot2{background:var(--e1);box-shadow:0 0 10px var(--eg)}
+.diff-row h3{font-size:21px;font-weight:500;margin-bottom:12px;letter-spacing:-.01em}
+.diff-row p{font-size:15px;color:var(--dim);line-height:1.6}
+.diff-row p .hl{color:var(--s1);font-weight:600}
+.quote-strip{margin-top:14px;padding-top:14px;border-top:1px dashed var(--line2);font-size:13px;color:var(--faint);font-style:italic;font-family:var(--fd)}
+
+/* evolução */
+.evo-grid{display:grid;grid-template-columns:1fr auto 1fr;gap:20px;align-items:center;margin-top:44px}
+.evo-card{border:1px solid var(--line);border-radius:18px;overflow:hidden;background:var(--bg-2)}
+.evo-card.after{border-color:rgba(255,90,20,.3);background:linear-gradient(180deg,rgba(255,69,0,.07),var(--bg-2))}
+.evo-slot{height:280px;display:flex;align-items:center;justify-content:center;background:var(--bg-3);position:relative;overflow:hidden}
+.evo-slot.before-slot{background:linear-gradient(180deg,#0c1216,#181e22)}
+.evo-slot.after-slot{background:linear-gradient(180deg,#100d07,#1a1308)}
+.evo-slot img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0}
+.evo-slot .slot-inner{text-align:center;z-index:1;position:relative}
+.evo-slot .slot-inner p{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.22);line-height:2.4}
+.evo-body{padding:28px}
+.evo-tag{font-size:11px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;margin-bottom:10px;color:var(--s3)}
+.evo-card.after .evo-tag{color:var(--e2)}
+.evo-body h3{font-size:20px;font-weight:500;margin-bottom:10px}
+.evo-body p{font-size:14px;color:var(--dim);line-height:1.6}
+.evo-arrow{font-size:32px;color:var(--e2);text-align:center;opacity:.6;line-height:1}
+.evo-note{margin-top:30px;padding:20px 26px;border:1px dashed var(--line2);border-radius:12px;background:rgba(255,255,255,.015);font-size:13px;color:var(--faint);line-height:1.65}
+.evo-note b{color:var(--s2)}
+
+/* produtos */
+.line-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.pcard{border:1px solid var(--line);border-radius:18px;padding:34px 30px;background:var(--bg-2);position:relative;overflow:hidden;transition:transform .5s,border-color .5s}
+.pcard:hover{transform:translateY(-6px);border-color:var(--line2)}
+.pcard.hero-card{background:linear-gradient(180deg,rgba(255,69,0,.09),var(--bg-2) 55%);border-color:rgba(255,90,20,.32)}
+.pcard .ring{font-size:11px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--faint)}
+.pcard.hero-card .ring{color:var(--e2)}
+.pcard .badge{position:absolute;top:24px;right:24px;font-size:10px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#0a0a0c;background:linear-gradient(90deg,var(--e2),var(--e3));padding:5px 11px;border-radius:30px}
+.pcard h3{font-size:25px;font-weight:500;margin:18px 0 6px}
+.pcard .price{font-family:var(--fd);font-size:30px;color:var(--s1);margin:14px 0 4px;font-weight:400}
+.pcard .price small{font-size:14px;color:var(--faint);font-family:var(--fs)}
+.pcard .role{font-size:14px;color:var(--dim);margin-top:14px;line-height:1.55}
+.pcard ul{list-style:none;margin-top:18px;display:flex;flex-direction:column;gap:9px}
+.pcard li{font-size:13.5px;color:var(--s2);padding-left:18px;position:relative}
+.pcard li::before{content:"";position:absolute;left:0;top:9px;width:6px;height:6px;border-radius:50%;background:var(--s4)}
+.pcard.hero-card li::before{background:var(--e2)}
+
+/* posicionamento */
+.pos{text-align:center;background:linear-gradient(180deg,var(--bg-2),var(--bg));border-block:1px solid var(--line)}
+.pos .tagline{font-family:var(--fd);font-size:clamp(30px,5.4vw,68px);font-weight:300;line-height:1.12;letter-spacing:-.02em}
+.pos .tagline em{font-style:italic;color:var(--e2)}
+.pos .alt{margin-top:30px;color:var(--dim);font-size:15px;letter-spacing:.04em}
+.pos .alt b{color:var(--s1);font-weight:500}
+
+/* engine */
+.engine-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+.ecard{border:1px solid var(--line);border-radius:14px;padding:30px;background:var(--bg-2)}
+.ecard .en{font-family:var(--fd);font-size:15px;color:var(--e2);font-weight:600}
+.ecard h3{font-size:19px;font-weight:500;margin:10px 0 10px}
+.ecard p{font-size:14px;color:var(--dim);line-height:1.6}
+
+/* números */
+.numbers{background:linear-gradient(180deg,var(--bg),#0c0a0b);border-top:1px solid var(--line)}
+.ue-wrap{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:10px}
+.ue{border:1px solid var(--line);border-radius:16px;overflow:hidden;background:var(--bg-2)}
+.ue-head{padding:22px 26px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:baseline}
+.ue-head .t{font-weight:700;font-size:14px;letter-spacing:.04em;color:var(--s1)}
+.ue-head .roas{font-size:12px;color:var(--e2);font-weight:700;letter-spacing:.1em}
+.ue-body{padding:14px 26px 26px}
+.ue-line{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.05);font-size:14.5px}
+.ue-line:last-child{border-bottom:none}
+.ue-line .lbl{color:var(--dim)}.ue-line .lbl b{color:var(--s2);font-weight:600}
+.ue-line .val{font-variant-numeric:tabular-nums;font-weight:600;color:var(--s1)}
+.ue-line .pct{font-size:12px;color:var(--faint);margin-left:10px}
+.ue-line.minus .val{color:var(--s3)}
+.ue-line.result{border-top:1.5px solid var(--line2);margin-top:6px;padding-top:16px;font-size:16px}
+.ue-line.result .lbl{color:var(--e2);font-weight:700}.ue-line.result .val{color:var(--e2);font-size:19px}
+.ue-line.result .pct{color:var(--e3)}
+.scen{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:54px}
+.scen-card{border:1px solid var(--line);border-radius:14px;padding:28px 26px;background:var(--bg-2)}
+.scen-card .nm{font-size:12px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--faint)}
+.scen-card.base{border-color:rgba(255,90,20,.3);background:linear-gradient(180deg,rgba(255,69,0,.06),var(--bg-2))}
+.scen-card.base .nm{color:var(--e2)}
+.scen-card .rng{font-family:var(--fd);font-size:clamp(26px,3vw,34px);margin:12px 0 4px;font-weight:400;color:var(--s1)}
+.scen-card .pm{font-size:13px;color:var(--dim)}
+.scen-card .barbg{height:5px;background:rgba(255,255,255,.07);border-radius:4px;margin-top:20px;overflow:hidden}
+.scen-card .barfill{height:100%;width:0;border-radius:4px;background:linear-gradient(90deg,var(--e1),var(--e3));transition:width 1.4s cubic-bezier(.2,.7,.2,1)}
+.ramp{margin-top:54px;border:1px solid var(--line);border-radius:16px;overflow:hidden}
+.ramp-head{padding:20px 28px;border-bottom:1px solid var(--line);font-weight:700;font-size:14px;letter-spacing:.04em;color:var(--s1)}
+.ramp-row{display:grid;grid-template-columns:160px 1fr 130px;align-items:center;padding:16px 28px;border-bottom:1px solid rgba(255,255,255,.05);font-size:14px}
+.ramp-row:last-child{border-bottom:none}
+.ramp-row .ph{color:var(--s2);font-weight:600}
+.ramp-row .tr{height:6px;background:rgba(255,255,255,.06);border-radius:5px;margin:0 18px;overflow:hidden}
+.ramp-row .trf{height:100%;width:0;background:linear-gradient(90deg,var(--e2),var(--e1));border-radius:5px;transition:width 1.3s ease}
+.ramp-row .am{text-align:right;font-variant-numeric:tabular-nums;color:var(--s1);font-weight:600}
+.premise{margin-top:30px;padding:22px 26px;border:1px dashed var(--line2);border-radius:12px;background:rgba(255,255,255,.015);font-size:13px;color:var(--faint);line-height:1.65}
+.premise b{color:var(--s2)}
+
+/* entregáveis */
+.deliv{background:var(--bg-2)}
+.dgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.dcard{border:1px solid var(--line);border-radius:14px;padding:28px 26px;background:var(--bg);transition:border-color .4s,background .4s}
+.dcard:hover{border-color:var(--line2);background:var(--surface)}
+.dcard .n{font-family:var(--fd);font-size:13px;color:var(--e2);font-weight:600;letter-spacing:.05em}
+.dcard h3{font-size:17.5px;font-weight:500;margin:10px 0 10px;letter-spacing:-.01em}
+.dcard p{font-size:13.5px;color:var(--dim);line-height:1.55}
+.split-note{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:40px}
+.split-note>div{border:1px solid var(--line);border-radius:14px;padding:26px 28px;background:var(--bg)}
+.split-note h4{font-size:12px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;margin-bottom:14px}
+.split-note .inc h4{color:var(--e2)}.split-note .exc h4{color:var(--s3)}
+.split-note ul{list-style:none;display:flex;flex-direction:column;gap:9px}
+.split-note li{font-size:13.5px;color:var(--s2);padding-left:18px;position:relative;line-height:1.5}
+.split-note li::before{content:"—";position:absolute;left:0;color:var(--faint)}
+
+/* comercial */
+.comm{background:linear-gradient(180deg,#0c0a0b,var(--bg));border-top:1px solid var(--line)}
+.price-grid{display:grid;grid-template-columns:1.15fr 1fr;gap:22px}
+.pbox{border:1px solid var(--line);border-radius:18px;padding:40px;background:var(--bg-2);position:relative;overflow:hidden}
+.pbox.feat{border-color:rgba(255,90,20,.3);background:linear-gradient(165deg,rgba(255,69,0,.08),var(--bg-2) 60%)}
+.pbox .lab{font-size:12px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--e2)}
+.pbox h3{font-size:26px;font-weight:500;margin:14px 0 8px}
+.pbox .big-price{font-family:var(--fd);font-size:clamp(42px,6vw,64px);font-weight:400;line-height:1;background:linear-gradient(180deg,var(--s1),var(--s3));-webkit-background-clip:text;background-clip:text;color:transparent;margin:18px 0 6px}
+.pbox .per{font-size:15px;color:var(--faint)}
+.pbox .terms{margin-top:24px;display:flex;flex-direction:column;gap:10px}
+.pbox .terms div{font-size:14px;color:var(--s2);padding-left:20px;position:relative}
+.pbox .terms div::before{content:"";position:absolute;left:0;top:8px;width:7px;height:7px;border-radius:50%;background:var(--e2)}
+.pbox .sub{font-size:13px;color:var(--faint);margin-top:18px;line-height:1.5}
+
+/* variável */
+.vtable{border:1px solid var(--line);border-radius:16px;overflow:hidden;margin-top:10px}
+.vrow{display:grid;grid-template-columns:1fr 130px;align-items:center;padding:18px 28px;border-bottom:1px solid rgba(255,255,255,.05);transition:background .3s}
+.vrow:last-child{border-bottom:none}
+.vrow:hover{background:rgba(255,90,20,.04)}
+.vrow .band{font-size:15px;color:var(--s2);font-variant-numeric:tabular-nums}
+.vrow .rate{text-align:right;font-family:var(--fd);font-size:24px;font-weight:500}
+.vrow.z .rate{color:var(--s4)}.vrow .rate{color:var(--e2)}.vrow.r3 .rate{color:var(--e3)}.vrow.r4 .rate{color:var(--e1)}
+.vexample{margin-top:24px;border:1px solid var(--line2);border-radius:14px;padding:28px;background:var(--bg-2)}
+.vexample .et{font-size:12px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--dim);margin-bottom:18px}
+.vcalc{display:flex;flex-direction:column;gap:10px}
+.vcalc .vc{display:flex;justify-content:space-between;font-size:14px;color:var(--dim);font-variant-numeric:tabular-nums}
+.vcalc .vc b{color:var(--s2);font-weight:600}
+.vcalc .vc.tot{border-top:1.5px solid var(--line2);margin-top:8px;padding-top:14px;font-size:17px;color:var(--e2);font-weight:700}
+.vcalc .vc.tot b{color:var(--e2)}
+
+/* cortesia */
+.courtesy{background:var(--bg-2)}
+.cbox{border:1px solid rgba(255,90,20,.25);border-radius:20px;padding:clamp(34px,5vw,60px);background:radial-gradient(ellipse 80% 120% at 100% 0%,rgba(255,69,0,.1),var(--bg) 60%)}
+.cbox .gift{font-size:12px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--e2)}
+.cbox h3{font-size:clamp(28px,4vw,44px);font-weight:400;margin:18px 0 20px;max-width:18ch}
+.cbox .pricetag{display:flex;align-items:baseline;gap:18px;margin:26px 0}
+.cbox .strike{font-family:var(--fd);font-size:34px;color:var(--s4);text-decoration:line-through;text-decoration-color:var(--e1)}
+.cbox .free{font-family:var(--fd);font-size:48px;font-weight:500;color:var(--e2)}
+.cbox .desc{max-width:620px;color:var(--dim);font-size:15px;line-height:1.65}
+.cbox .scope-tags{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}
+.cbox .scope-tags span{font-size:12.5px;color:var(--s2);border:1px solid var(--line2);padding:7px 14px;border-radius:30px;background:rgba(255,255,255,.02)}
+
+/* opcionais */
+.opt-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.ocard{border:1px solid var(--line);border-radius:12px;padding:24px 22px;background:var(--bg-2);text-align:center}
+.ocard .on{font-size:14.5px;font-weight:600;color:var(--s1)}
+.ocard .op{font-family:var(--fd);font-size:22px;color:var(--e2);margin-top:10px;font-weight:500}
+.ocard .op small{font-size:12px;color:var(--faint);font-family:var(--fs)}
+
+/* passos */
+.steps{background:linear-gradient(180deg,var(--bg),#0c0a0b);border-top:1px solid var(--line)}
+.step-list{display:flex;flex-direction:column;border-left:1px solid var(--line2);margin-left:8px}
+.step{position:relative;padding:0 0 44px 40px}
+.step:last-child{padding-bottom:0}
+.step::before{content:"";position:absolute;left:-6px;top:4px;width:11px;height:11px;border-radius:50%;background:var(--e1);box-shadow:0 0 14px var(--eg)}
+.step .sn{font-size:12px;font-weight:800;letter-spacing:.14em;color:var(--e2)}
+.step h3{font-size:21px;font-weight:500;margin:6px 0 8px}
+.step p{font-size:14.5px;color:var(--dim);max-width:600px}
+
+/* fechamento */
+.close{text-align:center;padding:clamp(100px,16vh,180px) 0 90px;background:radial-gradient(ellipse 70% 60% at 50% 120%,rgba(255,69,0,.16),var(--bg) 60%)}
+.close h2{font-size:clamp(34px,6vw,76px);font-weight:300;line-height:1.08;max-width:16ch;margin:0 auto}
+.close h2 em{font-style:italic;color:var(--e2);font-weight:500}
+.close .sig{margin-top:60px;padding-top:36px;border-top:1px solid var(--line);display:inline-flex;flex-direction:column;gap:6px}
+.close .sig .nm{font-family:var(--fd);font-size:26px;color:var(--s1);font-weight:500}
+.close .sig .ti{font-size:13px;color:var(--faint);letter-spacing:.1em;text-transform:uppercase}
+
+footer{padding:34px 0;border-top:1px solid var(--line);text-align:center}
+footer p{font-size:12px;color:var(--faint);letter-spacing:.04em}
+
+@media(max-width:880px){
+  .wrap{padding:0 22px}
+  .stats,.line-grid,.scen,.dgrid,.opt-grid{grid-template-columns:1fr}
+  .ue-wrap,.price-grid,.engine-grid,.split-note,.diff-row,.evo-grid{grid-template-columns:1fr}
+  .diff-pain{border-right:none;border-bottom:1px solid var(--line)}
+  .evo-arrow{display:none}
+  .ramp-row{grid-template-columns:110px 1fr 90px}
+  .vrow{grid-template-columns:1fr 90px}
+}
+</style>
+</head>
+<body>
+<div id="pbar"></div>
+
+<!-- ════════════ HERO ════════════ -->
+<div id="track">
+<div id="stage">
+  <div class="bl" id="bg0"></div>
+  <div class="bl" id="bg1"></div>
+  <div class="bl" id="bg2"></div>
+  <div class="bl" id="bg3">
+    <div class="slot-box">
+      <p>SLOT — CENA LITORAL<br>Vídeo LTX 2.3 + Assets GPT Image 2<br>Integrar após produção audiovisual</p>
+    </div>
+  </div>
+  <svg id="psvg"></svg>
+  <div id="svgwrap">
+  <svg id="psv" viewBox="0 0 820 570" xmlns="http://www.w3.org/2000/svg" overflow="visible">
+  <defs>
+    <pattern id="gm" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M40 0L0 0 0 40" fill="none" stroke="#0a2030" stroke-width=".75"/></pattern>
+    <pattern id="gs" width="8" height="8" patternUnits="userSpaceOnUse"><path d="M8 0L0 0 0 8" fill="none" stroke="#071525" stroke-width=".3"/></pattern>
+    <linearGradient id="gf" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#eceef2"/><stop offset="30%" stop-color="#cbced5"/><stop offset="65%" stop-color="#8d9098"/><stop offset="100%" stop-color="#6a6d74"/></linearGradient>
+    <linearGradient id="glat" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#7e818a"/><stop offset="55%" stop-color="#555860"/><stop offset="100%" stop-color="#3c3f45"/></linearGradient>
+    <linearGradient id="gt" x1="0%" y1="100%" x2="0%" y2="0%"><stop offset="0%" stop-color="#9a9da5"/><stop offset="100%" stop-color="#d5d8de"/></linearGradient>
+    <radialGradient id="ge" cx="35%" cy="90%" r="65%"><stop offset="0%" stop-color="rgba(255,110,0,.48)"/><stop offset="55%" stop-color="rgba(255,69,0,.12)"/><stop offset="100%" stop-color="rgba(255,69,0,0)"/></radialGradient>
+    <filter id="fg" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="2.2" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <filter id="fe" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="7" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <clipPath id="ct"><polygon points="155,162 262,100 565,100 458,162"/></clipPath>
+    <clipPath id="cf"><polygon points="155,162 458,162 458,402 155,402"/></clipPath>
+    <clipPath id="cla"><polygon points="458,162 565,100 565,342 458,402"/></clipPath>
+  </defs>
+  <rect id="gs-r" width="820" height="570" fill="url(#gs)" opacity="0"/>
+  <rect id="gm-r" width="820" height="570" fill="url(#gm)" opacity="0"/>
+  <rect id="er" width="820" height="570" fill="url(#ge)" opacity="0"/>
+  <polygon id="ft" points="155,162 262,100 565,100 458,162" fill="url(#gt)" opacity="0"/>
+  <polygon id="fla" points="458,162 565,100 565,342 458,402" fill="url(#glat)" opacity="0"/>
+  <polygon id="ff" points="155,162 458,162 458,402 155,402" fill="url(#gf)" opacity="0"/>
+  <g id="vf" clip-path="url(#cf)" opacity="0"><rect x="197" y="248" width="11" height="72" rx="4" fill="#070707" opacity=".7"/><rect x="229" y="248" width="11" height="72" rx="4" fill="#070707" opacity=".7"/><rect x="261" y="248" width="11" height="72" rx="4" fill="#070707" opacity=".7"/><rect x="293" y="248" width="11" height="72" rx="4" fill="#070707" opacity=".7"/><rect x="325" y="248" width="11" height="72" rx="4" fill="#070707" opacity=".7"/><rect x="357" y="248" width="11" height="72" rx="4" fill="#070707" opacity=".7"/></g>
+  <g id="grf" clip-path="url(#ct)" opacity="0"><rect width="820" height="570" fill="#141418"/><g stroke="#4a4d56" stroke-width="9" stroke-linecap="round"><line x1="172" y1="162" x2="279" y2="100"/><line x1="202" y1="162" x2="309" y2="100"/><line x1="232" y1="162" x2="339" y2="100"/><line x1="262" y1="162" x2="369" y2="100"/><line x1="292" y1="162" x2="399" y2="100"/><line x1="322" y1="162" x2="429" y2="100"/><line x1="352" y1="162" x2="459" y2="100"/><line x1="382" y1="162" x2="489" y2="100"/><line x1="412" y1="162" x2="519" y2="100"/><line x1="442" y1="162" x2="549" y2="100"/></g></g>
+  <g id="pgf" clip-path="url(#cla)" opacity="0"><rect x="492" y="210" width="22" height="52" rx="11" fill="#070707" opacity=".6"/></g>
+  <g id="tbf" opacity="0" fill="#c2c5cc"><rect x="218" y="155" width="15" height="9" rx="2"/><rect x="258" y="155" width="15" height="9" rx="2"/><rect x="358" y="155" width="15" height="9" rx="2"/><rect x="398" y="155" width="15" height="9" rx="2"/></g>
+  <g id="spc" opacity="0"><polygon points="155,162 280,162 240,230 155,265" fill="rgba(255,255,255,.055)"/><polygon points="458,162 480,162 480,195 458,192" fill="rgba(255,255,255,.09)"/></g>
+  <g id="lgsx" opacity="0" stroke="#7a7d85" stroke-width="1.1" fill="none"><line x1="194" y1="402" x2="177" y2="460"/><line x1="216" y1="402" x2="199" y2="460"/><line x1="420" y1="402" x2="403" y2="460"/><line x1="442" y1="402" x2="425" y2="460"/><line x1="476" y1="402" x2="489" y2="458"/><line x1="548" y1="340" x2="561" y2="395"/></g>
+  <g id="sm" fill="none" stroke="#00e5ff" stroke-width="1.4" filter="url(#fg)"><polygon id="st" points="155,162 262,100 565,100 458,162" stroke-dasharray="1100" stroke-dashoffset="1100"/><polygon id="sf" points="155,162 458,162 458,402 155,402" stroke-dasharray="990" stroke-dashoffset="990"/><polygon id="sl" points="458,162 565,100 565,342 458,402" stroke-dasharray="810" stroke-dashoffset="810"/></g>
+  <g id="sd" fill="none" stroke="#00e5ff" stroke-width=".9" opacity="0" filter="url(#fg)"><rect x="197" y="248" width="11" height="72" rx="4"/><rect x="229" y="248" width="11" height="72" rx="4"/><rect x="261" y="248" width="11" height="72" rx="4"/><rect x="293" y="248" width="11" height="72" rx="4"/><rect x="325" y="248" width="11" height="72" rx="4"/><rect x="357" y="248" width="11" height="72" rx="4"/><rect x="492" y="210" width="22" height="52" rx="11"/><g stroke-width=".65" opacity=".5" clip-path="url(#ct)"><line x1="190" y1="162" x2="297" y2="100"/><line x1="220" y1="162" x2="327" y2="100"/><line x1="250" y1="162" x2="357" y2="100"/><line x1="280" y1="162" x2="387" y2="100"/><line x1="310" y1="162" x2="417" y2="100"/><line x1="340" y1="162" x2="447" y2="100"/><line x1="370" y1="162" x2="477" y2="100"/><line x1="400" y1="162" x2="507" y2="100"/><line x1="430" y1="162" x2="537" y2="100"/></g><rect x="218" y="155" width="15" height="9" rx="2"/><rect x="258" y="155" width="15" height="9" rx="2"/><rect x="358" y="155" width="15" height="9" rx="2"/><rect x="398" y="155" width="15" height="9" rx="2"/><line x1="194" y1="402" x2="177" y2="460"/><line x1="216" y1="402" x2="199" y2="460"/><line x1="420" y1="402" x2="403" y2="460"/><line x1="442" y1="402" x2="425" y2="460"/><line x1="476" y1="402" x2="489" y2="458"/><line x1="548" y1="340" x2="561" y2="395"/></g>
+  <g id="si" fill="none" stroke="#9a9da5" stroke-width="1.2" opacity="0"><polygon points="155,162 262,100 565,100 458,162"/><polygon points="155,162 458,162 458,402 155,402"/><polygon points="458,162 565,100 565,342 458,402"/><line x1="458" y1="162" x2="458" y2="402" stroke="#7a7d85" stroke-width="1.6"/><line x1="155" y1="162" x2="458" y2="162" stroke="#7a7d85" stroke-width="1.6"/></g>
+  <g id="sid" fill="none" stroke="#555860" stroke-width=".8" opacity="0"><rect x="197" y="248" width="11" height="72" rx="4"/><rect x="229" y="248" width="11" height="72" rx="4"/><rect x="261" y="248" width="11" height="72" rx="4"/><rect x="293" y="248" width="11" height="72" rx="4"/><rect x="325" y="248" width="11" height="72" rx="4"/><rect x="357" y="248" width="11" height="72" rx="4"/><rect x="492" y="210" width="22" height="52" rx="11"/></g>
+  <g id="bg-br" opacity="0"><ellipse cx="305" cy="358" rx="132" ry="28" fill="rgba(255,130,0,.28)" filter="url(#fe)"/><ellipse cx="305" cy="392" rx="98" ry="16" fill="rgba(255,69,0,.55)" filter="url(#fe)"/></g>
+  <g id="grhot" clip-path="url(#ct)" opacity="0"><g stroke="rgba(255,120,0,.38)" stroke-width="10" stroke-linecap="round" filter="url(#fe)"><line x1="172" y1="162" x2="279" y2="100"/><line x1="232" y1="162" x2="339" y2="100"/><line x1="292" y1="162" x2="399" y2="100"/><line x1="352" y1="162" x2="459" y2="100"/><line x1="412" y1="162" x2="519" y2="100"/></g></g>
+  <g font-family="Archivo,sans-serif">
+    <g class="lb" id="lb0" opacity="0"><line x1="155" y1="295" x2="82" y2="295" stroke="#00e5ff" stroke-width=".8"/><line x1="82" y1="260" x2="82" y2="332" stroke="#00e5ff" stroke-width=".8"/><text x="76" y="257" text-anchor="end" fill="#00e5ff" font-size="11.5" font-weight="800" letter-spacing=".1em">INOX 304</text><text x="76" y="272" text-anchor="end" fill="rgba(0,229,255,.55)" font-size="9.5" letter-spacing=".05em">Anti-maresia · Litoral</text></g>
+    <g class="lb" id="lb1" opacity="0"><line x1="185" y1="162" x2="146" y2="112" stroke="#00e5ff" stroke-width=".8"/><line x1="96" y1="112" x2="144" y2="112" stroke="#00e5ff" stroke-width=".8"/><text x="90" y="109" text-anchor="end" fill="#00e5ff" font-size="10" font-weight="800" letter-spacing=".07em">Nervura anti-empeno</text></g>
+    <g class="lb" id="lb2" opacity="0"><line x1="358" y1="124" x2="358" y2="70" stroke="#00e5ff" stroke-width=".8"/><text x="358" y="64" text-anchor="middle" fill="#00e5ff" font-size="10" font-weight="800" letter-spacing=".07em">Grelha ajustável · 3 níveis</text></g>
+    <g class="lb" id="lb3" opacity="0"><line x1="280" y1="320" x2="280" y2="362" stroke="#00e5ff" stroke-width=".8"/><text x="280" y="376" text-anchor="middle" fill="#00e5ff" font-size="10" font-weight="800" letter-spacing=".07em">Encaixe precisão laser</text></g>
+    <g class="lb" id="lb4" opacity="0"><line x1="306" y1="460" x2="306" y2="504" stroke="#00e5ff" stroke-width=".8"/><text x="306" y="516" text-anchor="middle" fill="#00e5ff" font-size="10" font-weight="800" letter-spacing=".07em">Flat-pack · Logística D2C</text></g>
+    <g class="lb" id="lb5" opacity="0"><line x1="514" y1="235" x2="596" y2="235" stroke="#00e5ff" stroke-width=".8"/><text x="602" y="239" fill="#00e5ff" font-size="10" font-weight="800" letter-spacing=".07em">Pega integrada</text></g>
+    <g class="lb" id="lb6" opacity="0" fill="#00e5ff"><line x1="128" y1="162" x2="128" y2="402" stroke="#00e5ff" stroke-width=".8"/><polygon points="128,160 124,170 132,170"/><polygon points="128,404 124,394 132,394"/><text x="122" y="288" text-anchor="middle" fill="#00e5ff" font-size="9" transform="rotate(-90,122,288)" letter-spacing=".1em">H 240mm</text></g>
+  </g>
+  </svg>
+  </div>
+  <div class="pt" id="t1" style="bottom:9vh;left:6vw"><span class="kk cy">Especificação Técnica</span><h2 class="ht md">Cada detalhe<br><em class="cy">calculado.</em></h2></div>
+  <div class="pt" id="t2" style="bottom:9vh;left:6vw"><span class="kk cy">Inox 304 · Anti-maresia</span><h2 class="ht lg">Engenharia<br>de <em class="cy">verdade.</em></h2><p class="htsub">Da precisão industrial ao produto que não enferruja, não empena e não envergonha.</p></div>
+  <div class="pt" id="t3" style="bottom:0;left:0;right:0;text-align:center;padding-bottom:9vh"><span class="kk em" style="display:block">A brasa acende</span><h2 class="ht lg">Feita para <em class="em">o litoral.</em></h2></div>
+  <div class="pt" id="t4" style="bottom:0;left:0;right:0;text-align:center;padding-bottom:9vh"><span class="kk em" style="display:block">Vision Inox × Everton Stedile</span><h2 class="ht lg">A marca<br>começa aqui.</h2></div>
+  <div id="dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+  <div id="scue"><div class="sbar"></div><span>Role para explorar</span></div>
+</div>
+</div>
+
+<!-- ════════════ SEÇÃO 01 — O MOMENTO ════════════ -->
+<section class="sec">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="kicker steel rv"><span class="num-tag">01</span>O momento</span>
+      <h2 class="rv d1">A Vision já tem o mais difícil. <span class="steel-grad">Falta traduzir.</span></h2>
+      <p class="lead rv d2">A Vision Inox fabrica para gigantes da indústria. Domina o aço, o corte a laser e a engenharia num nível que pouquíssimos alcançam. O problema nunca foi capacidade técnica — é que <em class="f">nada disso chega ao consumidor final hoje.</em></p>
+    </div>
+    <div class="stats">
+      <div class="stat rv d1"><div class="v">20<span class="u">+</span></div><div class="k">anos de domínio técnico em desenvolvimento de produto em inox</div></div>
+      <div class="stat rv d2"><div class="v">0</div><div class="k">presença digital institucional à altura do que a empresa realmente é</div></div>
+      <div class="stat rv d3"><div class="v">R$<span data-count="10" data-suffix="M+">0</span></div><div class="k">gerados em e-commerce pela consultoria que conduz este projeto</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════ SEÇÃO 02 — A VISÃO ════════════ -->
+<section class="sec manifesto">
+  <div class="wrap">
+    <span class="kicker rv"><span class="num-tag">02</span>A visão</span>
+    <p class="big rv d1" style="margin-top:30px">Pegar uma <span class="steel-grad">indústria de inox</span> e construir, sobre ela, uma <strong>marca premium de churrasqueiras</strong> — vendida em canal próprio, com narrativa, autoridade técnica e <strong>margem de fabricante.</strong></p>
+    <p class="lead rv d3" style="margin-top:40px;max-width:680px">Site próprio primeiro. Sem entrar de cara em marketplace, onde a marca viraria mais um genérico comparado por preço. Aqui se constrói desejo, não desconto.</p>
+  </div>
+</section>
+
+<!-- ════════════ SEÇÃO 03 — O MERCADO ════════════ -->
+<section class="sec">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="kicker steel rv"><span class="num-tag">03</span>O mercado</span>
+      <h2 class="rv d1">Uma cultura nacional. <span class="steel-grad">Uma dor real. Pouca marca de verdade.</span></h2>
+    </div>
+    <div class="stats">
+      <div class="stat rv d1"><div class="v">R$<span class="u">78–300</span></div><div class="k">âncora mental do marketplace para churrasqueira portátil de inox. É a brecha exata para uma marca premium</div></div>
+      <div class="stat rv d2"><div class="v">100<span class="u">%</span></div><div class="k">do litoral brasileiro convive com maresia e ferrugem. Inox 304 resolve uma dor real que a concorrência ignora</div></div>
+      <div class="stat rv d3"><div class="v">3</div><div class="k">reclamações se repetem em todos os concorrentes: empena no calor, enferruja, borda cortante. Três aberturas de diferenciação</div></div>
+    </div>
+    <div class="callout rv d2"><p>O mercado está cheio de quem <strong>vende produto.</strong> Está vazio de quem <strong>constrói marca.</strong></p></div>
+  </div>
+</section>
+
+<!-- ════════════ SEÇÃO 04 — DIFERENCIAÇÃO ════════════ -->
+<section class="sec diff">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="kicker rv"><span class="num-tag">04</span>Diferenciação de produto</span>
+      <h2 class="rv d1">Onde agrego no <em class="f" style="color:var(--e2)">desenvolvimento</em>, não só no anúncio.</h2>
+      <p class="lead rv d2">Dores reais e documentadas dos produtos que dominam o mercado — e o que a Vision pode fazer diferente, usando exatamente a engenharia que já domina.</p>
+    </div>
+    <div class="diff-row rv"><div class="diff-pain"><div class="diff-tag"><span class="dot2"></span>A dor do mercado</div><h3>"Empena com o calor"</h3><p>A reclamação nº 1 das portáteis: a chapa fina <span class="hl">deforma na primeira brasa forte</span> e nunca mais fecha direito.</p><div class="quote-strip">"Boa, mas deforma com o calor." — review recorrente</div></div><div class="diff-sol"><div class="diff-tag"><span class="dot2"></span>O que a Vision faz</div><h3>Engenharia anti-empeno</h3><p>Espessura calculada + <span class="hl">nervuras estruturais feitas na própria dobra</span>. Resultado vira argumento: <span class="hl">"não empena, garantido."</span></p></div></div>
+    <div class="diff-row rv"><div class="diff-pain"><div class="diff-tag"><span class="dot2"></span>A dor do mercado</div><h3>"Enferruja perto do mar"</h3><p>Boa parte usa inox 430 ou aço galvanizado. <span class="hl">No litoral, mancha e enferruja em meses.</span></p></div><div class="diff-sol"><div class="diff-tag"><span class="dot2"></span>O que a Vision faz</div><h3>Inox 304, território litoral</h3><p>O 304 resiste à maresia de verdade. Isso vira <span class="hl">posicionamento de marca</span>: a churrasqueira feita para quem vive a brasa perto do mar.</p></div></div>
+    <div class="diff-row rv"><div class="diff-pain"><div class="diff-tag"><span class="dot2"></span>A dor do mercado</div><h3>"O acabamento corta a mão"</h3><p>Rebarba, borda viva, encaixe que arranha. <span class="hl">Sensação de produto inacabado</span> — o oposto de premium.</p></div><div class="diff-sol"><div class="diff-tag"><span class="dot2"></span>O que a Vision faz</div><h3>Acabamento de padrão industrial</h3><p>Corte a laser de precisão, borda tratada, <span class="hl">escovado uniforme</span>. O toque comunica R$ 800 antes de qualquer texto.</p></div></div>
+    <div class="diff-row rv"><div class="diff-pain"><div class="diff-tag"><span class="dot2"></span>A dor do mercado</div><h3>"Brasa sem controle"</h3><p>Grelha de altura fixa = ou queima, ou não assa. Frustração que aparece em review depois da compra.</p></div><div class="diff-sol"><div class="diff-tag"><span class="dot2"></span>O que a Vision faz</div><h3>Grelha ajustável 3 níveis</h3><p>Diferencial funcional <span class="hl">desejável</span>, não enfeite. Controle da brasa justifica preço e melhora a experiência.</p></div></div>
+    <div class="diff-row rv"><div class="diff-pain"><div class="diff-tag"><span class="dot2"></span>A dor do mercado</div><h3>"Parece do AliExpress"</h3><p>Chega numa caixa marrom genérica. <span class="hl">Nada na unboxing diz premium</span> — cliente não indica, não posta.</p></div><div class="diff-sol"><div class="diff-tag"><span class="dot2"></span>O que a Vision faz</div><h3>Flat-pack + embalagem-presente</h3><p>Design dobrável <span class="hl">corta frete e vira experiência</span>: embalagem premium, montagem satisfatória, produto que rende foto.</p></div></div>
+    <div class="callout rv"><p>Tudo isso é viável <strong>com o processo que a Vision já domina.</strong> Não é pedir uma fábrica nova — é direcionar a que existe para criar desejo, não só resistência.</p></div>
+  </div>
+</section>
+
+<!-- ════════════ SEÇÃO 04B — DA ENGENHARIA AO DESEJO ════════════ -->
+<section class="sec" style="background:var(--bg-2);border-block:1px solid var(--line)">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="kicker rv"><span class="num-tag">04B</span>Da engenharia ao desejo</span>
+      <h2 class="rv d1">O norte de design. <span class="steel-grad">O que vai ser fabricado.</span></h2>
+      <p class="lead rv d2">Estas imagens não são o produto atual — são o <em class="f">briefing visual para a fábrica.</em> De onde partimos, e exatamente para onde vamos. A Vision fabrica; eu dirijo o que vale 3× mais.</p>
+    </div>
+    <div class="evo-grid">
+      <div class="evo-card rv d1">
+        <div class="evo-slot before-slot">
+          <!-- SLOT: substituir por foto real do protótipo (das 14 fotos da fábrica) -->
+          <!-- <img src="prototipo-real.jpg" alt="Protótipo Vision Inox"> -->
+          <div class="slot-inner"><p>FOTO REAL DO PROTÓTIPO<br>Das 14 fotos da fábrica<br>Substituir aqui</p></div>
+        </div>
+        <div class="evo-body">
+          <div class="evo-tag">De onde partimos</div>
+          <h3>O protótipo atual</h3>
+          <p>Corte a laser, encaixe por abas, inox 304. A base técnica perfeita — ainda sem a direção de produto e marca que vai fazer ela valer 3× mais.</p>
+        </div>
+      </div>
+      <div class="evo-arrow rv d2">→</div>
+      <div class="evo-card after rv d3">
+        <div class="evo-slot after-slot">
+          <!-- SLOT: substituir por render GPT Image 2 — Bloco 2A do prompt pack -->
+          <!-- <img src="produto-melhorado-concept.jpg" alt="Conceito Vision Inox Premium"> -->
+          <div class="slot-inner"><p>CONCEITO PREMIUM<br>GPT Image 2 — Bloco 2A<br>Gerar e substituir aqui</p></div>
+        </div>
+        <div class="evo-body">
+          <div class="evo-tag">Para onde vamos</div>
+          <h3>O produto que será fabricado</h3>
+          <p>Mesmo processo, nova identidade. Acabamento premium, embalagem-presente, narrativa de litoral. O mesmo inox que vale R$ 150 no marketplace — valendo R$ 790 com marca.</p>
+        </div>
+      </div>
+    </div>
+    <div class="evo-note rv"><b>Nota sobre estas imagens:</b> o conceito à direita é direção de design gerada via IA com base nas fotos reais do protótipo. Serve como briefing visual para a fábrica — a Vision produz exatamente o que o design indicar, com a flexibilidade de corte a laser que já dominam.</div>
+  </div>
+</section>
+
+<!-- ════════════ SEÇÃO 05 — LINHA DE 3 ════════════ -->
+<section class="sec">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="kicker steel rv"><span class="num-tag">05</span>Estratégia de produto</span>
+      <h2 class="rv d1">Uma linha de três. <span class="steel-grad">Um herói por vez.</span></h2>
+      <p class="lead rv d2">Desenhamos a linha completa desde já. Mas lançamos com <em class="f">um único produto-herói como protagonista.</em> Marca nova precisa de foco.</p>
+    </div>
+    <div class="line-grid">
+      <div class="pcard rv d1"><div class="ring">Entrada — "good"</div><h3>A Portátil Lite</h3><div class="price">R$ 390–590 <small>faixa projetada</small></div><div class="role">Porta de entrada, presente e volume. Gera os primeiros reviews. Não é o rosto da marca.</div><ul><li>Flat-pack refinado</li><li>Inox 304</li><li>Ticket de aquisição</li></ul></div>
+      <div class="pcard hero-card rv d2"><div class="badge">Lançamento</div><div class="ring">Herói — "better"</div><h3>A Portátil Premium</h3><div class="price">R$ 590–990 <small>faixa projetada</small></div><div class="role">O rosto da marca. Recebe 100% da narrativa, dos criativos e do tráfego de lançamento.</div><ul><li>Grelha ajustável</li><li>Acabamento premium</li><li>Embalagem-presente</li><li>Ângulo litoral</li></ul></div>
+      <div class="pcard rv d3"><div class="ring">Topo — "best"</div><h3>A Parrilla / Kit Gourmet</h3><div class="price">R$ 1.690–2.900+ <small>faixa projetada</small></div><div class="role">Margem alta e âncora de preço — a presença do topo faz o herói parecer acessível.</div><ul><li>Maior porte</li><li>Sob encomenda</li><li>Ancoragem</li></ul></div>
+    </div>
+    <div class="premise rv" style="margin-top:34px"><p><b>Por que portátil:</b> decisão técnica sólida da Vision — flat-pack reduz custo de produção, frete e logística, no processo que dominam. O cuidado estratégico: cada decisão de produto, foto e embalagem existe para <b>afastar do firebox de camping commodity</b> e sustentar o ticket premium. Faixas são hipóteses — definição com custo e margem reais é o primeiro entregável do Diagnóstico pago.</p></div>
+  </div>
+</section>
+
+<!-- ════════════ SEÇÃO 06 — POSICIONAMENTO ════════════ -->
+<section class="sec pos">
+  <div class="wrap">
+    <span class="kicker rv">O posicionamento</span>
+    <p class="tagline rv d1" style="margin-top:30px">Feita para o litoral.<br><em>Boa para o Brasil inteiro.</em></p>
+    <p class="alt rv d3">Território: <b>brasa, casa, litoral, durabilidade, família e experiência.</b><br>Não "uma fábrica de inox vendendo no digital" — uma <b>marca especialista, premium e confiável.</b></p>
+  </div>
+</section>
+
+<!-- ════════════ SEÇÃO 07 — O SISTEMA ════════════ -->
+<section class="sec">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="kicker steel rv"><span class="num-tag">06</span>O sistema</span>
+      <h2 class="rv d1">Não é uma loja. <span class="steel-grad">É uma máquina de vendas.</span></h2>
+      <p class="lead rv d2">A loja própria é só a vitrine. Por trás dela, um sistema que captura, converte e fideliza.</p>
+    </div>
+    <div class="engine-grid">
+      <div class="ecard rv d1"><div class="en">Canal próprio</div><h3>Site que vende valor</h3><p>Arquitetura, jornada e pontos de conversão pensados para comunicar por que o produto custa mais, dura mais e entrega mais.</p></div>
+      <div class="ecard rv d2"><div class="en">Base própria</div><h3>CRM e e-mail</h3><p>Captura de leads, boas-vindas, recuperação de carrinho e pós-compra. Ativo que vende sozinho e reduz o CAC ao longo do tempo.</p></div>
+      <div class="ecard rv d3"><div class="en">Demanda</div><h3>Tráfego com controle de caixa</h3><p>Rampa de mídia que valida página, produto, preço e comunicação antes de escalar verba.</p></div>
+      <div class="ecard rv d4"><div class="en">Tração</div><h3>Lançamento estruturado</h3><p>Pré-lançamento, lista de espera, narrativa e campanha. Evita o lançamento frio sem audiência e sem dados.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════ SEÇÃO 08 — OS NÚMEROS ════════════ -->
+<section class="sec numbers">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="kicker rv"><span class="num-tag">07</span>Os números</span>
+      <h2 class="rv d1">Margem de <em class="f" style="color:var(--e2)">fabricante</em>, não de revendedor.</h2>
+      <p class="lead rv d2">Premissas conservadoras e explícitas. A vantagem estrutural: a Vision <em class="f">fabrica</em>. O custo é de produção, não de revenda. Nenhum dropshipper ou revendedor compete com essa margem.</p>
+    </div>
+    <div class="ue-wrap">
+      <div class="ue rv d1"><div class="ue-head"><span class="t">Margem por unidade — Lançamento</span><span class="roas">ROAS 3,0</span></div><div class="ue-body"><div class="ue-line"><span class="lbl"><b>Ticket</b> de venda</span><span class="val">R$ 790 <span class="pct">100%</span></span></div><div class="ue-line minus"><span class="lbl">(−) Custo de produção</span><span class="val">−R$ 237 <span class="pct">30%</span></span></div><div class="ue-line minus"><span class="lbl">(−) Impostos + gateway</span><span class="val">−R$ 95 <span class="pct">12%</span></span></div><div class="ue-line minus"><span class="lbl">(−) Aquisição / mídia</span><span class="val">−R$ 263 <span class="pct">33%</span></span></div><div class="ue-line result"><span class="lbl">Margem de contribuição</span><span class="val">R$ 195 <span class="pct">25%</span></span></div></div></div>
+      <div class="ue rv d2"><div class="ue-head"><span class="t">Margem por unidade — Maduro</span><span class="roas">ROAS 4,5</span></div><div class="ue-body"><div class="ue-line"><span class="lbl"><b>Ticket</b> de venda</span><span class="val">R$ 790 <span class="pct">100%</span></span></div><div class="ue-line minus"><span class="lbl">(−) Custo de produção</span><span class="val">−R$ 237 <span class="pct">30%</span></span></div><div class="ue-line minus"><span class="lbl">(−) Impostos + gateway</span><span class="val">−R$ 95 <span class="pct">12%</span></span></div><div class="ue-line minus"><span class="lbl">(−) Aquisição / mídia</span><span class="val">−R$ 176 <span class="pct">22%</span></span></div><div class="ue-line result"><span class="lbl">Margem de contribuição</span><span class="val">R$ 282 <span class="pct">36%</span></span></div></div></div>
+    </div>
+    <h3 class="rv" style="font-size:22px;margin:56px 0 4px;font-weight:500;color:var(--s1)">Cenários de receita — operação madura <span style="color:var(--faint);font-size:15px">(mês 4–6)</span></h3>
+    <div class="scen">
+      <div class="scen-card rv d1"><div class="nm">Conservador</div><div class="rng">R$ 30–45<span style="font-size:.5em;color:var(--faint)"> mil/mês</span></div><div class="pm">mídia ~R$ 8k · ROAS 3,0 + recompra</div><div class="barbg"><div class="barfill" data-w="35"></div></div></div>
+      <div class="scen-card base rv d2"><div class="nm">Base</div><div class="rng">R$ 55–80<span style="font-size:.5em;color:var(--faint)"> mil/mês</span></div><div class="pm">mídia ~R$ 12k · ROAS 3,5 + recompra</div><div class="barbg"><div class="barfill" data-w="62"></div></div></div>
+      <div class="scen-card rv d3"><div class="nm">Otimista</div><div class="rng">R$ 100–140<span style="font-size:.5em;color:var(--faint)"> mil/mês</span></div><div class="pm">mídia ~R$ 18k · ROAS 4,0 + orgânico</div><div class="barbg"><div class="barfill" data-w="100"></div></div></div>
+    </div>
+    <div class="ramp rv"><div class="ramp-head">Rampa de mídia — validar antes de escalar</div><div class="ramp-row"><span class="ph">Pré-lançamento</span><span class="tr"><span class="trf" data-w="22"></span></span><span class="am">R$ 3–5 mil</span></div><div class="ramp-row"><span class="ph">Validação</span><span class="tr"><span class="trf" data-w="40"></span></span><span class="am">R$ 5–8 mil</span></div><div class="ramp-row"><span class="ph">Lançamento</span><span class="tr"><span class="trf" data-w="65"></span></span><span class="am">R$ 8–12 mil</span></div><div class="ramp-row"><span class="ph">Escala</span><span class="tr"><span class="trf" data-w="100"></span></span><span class="am">R$ 15 mil+</span></div></div>
+    <div class="premise rv"><p><b>Premissas:</b> ticket R$ 790 (hipótese a validar); CMV, regime tributário e ROAS a confirmar no Diagnóstico. Cenários consideram recompra e orgânico. <b>São projeções com premissas declaradas, não garantias.</b> Detalhamento de investimento operacional em anexo.</p></div>
+  </div>
+</section>
+
+<!-- ════════════ SEÇÃO 09 — ENTREGÁVEIS ════════════ -->
+<section class="sec deliv">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="kicker rv"><span class="num-tag">08</span>A implantação</span>
+      <h2 class="rv d1">O que entra na <span class="steel-grad">Implantação Estratégica Completa.</span></h2>
+      <p class="lead rv d2">Treze frentes que levam a Vision do zero a uma operação D2C pronta para lançar.</p>
+    </div>
+    <div class="dgrid">
+      <div class="dcard rv d1"><div class="n">01</div><h3>Diagnóstico de Mercado</h3><p>Concorrência, faixas de preço, lacunas e riscos de entrada.</p></div>
+      <div class="dcard rv d2"><div class="n">02</div><h3>Estratégia de Produto</h3><p>Definição do herói, diferenciais técnicos, percepção de valor, margem e ticket.</p></div>
+      <div class="dcard rv d3"><div class="n">03</div><h3>Posicionamento de Marca</h3><p>Público, proposta de valor, promessa central e território emocional.</p></div>
+      <div class="dcard rv d1"><div class="n">04</div><h3>Naming &amp; Conceito</h3><p>Naming, taglines, conceito verbal e nomenclatura da linha.</p></div>
+      <div class="dcard rv d2"><div class="n">05</div><h3>Narrativa da Marca</h3><p>Origem, manifesto e a história do inox industrial para o churrasco premium.</p></div>
+      <div class="dcard rv d3"><div class="n">06</div><h3>Direção de Identidade Visual</h3><p>Estilo, paleta, tipografia, fotografia e direção de acabamento.</p></div>
+      <div class="dcard rv d1"><div class="n">07</div><h3>Estrutura de Oferta</h3><p>Promessa, ancoragem, kits, bônus, garantia e ângulos comerciais.</p></div>
+      <div class="dcard rv d2"><div class="n">08</div><h3>Arquitetura do E-commerce</h3><p>Home, página de produto, jornada, conversão e confiança.</p></div>
+      <div class="dcard rv d3"><div class="n">09</div><h3>Copywriting das Páginas</h3><p>Headlines, produto, diferenciais, garantia, FAQ e CTA.</p></div>
+      <div class="dcard rv d1"><div class="n">10</div><h3>Pré-lançamento &amp; Lançamento</h3><p>Lista de espera, cronograma, campanha inicial e indicadores.</p></div>
+      <div class="dcard rv d2"><div class="n">11</div><h3>CRM &amp; E-mail Inicial</h3><p>Captura, boas-vindas, carrinho, recuperação e pós-compra.</p></div>
+      <div class="dcard rv d3"><div class="n">12</div><h3>Direção de Tráfego Pago</h3><p>Canais, estrutura, públicos, verba inicial e lógica de otimização.</p></div>
+    </div>
+    <div class="split-note">
+      <div class="inc rv d1"><h4>Incluso na implantação</h4><ul><li>Direção estratégica completa das 13 frentes</li><li>Copywriting das páginas principais</li><li>Arquitetura e estrutura do e-commerce</li><li>1 produto-herói completo + arquitetura da linha de 3</li><li>Checklist operacional de lançamento</li></ul></div>
+      <div class="exc rv d2"><h4>Mediante escopo / orçamento à parte</h4><ul><li>Páginas, copy e criativos dos SKUs adicionais</li><li>Produção audiovisual profissional</li><li>Desenvolvimento de portal complexo</li><li>Execução final de identidade visual completa</li><li>Manutenção recorrente fora do acompanhamento</li></ul></div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════ SEÇÃO 10 — ESTRUTURA COMERCIAL ════════════ -->
+<section class="sec comm">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="kicker rv"><span class="num-tag">09</span>Estrutura comercial</span>
+      <h2 class="rv d1">Investimento, <span class="steel-grad">com o caixa sob controle.</span></h2>
+    </div>
+    <div class="price-grid">
+      <div class="pbox feat rv d1"><span class="lab">Fase 0 — Construção do ativo</span><h3>Implantação Estratégica Completa</h3><div class="big-price">R$ 38.000</div><div class="per">pagamento atrelado a marcos · 60–90 dias</div><div class="terms"><div>4× de R$ 9.500, ou</div><div>R$ 12.000 de entrada + 2× de R$ 13.000</div><div>Inclui site institucional Vision como cortesia</div></div><p class="sub">Ativo durável que a empresa mantém para sempre: marca, produto, canal e propriedade intelectual.</p></div>
+      <div class="pbox rv d2"><span class="lab" style="color:var(--s3)">Fase contínua — Pilotagem</span><h3>Acompanhamento Estratégico</h3><div class="big-price">R$7.500<span style="font-size:.4em">/mês</span></div><div class="per">mínimo 6 meses · cadência definida</div><div class="terms"><div>Reuniões periódicas + relatório mensal</div><div>Otimização de página, oferta e campanhas</div><div>Leitura de CAC, ROAS, conversão e margem</div><div>Decisões de escala</div></div><p class="sub">Operação D2C nova vive ou morre nos primeiros 6 meses de otimização.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════ SEÇÃO 11 — VARIÁVEL ════════════ -->
+<section class="sec">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="kicker steel rv"><span class="num-tag">10</span>Remuneração variável</span>
+      <h2 class="rv d1">Só ganho grande <em class="f" style="color:var(--e2)">quando vocês já estão ganhando grande.</em></h2>
+      <p class="lead rv d2"><em class="f">Três meses de carência</em> e <em class="f">zero por cento</em> enquanto a loja não cruzar R$ 50 mil/mês. Depois, escada <em class="f">marginal</em> — cada faixa incide só sobre a fatia dentro dela.</p>
+    </div>
+    <div class="vtable"><div class="vrow z rv d1"><span class="band">Até R$ 50.000 / mês</span><span class="rate">0%</span></div><div class="vrow rv d2"><span class="band">De R$ 50.000 a R$ 150.000 / mês</span><span class="rate">3%</span></div><div class="vrow r3 rv d3"><span class="band">De R$ 150.000 a R$ 350.000 / mês</span><span class="rate">5%</span></div><div class="vrow r4 rv d4"><span class="band">Acima de R$ 350.000 / mês</span><span class="rate">7%</span></div></div>
+    <div class="vexample rv"><div class="et">Exemplo — loja faturando R$ 300.000 líquidos no mês</div><div class="vcalc"><div class="vc"><span>Primeiros R$ 50.000 × 0%</span><b>R$ 0</b></div><div class="vc"><span>R$ 50.000 → R$ 150.000 × 3%</span><b>R$ 3.000</b></div><div class="vc"><span>R$ 150.000 → R$ 300.000 × 5%</span><b>R$ 7.500</b></div><div class="vc tot"><span>Variável do mês</span><b>R$ 10.500</b></div></div></div>
+    <div class="premise rv"><p>Base: <b>faturamento líquido da loja própria</b> = receita bruta − (cancelamentos + reembolsos + devoluções). Carência conta a partir do <b>go-live da loja</b>. Sem teto. Revisão anual. Cálculo mensal contra relatório.</p></div>
+  </div>
+</section>
+
+<!-- ════════════ SEÇÃO 12 — CORTESIA ════════════ -->
+<section class="sec courtesy">
+  <div class="wrap">
+    <div class="cbox rv"><div class="gift">Cortesia estratégica</div><h3>O site institucional da Vision Inox — por conta da casa.</h3><div class="desc">A nova frente premium se sustenta na autoridade da empresa-mãe. Por isso, dentro da Implantação, a Vision ganha um site institucional premium — capaz de gerar impressão imediata de solidez, capacidade técnica e confiança.</div><div class="pricetag"><span class="strike">R$ 15.000</span><span class="free">R$ 0</span></div><div class="scope-tags"><span>Home institucional</span><span>Diferenciais técnicos</span><span>Segmentos atendidos</span><span>Estrutura e know-how</span><span>Motion e scroll</span><span>Responsivo</span></div><div class="premise" style="margin-top:28px;border-color:var(--line)"><p>Escopo fechado: site de página única, premium. Blog, painel, área de cliente e produções adicionais são orçados à parte. Válido exclusivamente com a contratação da Implantação — entregue após a assinatura e o primeiro pagamento.</p></div></div>
+  </div>
+</section>
+
+<!-- ════════════ SEÇÃO 13 — OPCIONAIS ════════════ -->
+<section class="sec">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="kicker steel rv"><span class="num-tag">11</span>Módulos opcionais</span>
+      <h2 class="rv d1">Para acelerar, <span class="steel-grad">quando fizer sentido.</span></h2>
+      <p class="lead rv d2">Produção de mãos na massa, ativável por fase. O acompanhamento cobre a direção — estes módulos entregam o volume de execução.</p>
+    </div>
+    <div class="opt-grid"><div class="ocard rv d1"><div class="on">Social Media</div><div class="op">R$ 4.000<small>/mês</small></div></div><div class="ocard rv d2"><div class="on">Design Recorrente</div><div class="op">R$ 3.000<small>/mês</small></div></div><div class="ocard rv d3"><div class="on">Edição de Vídeo</div><div class="op">R$ 3.500<small>/mês</small></div></div><div class="ocard rv d4"><div class="on">Criativos UGC</div><div class="op">R$ 4.000<small>/mês</small></div></div></div>
+    <p class="rv" style="text-align:center;margin-top:20px;font-size:14px;color:var(--dim)">Combo Conteúdo Premium — os quatro juntos por <b style="color:var(--e2)">R$ 12.500/mês</b> <span style="color:var(--faint)">(vs R$ 14.500).</span></p>
+  </div>
+</section>
+
+<!-- ════════════ SEÇÃO 14 — PRÓXIMOS PASSOS ════════════ -->
+<section class="sec steps">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="kicker rv"><span class="num-tag">12</span>Como começamos</span>
+      <h2 class="rv d1">Quatro passos <span class="steel-grad">até o go-live.</span></h2>
+    </div>
+    <div class="step-list">
+      <div class="step rv d1"><div class="sn">PASSO 01</div><h3>Alinhamento e aprovação</h3><p>Fechamos estrutura, escopo e condições. Tudo formalizado — confidencialidade, propriedade intelectual e responsabilidades de cada lado.</p></div>
+      <div class="step rv d2"><div class="sn">PASSO 02</div><h3>Assinatura e início</h3><p>Assinatura e primeiro pagamento destravam o projeto. Cortesia do site institucional liberada.</p></div>
+      <div class="step rv d3"><div class="sn">PASSO 03</div><h3>Kickoff + Diagnóstico</h3><p>Mergulho no mercado e definição do herói com specs, custo e margem reais — o primeiro entregável que destrava todo o resto.</p></div>
+      <div class="step rv d4"><div class="sn">PASSO 04</div><h3>Construção e go-live</h3><p>Marca, site, oferta e lançamento no ar em 60–90 dias. A pilotagem mensal começa.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════ FECHAMENTO ════════════ -->
+<section class="close">
+  <div class="wrap">
+    <h2 class="rv">A Vision já fabrica o melhor inox.<br><em>Vamos fazer o Brasil saber disso.</em></h2>
+    <div class="sig rv d2"><span class="nm">Everton Stedile</span><span class="ti">Estratégia &amp; Execução · Marca, Produto e E-commerce</span></div>
+  </div>
+</section>
+<footer><div class="wrap"><p>Proposta estratégica confidencial · Vision Inox · Everton Stedile · valores e projeções sujeitos a validação em diagnóstico</p></div></footer>
+
+<script>
+// ── UTILS ──
+const C=id=>document.getElementById(id);
+const cl=(v,a,b)=>Math.max(a,Math.min(b,v));
+const mp=(v,a,b,c,d)=>c+(d-c)*cl((v-a)/(b-a),0,1);
+const ez=t=>t<.5?2*t*t:-1+(4-2*t)*t;
+const lerp=(a,b,t)=>a+(b-a)*t;
+const op=(el,v)=>{if(el)el.style.opacity=v};
+const dash=(el,L,t)=>{if(el)el.style.strokeDashoffset=L*(1-t)};
+
+// ── HERO ELEMENTS ──
+const track=C('track'),pbar=C('pbar');
+const bg1=C('bg1'),bg2=C('bg2'),bg3=C('bg3');
+const gsr=C('gs-r'),gmr=C('gm-r'),ER=C('er');
+const st=C('st'),sf=C('sf'),sl=C('sl');
+const sm=C('sm'),sd=C('sd'),si=C('si'),sid=C('sid');
+const ft=C('ft'),fla=C('fla'),ff=C('ff');
+const vf=C('vf'),grf=C('grf'),pgf=C('pgf'),tbf=C('tbf'),spc=C('spc'),lgsx=C('lgsx');
+const bgBr=C('bg-br'),grhot=C('grhot');
+const dots=[...document.querySelectorAll('#dots .dot')];
+const lbs=[...document.querySelectorAll('.lb')];
+const t1=C('t1'),t2=C('t2'),t3=C('t3'),t4=C('t4');
+const scue=C('scue'),psvg=C('psvg');
+
+// ── PATH LENGTHS ──
+let Lt,Lf,Ll;
+function initL(){
+  try{Lt=st.getTotalLength();Lf=sf.getTotalLength();Ll=sl.getTotalLength();
+    st.style.strokeDasharray=Lt;st.style.strokeDashoffset=Lt;
+    sf.style.strokeDasharray=Lf;sf.style.strokeDashoffset=Lf;
+    sl.style.strokeDasharray=Ll;sl.style.strokeDashoffset=Ll;
+  }catch(e){Lt=1100;Lf=990;Ll=810}
+}
+
+// ── PARTICLES ──
+let parts=[],pfiring=false,praf=null;
+function mkP(){
+  const ns='http://www.w3.org/2000/svg';
+  const sw=C('svgwrap').getBoundingClientRect();
+  const x=lerp(sw.left+sw.width*.18,sw.left+sw.width*.74,Math.random());
+  const y=sw.top+sw.height*.23+(Math.random()-.5)*22;
+  const c=document.createElementNS(ns,'circle');
+  const r=1.8+Math.random()*3.2;
+  c.setAttribute('cx',x);c.setAttribute('cy',y);c.setAttribute('r',r);
+  c.setAttribute('fill',`hsl(${10+Math.random()*22},95%,60%)`);c.setAttribute('opacity','.9');
+  psvg.appendChild(c);
+  return{el:c,x,y,vx:(Math.random()-.5)*.5,vy:-(1.2+Math.random()*1.8),r,t0:performance.now(),maxL:700+Math.random()*1100};
+}
+function tickP(){
+  const now=performance.now();
+  if(pfiring&&parts.length<25&&Math.random()<.38){try{parts.push(mkP())}catch(e){}}
+  parts=parts.filter(p=>{
+    const life=(now-p.t0)/p.maxL;
+    if(life>=1){p.el.remove();return false}
+    p.x+=p.vx;p.y+=p.vy*1.1;
+    p.el.setAttribute('cx',p.x);p.el.setAttribute('cy',p.y);
+    p.el.setAttribute('opacity',life<.55?.9:lerp(.9,0,(life-.55)/.45));
+    p.el.setAttribute('r',life<.65?p.r:lerp(p.r,0,(life-.65)/.35));
+    return true;
+  });
+  praf=requestAnimationFrame(tickP);
+}
+function startP(){if(!pfiring){pfiring=true;if(!praf)tickP()}}
+function stopP(){pfiring=false}
+
+// ── HERO UPDATE ──
+let curPh=-1,pStart=false;
+function update(p){
+  pbar.style.width=(p*100)+'%';
+  if(p>.04)scue.classList.add('gone');else scue.classList.remove('gone');
+  const gOp=ez(mp(p,0,.08,0,1));
+  op(gsr,gOp*.65);op(gmr,gOp);op(bg1,gOp);
+  dash(st,Lt,ez(mp(p,.04,.14,0,1)));
+  dash(sf,Lf,ez(mp(p,.08,.18,0,1)));
+  dash(sl,Ll,ez(mp(p,.13,.22,0,1)));
+  const dOp=ez(mp(p,.17,.27,0,1));op(sd,dOp);
+  const lbT=[.20,.22,.24,.26,.28,.29,.31];
+  lbs.forEach((l,i)=>op(l,ez(mp(p,lbT[i]||.28,lbT[i]+.08||.36,0,1))));
+  op(t1,ez(mp(p,.12,.22,0,1))*(1-ez(mp(p,.38,.44,0,1))));
+  const matP=ez(mp(p,.38,.57,0,1));
+  const bpF=1-ez(mp(p,.38,.52,0,1));
+  const gF=lerp(1,.2,ez(mp(p,.40,.54,0,1)));
+  op(bg1,gOp*gF);op(gsr,gOp*.65*gF);op(gmr,gOp*gF);
+  op(sm,bpF);op(sd,dOp*bpF);
+  lbs.forEach(l=>op(l,(parseFloat(l.style.opacity)||0)*bpF));
+  op(ff,matP);op(fla,matP);op(ft,matP);op(vf,matP);op(grf,matP);op(pgf,matP);op(tbf,matP);op(spc,matP*.75);op(si,matP);op(sid,matP);op(lgsx,matP);
+  op(t2,ez(mp(p,.42,.52,0,1))*(1-ez(mp(p,.59,.66,0,1))));
+  const bP=ez(mp(p,.60,.78,0,1));
+  op(bgBr,bP);op(grhot,bP);op(bg2,bP*.9);op(ER,bP*.55);
+  if(bP>.28&&!pStart){pStart=true;startP()}
+  if(bP<.08&&pStart){pStart=false;stopP()}
+  op(t3,ez(mp(p,.62,.74,0,1))*(1-ez(mp(p,.81,.87,0,1))));
+  const prP=ez(mp(p,.83,.96,0,1));op(bg3,prP);op(t4,ez(mp(p,.86,.96,0,1)));
+  let ph=p<.24?0:p<.46?1:p<.65?2:3;
+  if(ph!==curPh){dots.forEach((d,i)=>d.classList.toggle('on',i===ph));curPh=ph}
+}
+
+// ── SCROLL ──
+let tick=false;
+function onScroll(){
+  if(!tick){requestAnimationFrame(()=>{
+    if(track){const r=track.getBoundingClientRect();const prog=cl(-r.top/(r.height-window.innerHeight),0,1);update(prog)}
+    tick=false;
+  });tick=true}
+}
+function resizeP(){psvg.setAttribute('viewBox',`0 0 ${window.innerWidth} ${window.innerHeight}`)}
+
+// ── PROPOSTA: REVEAL + COUNT + BARS ──
+const io=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(!e.isIntersecting)return;
+    const el=e.target;el.classList.add('in');
+    el.querySelectorAll('[data-count]').forEach(c=>{
+      if(c.dataset.done)return;c.dataset.done=1;
+      const tgt=parseFloat(c.dataset.count);const suf=c.dataset.suffix||'';
+      const dur=1300;const t0=performance.now();
+      const tick=t=>{const p=Math.min((t-t0)/dur,1);const ease=1-Math.pow(1-p,3);
+        c.textContent=Math.round(tgt*ease)+suf;if(p<1)requestAnimationFrame(tick)};
+      requestAnimationFrame(tick);
+    });
+    el.querySelectorAll('[data-w]').forEach(b=>{if(b.dataset.done)return;b.dataset.done=1;setTimeout(()=>{b.style.width=b.dataset.w+'%'},120)});
+    io.unobserve(el);
+  });
+},{threshold:.18,rootMargin:'0px 0px -8% 0px'});
+
+// ── INIT ──
+document.addEventListener('DOMContentLoaded',()=>{
+  initL();update(0);resizeP();
+  document.querySelectorAll('.rv').forEach(el=>io.observe(el));
+  window.addEventListener('resize',resizeP,{passive:true});
+});
+window.addEventListener('scroll',onScroll,{passive:true});
+onScroll();
+</script>
+</body>
+</html>

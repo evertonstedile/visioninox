@@ -1,0 +1,214 @@
+<!-- ════════════════════════════════════════════════════════════════════
+     SEÇÃO: EVOLUÇÃO DO PRODUTO — Vision Inox
+     Bloco autônomo. Colar dentro da proposta-vision-inox.html.
+     Usa as variáveis CSS já definidas no :root da proposta.
+     Caso cole isolado, o <style> abaixo já traz fallback das variáveis.
+     ──────────────────────────────────────────────────────────────────
+     ASSETS A PLUGAR NO DEPLOY (substituir os src dos placeholders):
+       • prototipo_real.jpg   → uma das 14 fotos de fábrica (lado ANTES)
+       • Referência_mestre_5.png  (hero premium — bloco DEPOIS)
+       • Referência_mestre_4.png  (macro encaixe tab-and-slot)
+       • Referência_mestre_3.png  (top-down grelha)
+       • Referência_mestre_6.png  (diagrama grelha ajustável)
+       • Blueprint_2.png          (prancha técnica)
+     ════════════════════════════════════════════════════════════════════ -->
+
+<style>
+/* Fallback de variáveis — só age se a seção for aberta isolada.
+   Dentro da proposta, o :root global prevalece. */
+.evo-scope{
+  --bg:#090909;--bg-2:#0e0e12;--surface:#17171d;--surface-2:#1d1d24;
+  --s1:#edeff2;--s2:#c2c5cc;--s3:#8a8d95;
+  --e1:#ff4500;--e2:#ff7a1a;--e3:#ffb02e;--eg:rgba(255,90,20,.5);
+  --cyan:#00e5ff;--cyan-dim:rgba(0,229,255,.55);
+  --text:#ececef;--dim:#9a9da5;--faint:#65686f;
+  --line:rgba(255,255,255,.08);--line2:rgba(255,255,255,.13);
+  --fd:'Fraunces',Georgia,serif;--fs:'Archivo',-apple-system,sans-serif;
+  --maxw:1180px;
+}
+.evo{
+  position:relative;background:var(--bg);color:var(--text);
+  font-family:var(--fs);padding:130px 0 140px;overflow:hidden;
+}
+.evo .wrap{max-width:var(--maxw);margin:0 auto;padding:0 max(5vw,24px);position:relative;z-index:2}
+
+/* glow de brasa ancorado no rodapé da seção */
+.evo::after{content:"";position:absolute;left:0;right:0;bottom:-10%;height:55%;
+  background:radial-gradient(ellipse 70% 60% at 50% 100%,rgba(255,69,0,.10),transparent 68%);
+  pointer-events:none;z-index:1}
+
+/* ── cabeçalho da seção ── */
+.evo-kicker{font:800 11px/1 var(--fs);letter-spacing:.27em;text-transform:uppercase;
+  color:var(--e2);display:inline-flex;align-items:center;gap:11px;margin-bottom:26px}
+.evo-kicker::before{content:"";width:34px;height:1px;background:var(--e2);opacity:.7}
+.evo-title{font-family:var(--fd);font-weight:300;font-size:clamp(34px,5.4vw,64px);
+  line-height:1.02;letter-spacing:-.025em;max-width:16ch}
+.evo-title em{font-style:italic;font-weight:400;color:var(--e2)}
+.evo-lead{font:400 clamp(15px,1.5vw,18px)/1.65 var(--fs);color:var(--dim);
+  max-width:54ch;margin-top:26px}
+
+/* ── comparador antes/depois ── */
+.evo-compare{display:grid;grid-template-columns:1fr auto 1fr;gap:0;
+  align-items:stretch;margin-top:66px;border:1px solid var(--line);
+  border-radius:18px;overflow:hidden;background:var(--bg-2)}
+.evo-side{position:relative;padding:30px}
+.evo-side.before{background:linear-gradient(180deg,#101014,#0c0c10)}
+.evo-side.after{background:linear-gradient(180deg,#121218,#0d0d12)}
+.evo-divider{width:1px;background:linear-gradient(180deg,transparent,var(--cyan-dim),transparent);
+  position:relative}
+.evo-divider::after{content:"VS";position:absolute;top:50%;left:50%;
+  transform:translate(-50%,-50%);font:800 11px/1 var(--fs);letter-spacing:.18em;
+  color:var(--cyan);background:var(--bg-2);padding:8px 6px;border-radius:6px}
+.evo-tag{font:800 10px/1 var(--fs);letter-spacing:.22em;text-transform:uppercase;
+  display:inline-block;margin-bottom:16px;padding:6px 11px;border-radius:5px}
+.evo-tag.t-before{color:var(--s3);border:1px solid var(--line2)}
+.evo-tag.t-after{color:var(--e3);border:1px solid rgba(255,176,46,.3);
+  background:rgba(255,176,46,.06)}
+.evo-frame{position:relative;aspect-ratio:3/2;border-radius:11px;overflow:hidden;
+  background:#0a0a0e;border:1px solid var(--line)}
+.evo-frame img{width:100%;height:100%;object-fit:cover;display:block}
+/* diagramas técnicos (Ref_6, Blueprint) têm fundo próprio e cotas nas bordas:
+   conter em vez de cortar, com leve respiro */
+.evo-frame.diagram{background:#070b10}
+.evo-frame.diagram img{object-fit:contain;padding:14px}
+/* placeholder visual enquanto o asset não está plugado */
+.evo-frame[data-ph]::before{content:attr(data-ph);position:absolute;inset:0;
+  display:flex;align-items:center;justify-content:center;text-align:center;
+  font:700 12px/1.5 var(--fs);letter-spacing:.04em;color:var(--faint);
+  padding:24px;background:repeating-linear-gradient(45deg,#0c0c10,#0c0c10 11px,#0e0e14 11px,#0e0e14 22px)}
+.evo-frame img[src]:not([src=""]){position:relative;z-index:2}
+.evo-cap{font:400 13px/1.5 var(--fs);color:var(--dim);margin-top:15px}
+.evo-cap strong{color:var(--text);font-weight:700}
+
+/* ── grid de diferenciais (cards) ── */
+.evo-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;margin-top:26px}
+.evo-card{position:relative;border:1px solid var(--line);border-radius:16px;
+  overflow:hidden;background:var(--surface);
+  transition:border-color .4s ease,transform .4s cubic-bezier(.2,.7,.2,1)}
+.evo-card:hover{border-color:var(--line2);transform:translateY(-3px)}
+.evo-card .evo-frame{aspect-ratio:16/10;border:0;border-radius:0;border-bottom:1px solid var(--line)}
+.evo-card-body{padding:24px 26px 28px}
+.evo-num{font:800 11px/1 var(--fs);letter-spacing:.2em;color:var(--e2);
+  display:block;margin-bottom:13px;font-variant-numeric:tabular-nums}
+.evo-card h3{font-family:var(--fd);font-weight:400;font-size:23px;
+  letter-spacing:-.015em;line-height:1.15;margin-bottom:11px}
+.evo-card h3 em{font-style:italic;color:var(--cyan)}
+.evo-card p{font:400 14.5px/1.6 var(--fs);color:var(--dim)}
+.evo-card.wide{grid-column:1 / -1}
+.evo-card.wide .evo-frame{aspect-ratio:21/8}
+
+/* ── nota de rodapé / disclaimer de conceito ── */
+.evo-note{margin-top:48px;padding:22px 26px;border-left:2px solid var(--cyan-dim);
+  background:linear-gradient(90deg,rgba(0,229,255,.04),transparent);border-radius:0 10px 10px 0}
+.evo-note p{font:400 13.5px/1.65 var(--fs);color:var(--dim)}
+.evo-note strong{color:var(--text)}
+
+/* ── reveal ── */
+.evo .rv{opacity:0;transform:translateY(30px);
+  transition:opacity 1s cubic-bezier(.2,.7,.2,1),transform 1s cubic-bezier(.2,.7,.2,1)}
+.evo .rv.in{opacity:1;transform:none}
+.evo .rv.d1{transition-delay:.08s}.evo .rv.d2{transition-delay:.16s}
+.evo .rv.d3{transition-delay:.24s}.evo .rv.d4{transition-delay:.32s}
+
+/* ── responsivo ── */
+@media(max-width:860px){
+  .evo{padding:90px 0 100px}
+  .evo-compare{grid-template-columns:1fr;margin-top:46px}
+  .evo-divider{width:auto;height:1px;background:linear-gradient(90deg,transparent,var(--cyan-dim),transparent)}
+  .evo-divider::after{background:var(--bg-2)}
+  .evo-grid{grid-template-columns:1fr;gap:16px}
+  .evo-card.wide .evo-frame{aspect-ratio:16/9}
+}
+</style>
+
+<section class="evo evo-scope" id="evolucao">
+  <div class="wrap">
+
+    <!-- cabeçalho -->
+    <span class="evo-kicker rv">Visão de Produto</span>
+    <h2 class="evo-title rv d1">Do protótipo funcional ao <em>produto que se vende sozinho</em>.</h2>
+    <p class="evo-lead rv d2">
+      O protótipo já prova a engenharia: inox 304, encaixe a laser, grelha ajustável.
+      A direção de design abaixo mostra o mesmo produto elevado ao acabamento, à
+      identidade e à presença de uma marca premium — o que a Vision passa a fabricar.
+    </p>
+
+    <!-- comparador antes/depois -->
+    <div class="evo-compare rv d2">
+      <div class="evo-side before">
+        <span class="evo-tag t-before">Protótipo · hoje</span>
+        <div class="evo-frame" data-ph="prototipo_real.jpg&#10;(plugar uma das 14 fotos de fábrica)">
+          <img src="" alt="Protótipo atual Vision Inox">
+        </div>
+        <p class="evo-cap">Geometria validada, função comprovada. Falta a camada de marca.</p>
+      </div>
+      <div class="evo-divider"></div>
+      <div class="evo-side after">
+        <span class="evo-tag t-after">Direção de design · a fabricar</span>
+        <div class="evo-frame" data-ph="Referência_mestre_5.png">
+          <img src="" alt="Vision Inox — direção de design premium">
+        </div>
+        <p class="evo-cap"><strong>Logo vazada como ventilação</strong>, acabamento escovado uniforme, pernas em V — feito para o litoral.</p>
+      </div>
+    </div>
+
+    <!-- grid de diferenciais -->
+    <div class="evo-grid">
+      <div class="evo-card rv">
+        <div class="evo-frame" data-ph="Referência_mestre_4.png"><img src="" alt="Encaixe tab-and-slot a laser"></div>
+        <div class="evo-card-body">
+          <span class="evo-num">01 · ENGENHARIA</span>
+          <h3>Encaixe a laser, <em>zero solda</em>.</h3>
+          <p>Abas e fendas cortadas com precisão milimétrica. Monta em segundos, desmonta plano. Resistência sem ponto fraco de solda.</p>
+        </div>
+      </div>
+
+      <div class="evo-card rv d1">
+        <div class="evo-frame" data-ph="Referência_mestre_3.png"><img src="" alt="Grelha vista superior"></div>
+        <div class="evo-card-body">
+          <span class="evo-num">02 · COZIMENTO</span>
+          <h3>Grelha de barras <em>uniforme</em>.</h3>
+          <p>Espaçamento constante para brasa homogênea. Inox 304 que não solta resíduo nem enferruja na maresia.</p>
+        </div>
+      </div>
+
+      <div class="evo-card wide rv">
+        <div class="evo-frame diagram" data-ph="Referência_mestre_6.png&#10;(diagrama grelha ajustável — 3 níveis)"><img src="" alt="Grelha ajustável 3 níveis"></div>
+        <div class="evo-card-body">
+          <span class="evo-num">03 · CONTROLE</span>
+          <h3>Altura ajustável em <em>três níveis</em> — alto, médio, baixo.</h3>
+          <p>Selar carne na brasa forte ou cozinhar lento no calor brando: a mesma churrasqueira controla a distância da brasa em 80mm de curso. Diferencial que nenhum concorrente direto entrega no flat-pack.</p>
+        </div>
+      </div>
+
+      <div class="evo-card wide rv">
+        <div class="evo-frame diagram" data-ph="Blueprint_2.png&#10;(prancha técnica — cotas + sistema dobrável)"><img src="" alt="Blueprint técnica Vision Inox"></div>
+        <div class="evo-card-body">
+          <span class="evo-num">04 · DOCUMENTAÇÃO</span>
+          <h3>Projeto pronto para <em>produção em escala</em>.</h3>
+          <p>Cotas, detalhes de dobra e sequência de montagem documentados. A ponte direta entre a direção de design e o chão de fábrica da Vision.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- disclaimer de conceito -->
+    <div class="evo-note rv">
+      <p><strong>Nota:</strong> as imagens premium acima são <strong>direção de design</strong> — o norte visual do produto a ser fabricado, não fotos do produto atual. A Vision tem liberdade total de execução; o corte a laser reproduz o design indicado.</p>
+    </div>
+
+  </div>
+</section>
+
+<script>
+/* Reveal por IntersectionObserver. Failsafe torna tudo visível se o IO não disparar
+   (WebView/WhatsApp), padrão já validado no projeto. */
+(function(){
+  var els=document.querySelectorAll('.evo .rv');
+  if(!('IntersectionObserver' in window)){els.forEach(function(e){e.classList.add('in')});return;}
+  var io=new IntersectionObserver(function(ents){
+    ents.forEach(function(en){if(en.isIntersecting){en.target.classList.add('in');io.unobserve(en.target);}});
+  },{threshold:.12,rootMargin:'0px 0px -8% 0px'});
+  els.forEach(function(e){io.observe(e)});
+  setTimeout(function(){els.forEach(function(e){e.classList.add('in')})},3500);
+})();
+</script>

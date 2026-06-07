@@ -1,0 +1,346 @@
+<!-- ════════════════════════════════════════════════════════════════════
+     SEÇÃO: COMO TRABALHAMOS JUNTOS — Vision Inox / proposta
+     A ponte entre o desejo (seções de produto) e o investimento.
+     NÃO contém preço. Enquadra escopo, modelo de parceria e alinhamento.
+     Posição sugerida: PENÚLTIMO bloco, antes do CTA de contato final.
+     Bloco autônomo. Colar dentro da proposta-vision-inox.html.
+     ──────────────────────────────────────────────────────────────────
+     Sem assets de imagem — visual 100% por código (ícones SVG inline).
+     ════════════════════════════════════════════════════════════════════ -->
+
+<style>
+.cw-scope{
+  --bg:#090909;--bg-2:#0e0e12;--bg-3:#131318;--surface:#17171d;--surface-2:#1d1d24;
+  --s1:#edeff2;--s2:#c2c5cc;--s3:#8a8d95;--s4:#54575f;
+  --e1:#ff4500;--e2:#ff7a1a;--e3:#ffb02e;--eg:rgba(255,90,20,.5);
+  --cyan:#00e5ff;--cyan-dim:rgba(0,229,255,.55);
+  --text:#ececef;--dim:#9a9da5;--faint:#65686f;
+  --line:rgba(255,255,255,.08);--line2:rgba(255,255,255,.13);
+  --fd:'Fraunces',Georgia,serif;--fs:'Archivo',-apple-system,sans-serif;
+  --maxw:1180px;
+}
+.cw{position:relative;background:var(--bg);color:var(--text);font-family:var(--fs);
+  padding:140px 0 150px;overflow:hidden}
+.cw .wrap{max-width:var(--maxw);margin:0 auto;padding:0 max(5vw,24px);position:relative;z-index:2}
+.cw::before{content:"";position:absolute;top:-5%;left:-10%;width:55%;height:60%;z-index:0;pointer-events:none;
+  background:radial-gradient(ellipse 60% 60% at 30% 30%,rgba(0,229,255,.05),transparent 65%)}
+.cw::after{content:"";position:absolute;right:-8%;bottom:-6%;width:55%;height:55%;z-index:0;pointer-events:none;
+  background:radial-gradient(ellipse 55% 55% at 70% 80%,rgba(255,69,0,.08),transparent 68%)}
+
+/* ── cabeçalho ── */
+.cw-eyebrow{font:800 11px/1 var(--fs);letter-spacing:.28em;text-transform:uppercase;
+  color:var(--e2);display:inline-flex;align-items:center;gap:11px;margin-bottom:26px}
+.cw-eyebrow::before{content:"";width:32px;height:1px;background:var(--e2);opacity:.7}
+.cw-h2{font-family:var(--fd);font-weight:300;font-size:clamp(35px,5.6vw,66px);
+  line-height:1.02;letter-spacing:-.026em;max-width:17ch}
+.cw-h2 em{font-style:italic;font-weight:400;color:var(--cyan)}
+.cw-intro{font:400 clamp(15px,1.55vw,18.5px)/1.7 var(--fs);color:var(--dim);
+  max-width:60ch;margin-top:28px}
+.cw-intro b{color:var(--text);font-weight:600}
+
+/* ── frentes de trabalho (cards) ── */
+.cw-fronts{margin-top:64px;display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+.cw-front{position:relative;border:1px solid var(--line);border-radius:16px;overflow:hidden;
+  background:var(--surface);padding:34px 34px 32px;
+  transition:border-color .45s ease,transform .45s cubic-bezier(.2,.7,.2,1),background .45s ease}
+.cw-front::after{content:"";position:absolute;left:0;top:0;height:100%;width:3px;
+  background:linear-gradient(180deg,var(--e2),var(--e1));transform:scaleY(0);transform-origin:top;
+  transition:transform .5s cubic-bezier(.2,.7,.2,1)}
+.cw-front:hover{transform:translateY(-4px);border-color:var(--line2);background:var(--surface-2)}
+.cw-front:hover::after{transform:scaleY(1)}
+/* card de destaque — marca do zero */
+.cw-front.feat{grid-column:1/-1;background:linear-gradient(115deg,#15120e,#0e0e12 55%);
+  border-color:rgba(255,122,26,.22)}
+.cw-front.feat:hover{border-color:rgba(255,122,26,.4)}
+.cw-front.feat .cw-ico{color:var(--e2);border-color:rgba(255,122,26,.3);background:rgba(255,122,26,.08)}
+.cw-front.feat .cw-front-head{display:flex;align-items:flex-start;gap:22px}
+.cw-front.feat .ttl-wrap{flex:1}
+.cw-feat-flag{display:inline-block;font:800 9.5px/1 var(--fs);letter-spacing:.2em;text-transform:uppercase;
+  color:var(--e3);border:1px solid rgba(255,176,46,.3);background:rgba(255,176,46,.06);
+  padding:6px 11px;border-radius:5px;margin-bottom:14px}
+.cw-ico{width:48px;height:48px;flex-shrink:0;border-radius:12px;border:1px solid var(--line2);
+  background:var(--bg-2);display:flex;align-items:center;justify-content:center;color:var(--cyan);
+  margin-bottom:22px}
+.cw-ico svg{width:24px;height:24px}
+.cw-front h3{font-family:var(--fd);font-weight:400;font-size:25px;letter-spacing:-.016em;
+  line-height:1.14;margin-bottom:13px}
+.cw-front.feat h3{font-size:clamp(26px,3.2vw,34px)}
+.cw-front h3 em{font-style:italic;color:var(--e2)}
+.cw-front p{font:400 14.5px/1.62 var(--fs);color:var(--dim)}
+.cw-front .items{list-style:none;margin-top:16px;display:flex;flex-wrap:wrap;gap:8px}
+.cw-front .items li{font:600 11.5px/1 var(--fs);letter-spacing:.02em;color:var(--s2);
+  padding:8px 12px;border:1px solid var(--line);border-radius:6px;background:rgba(255,255,255,.02)}
+.cw-front.feat .items{margin-top:20px}
+
+/* ── modelo de parceria (timeline) ── */
+.cw-model{margin-top:72px}
+.cw-model-head{text-align:center;margin-bottom:54px}
+.cw-model-head .lab{font:800 10px/1 var(--fs);letter-spacing:.26em;text-transform:uppercase;
+  color:var(--cyan);margin-bottom:18px;display:block}
+.cw-model-head h3{font-family:var(--fd);font-weight:300;font-size:clamp(26px,3.6vw,42px);
+  line-height:1.14;letter-spacing:-.022em;max-width:20ch;margin:0 auto}
+.cw-model-head h3 em{font-style:italic;color:var(--e2)}
+.cw-phases{display:grid;grid-template-columns:repeat(3,1fr);gap:0;position:relative}
+.cw-phases::before{content:"";position:absolute;top:34px;left:12%;right:12%;height:1px;
+  background:linear-gradient(90deg,transparent,var(--line2) 15%,var(--line2) 85%,transparent);z-index:0}
+.cw-phase{position:relative;z-index:1;text-align:center;padding:0 22px}
+.cw-phase .dot{width:68px;height:68px;margin:0 auto 24px;border-radius:50%;
+  background:var(--bg-2);border:1px solid var(--line2);display:flex;align-items:center;
+  justify-content:center;font-family:var(--fd);font-size:24px;font-weight:400;color:var(--e2);
+  position:relative;transition:border-color .5s ease,box-shadow .5s ease}
+.cw-phase .dot::after{content:"";position:absolute;inset:-5px;border-radius:50%;
+  border:1px solid transparent;transition:border-color .5s ease}
+.cw-phase:hover .dot{border-color:var(--e2);box-shadow:0 0 24px rgba(255,90,20,.25)}
+.cw-phase:hover .dot::after{border-color:rgba(255,122,26,.2)}
+.cw-phase .ph-lab{font:800 10px/1 var(--fs);letter-spacing:.18em;text-transform:uppercase;
+  color:var(--faint);margin-bottom:11px}
+.cw-phase h4{font-family:var(--fd);font-weight:400;font-size:20px;letter-spacing:-.012em;
+  margin-bottom:10px;line-height:1.2}
+.cw-phase p{font:400 13.5px/1.55 var(--fs);color:var(--dim)}
+
+/* ── alinhamento de interesse (o bloco que prepara o % sem dizer número) ── */
+.cw-align{margin-top:76px;position:relative;border:1px solid var(--line);border-radius:18px;
+  overflow:hidden;background:var(--bg-2);display:grid;grid-template-columns:1fr 1fr}
+.cw-align .txt{padding:52px 50px}
+.cw-align .txt .lab{font:800 10px/1 var(--fs);letter-spacing:.24em;text-transform:uppercase;
+  color:var(--e2);margin-bottom:20px;display:block}
+.cw-align .txt h3{font-family:var(--fd);font-weight:400;font-size:clamp(25px,3vw,34px);
+  line-height:1.16;letter-spacing:-.02em;margin-bottom:20px}
+.cw-align .txt h3 em{font-style:italic;color:var(--cyan)}
+.cw-align .txt p{font:400 15px/1.68 var(--fs);color:var(--dim);margin-bottom:15px}
+.cw-align .txt p:last-child{margin-bottom:0}
+.cw-align .txt b{color:var(--text);font-weight:600}
+/* lado visual: três componentes do modelo, sem valores */
+.cw-align .viz{padding:52px 46px;background:linear-gradient(180deg,#101016,#0c0c11);
+  border-left:1px solid var(--line);display:flex;flex-direction:column;justify-content:center;gap:16px}
+.cw-comp{position:relative;border:1px solid var(--line);border-radius:12px;padding:20px 22px;
+  background:rgba(255,255,255,.015);transition:border-color .4s ease,transform .4s ease}
+.cw-comp:hover{border-color:var(--line2);transform:translateX(4px)}
+.cw-comp .ct{display:flex;align-items:center;gap:14px}
+.cw-comp .n{font-family:var(--fd);font-size:21px;font-weight:400;color:var(--faint);
+  font-variant-numeric:tabular-nums}
+.cw-comp .lbl{font:700 14px/1.3 var(--fs);color:var(--text)}
+.cw-comp .lbl small{display:block;font-weight:400;color:var(--dim);font-size:12.5px;margin-top:3px}
+.cw-comp.grow{border-color:rgba(255,122,26,.25);background:rgba(255,122,26,.04)}
+.cw-comp.grow .n{color:var(--e2)}
+.cw-comp.grow .lbl small{color:var(--e3)}
+
+/* ── CTA final ── */
+.cw-cta{margin-top:80px;position:relative;border-radius:22px;overflow:hidden;
+  border:1px solid rgba(255,122,26,.18);padding:74px 56px;text-align:center;
+  background:linear-gradient(180deg,#100d0b,#0a0a0e)}
+.cw-cta .glow{position:absolute;inset:0;z-index:0;pointer-events:none;
+  background:radial-gradient(ellipse 55% 90% at 50% 130%,rgba(255,69,0,.18),transparent 62%)}
+.cw-cta .ct{position:relative;z-index:2}
+.cw-cta .lab{font:800 10px/1 var(--fs);letter-spacing:.26em;text-transform:uppercase;
+  color:var(--e2);margin-bottom:24px;display:block}
+.cw-cta h3{font-family:var(--fd);font-weight:300;font-size:clamp(30px,4.4vw,52px);
+  line-height:1.1;letter-spacing:-.026em;max-width:18ch;margin:0 auto 24px}
+.cw-cta h3 em{font-style:italic;color:var(--e2)}
+.cw-cta p{font:400 16px/1.7 var(--fs);color:var(--dim);max-width:54ch;margin:0 auto 38px}
+.cw-btn{display:inline-flex;align-items:center;gap:12px;font:800 14px/1 var(--fs);
+  letter-spacing:.04em;color:#0a0a0a;background:var(--e2);padding:19px 36px;border-radius:11px;
+  text-decoration:none;transition:transform .35s cubic-bezier(.2,.7,.2,1),box-shadow .35s ease,background .35s ease}
+.cw-btn:hover{transform:translateY(-2px);background:var(--e3);box-shadow:0 14px 38px rgba(255,90,20,.34)}
+.cw-btn svg{width:18px;height:18px}
+.cw-cta .sub{margin-top:22px;font:400 13px/1.5 var(--fs);color:var(--faint)}
+
+/* ── reveal ── */
+.cw .rv{opacity:0;transform:translateY(32px);
+  transition:opacity 1s cubic-bezier(.2,.7,.2,1),transform 1s cubic-bezier(.2,.7,.2,1)}
+.cw .rv.in{opacity:1;transform:none}
+.cw .rv.d1{transition-delay:.08s}.cw .rv.d2{transition-delay:.16s}
+.cw .rv.d3{transition-delay:.24s}.cw .rv.d4{transition-delay:.32s}
+
+/* ── responsivo ── */
+@media(max-width:880px){
+  .cw{padding:96px 0 104px}
+  .cw-fronts{grid-template-columns:1fr;gap:14px}
+  .cw-front.feat .cw-front-head{flex-direction:column;gap:0}
+  .cw-phases{grid-template-columns:1fr;gap:40px}
+  .cw-phases::before{display:none}
+  .cw-align{grid-template-columns:1fr}
+  .cw-align .txt,.cw-align .viz{padding:34px 28px}
+  .cw-align .viz{border-left:0;border-top:1px solid var(--line)}
+  .cw-cta{padding:52px 26px}
+}
+</style>
+
+<section class="cw cw-scope" id="como-trabalhamos">
+  <div class="wrap">
+
+    <!-- cabeçalho -->
+    <span class="cw-eyebrow rv">Como tiramos isso do papel</span>
+    <h2 class="cw-h2 rv d1">Não é consultoria de slide. É <em>execução de ponta a ponta</em>.</h2>
+    <p class="cw-intro rv d2">
+      A direção de produto é só o começo. Para a marca nascer e vender, alguém precisa construir
+      tudo: a identidade, a loja, o tráfego, o conteúdo. <b>Esse é o meu papel — o braço digital
+      completo da operação</b>, da primeira definição de marca à primeira venda recorrente.
+    </p>
+
+    <!-- FRENTES DE TRABALHO -->
+    <div class="cw-fronts">
+
+      <!-- destaque: marca do zero -->
+      <div class="cw-front feat rv">
+        <div class="cw-front-head">
+          <div class="cw-ico">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 2l2.4 5.4L20 8l-4 4 1 6-5-2.8L7 18l1-6-4-4 5.6-.6z"/>
+            </svg>
+          </div>
+          <div class="ttl-wrap">
+            <span class="cw-feat-flag">Fundação do projeto</span>
+            <h3>Criação da marca <em>completa, do zero</em>.</h3>
+            <p>Naming, identidade visual, logotipo, tom de voz e o universo da marca — incluindo
+              o conceito do recorte vazado funcional como assinatura física no produto. A marca
+              não existe ainda; nós a construímos inteira, pensada para o litoral e para o digital
+              desde o primeiro traço.</p>
+            <ul class="items">
+              <li>Naming & território</li>
+              <li>Logotipo & identidade</li>
+              <li>Tom de voz</li>
+              <li>Manual de marca</li>
+              <li>Assinatura no produto</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- pesquisa & posicionamento -->
+      <div class="cw-front rv">
+        <div class="cw-ico">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/>
+          </svg>
+        </div>
+        <h3>Pesquisa & <em>posicionamento</em></h3>
+        <p>Análise de concorrência, precificação e público. A definição clara de onde a marca joga e por que ela ganha — o argumento da maresia como ponta de lança.</p>
+        <ul class="items"><li>Benchmark</li><li>Público-alvo</li><li>Proposta de valor</li></ul>
+      </div>
+
+      <!-- e-commerce -->
+      <div class="cw-front rv d1">
+        <div class="cw-ico">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 3h2l2.2 12.4a1.5 1.5 0 0 0 1.5 1.2h8.6a1.5 1.5 0 0 0 1.5-1.2L22 7H6"/>
+            <circle cx="9.5" cy="20.5" r="1.3"/><circle cx="18.5" cy="20.5" r="1.3"/>
+          </svg>
+        </div>
+        <h3>E-commerce <em>completo</em></h3>
+        <p>Loja própria + Mercado Livre. Estrutura, fotos, descrições, fluxo de compra e operação. Canal duplo desenhado para construir prova social antes de escalar o ticket alto.</p>
+        <ul class="items"><li>Loja própria</li><li>Mercado Livre</li><li>Operação</li></ul>
+      </div>
+
+      <!-- tráfego & conteúdo -->
+      <div class="cw-front rv">
+        <div class="cw-ico">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 17l5-5 4 4 8-9"/><path d="M20 7v5h-5"/>
+          </svg>
+        </div>
+        <h3>Tráfego & <em>aquisição</em></h3>
+        <p>Mídia paga, gestão de investimento e conteúdo orientado a conversão. Para o ticket alto, a aposta é conteúdo com influência antes do tráfego frio — vender desejo, não preço.</p>
+        <ul class="items"><li>Mídia paga</li><li>Gestão de verba</li><li>Estratégia de conteúdo</li></ul>
+      </div>
+
+      <!-- conteúdo & social -->
+      <div class="cw-front rv d1">
+        <div class="cw-ico">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="3" width="18" height="18" rx="4"/><circle cx="12" cy="12" r="3.4"/><circle cx="17.2" cy="6.8" r="1"/>
+          </svg>
+        </div>
+        <h3>Conteúdo & <em>presença</em></h3>
+        <p>A marca viva nas redes: linha editorial, criativos, fotografia de produto e a narrativa do litoral. Cada peça reforçando o mesmo território construído na fundação.</p>
+        <ul class="items"><li>Linha editorial</li><li>Criativos</li><li>Fotografia</li></ul>
+      </div>
+
+    </div>
+
+    <!-- MODELO DE PARCERIA -->
+    <div class="cw-model">
+      <div class="cw-model-head rv">
+        <span class="lab">O modelo de parceria</span>
+        <h3>Um compromisso de <em>6 a 12 meses</em> — tempo de construir algo que dura.</h3>
+      </div>
+      <div class="cw-phases">
+        <div class="cw-phase rv">
+          <div class="dot">01</div>
+          <span class="ph-lab">Fundação · meses 1–2</span>
+          <h4>Marca & estrutura</h4>
+          <p>Identidade criada, posicionamento definido, loja e canais montados. A base de tudo no lugar.</p>
+        </div>
+        <div class="cw-phase rv d1">
+          <div class="dot">02</div>
+          <span class="ph-lab">Validação · meses 3–6</span>
+          <h4>Lançamento & prova</h4>
+          <p>Primeiras vendas, prova social, ajuste fino de produto e oferta. A marca encontra seu mercado.</p>
+        </div>
+        <div class="cw-phase rv d2">
+          <div class="dot">03</div>
+          <span class="ph-lab">Escala · meses 6+</span>
+          <h4>Crescimento</h4>
+          <p>Tráfego escalado, ticket ampliado, linha expandida. A operação ganha velocidade e previsibilidade.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ALINHAMENTO DE INTERESSE -->
+    <div class="cw-align rv">
+      <div class="txt">
+        <span class="lab">Por que esse modelo protege vocês</span>
+        <h3>Eu só ganho mais <em>se a marca vender mais</em>.</h3>
+        <p>O investimento é estruturado em camadas — uma parte para construir a fundação, uma para
+          a operação mensal, e uma <b>atrelada ao resultado</b>. Quanto mais a loja fatura, maior
+          a minha fatia ligada à performance.</p>
+        <p>Na prática: <b>meu incentivo é o mesmo que o de vocês</b>. Não é um fornecedor que entrega
+          e some — é um parceiro com pele em jogo, que cresce junto com a marca que ajudou a criar.</p>
+      </div>
+      <div class="viz">
+        <div class="cw-comp">
+          <div class="ct"><span class="n">01</span><span class="lbl">Fundação<small>Construção da marca e estrutura — uma vez</small></span></div>
+        </div>
+        <div class="cw-comp">
+          <div class="ct"><span class="n">02</span><span class="lbl">Operação mensal<small>Execução contínua das frentes</small></span></div>
+        </div>
+        <div class="cw-comp grow">
+          <div class="ct"><span class="n">03</span><span class="lbl">Performance<small>Cresce conforme a loja fatura — interesse alinhado</small></span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CTA FINAL -->
+    <div class="cw-cta rv">
+      <div class="glow"></div>
+      <div class="ct">
+        <span class="lab">O próximo passo</span>
+        <h3>Vamos desenhar isso <em>juntos</em>.</h3>
+        <p>O próximo passo não é assinar nada — é uma conversa para alinhar escopo, metas e o
+          formato exato da parceria. A partir daí, montamos o plano sob medida para a realidade
+          de vocês.</p>
+        <a class="cw-btn" href="#contato">
+          Conversar sobre o projeto
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+        <p class="sub">Sem compromisso. Uma conversa para entender se faz sentido para os dois lados.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<script>
+(function(){
+  var root=document.getElementById('como-trabalhamos');
+  if(!root) return;
+  var els=root.querySelectorAll('.rv');
+  function reveal(t){t.classList.add('in');}
+  if(!('IntersectionObserver' in window)){els.forEach(reveal);return;}
+  var io=new IntersectionObserver(function(ents){
+    ents.forEach(function(en){if(en.isIntersecting){reveal(en.target);io.unobserve(en.target);}});
+  },{threshold:.1,rootMargin:'0px 0px -8% 0px'});
+  els.forEach(function(e){io.observe(e)});
+  setTimeout(function(){els.forEach(reveal);},3500);
+})();
+</script>

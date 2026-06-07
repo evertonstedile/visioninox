@@ -1,0 +1,7 @@
+.claude/
+__MACOSX/
+.DS_Store
+*.zip
+/tmp/
+build/
+node_modules/

@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vision Inox — Hero Scroll</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;700;800;900&family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,700&family=Fraunces:ital,opsz,wght@1,9..144,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#090909; --cyan:#00e5ff; --cyan-dim:rgba(0,229,255,0.55);
+  --s1:#edeff2; --s2:#c2c5cc; --s3:#8a8d95; --s4:#54575f;
+  --e1:#ff4500; --e2:#ff7a1a; --e3:#ffb02e;
+  --fd:'Fraunces',Georgia,serif; --fs:'Archivo',sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;background:var(--bg)}
+body{background:var(--bg);color:#ececef;font-family:var(--fs);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+
+/* ── PROGRESS BAR ── */
+#pbar{position:fixed;top:0;left:0;height:2px;width:0%;z-index:200;
+  background:linear-gradient(90deg,var(--e1),var(--e3));
+  box-shadow:0 0 12px rgba(255,100,0,.7);transition:none}
+
+/* ── HERO TRACK ── */
+#track{height:560vh;position:relative}
+#stage{position:sticky;top:0;height:100vh;width:100%;overflow:hidden;display:flex;align-items:center;justify-content:center}
+
+/* ── BG LAYERS ── */
+.bl{position:absolute;inset:0;pointer-events:none}
+#bg0{background:var(--bg);z-index:0}
+#bg1{z-index:1;background:radial-gradient(ellipse 100% 90% at 50% 55%,#02111e 0%,#090909 65%);opacity:0}
+#bg2{z-index:2;background:radial-gradient(ellipse 80% 55% at 50% 100%,rgba(255,60,0,.3) 0%,transparent 65%);opacity:0}
+#bg3{z-index:3;background:linear-gradient(165deg,#0a1825 0%,#112535 35%,#0d1e2e 65%,#090909 100%);opacity:0;display:flex;align-items:center;justify-content:center}
+.slot-box{border:1px dashed rgba(255,255,255,.1);border-radius:14px;padding:44px 70px;background:rgba(255,255,255,.025);text-align:center}
+.slot-box p{font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.22);line-height:2.2}
+
+/* ── SVG CONTAINER ── */
+#svgwrap{position:absolute;z-index:10;width:min(76vw,710px);top:50%;left:50%;transform:translate(-50%,-52%);pointer-events:none}
+#psv{width:100%;height:auto;overflow:visible}
+
+/* ── PARTICLES ── */
+#psvg{position:absolute;inset:0;width:100%;height:100%;z-index:15;pointer-events:none}
+
+/* ── TEXT OVERLAYS ── */
+.pt{position:absolute;z-index:20;pointer-events:none;opacity:0}
+#t1{bottom:9vh;left:6vw}
+#t2{bottom:9vh;left:6vw}
+#t3{bottom:0;left:0;right:0;text-align:center;padding-bottom:9vh}
+#t4{bottom:0;left:0;right:0;text-align:center;padding-bottom:9vh}
+.kk{font-family:var(--fs);font-size:10.5px;font-weight:800;letter-spacing:.28em;text-transform:uppercase;display:block;margin-bottom:14px}
+.kk.cy{color:var(--cyan)} .kk.em{color:var(--e2)}
+.ht{font-family:var(--fd);font-weight:400;letter-spacing:-.025em;line-height:1.02}
+.ht.lg{font-size:clamp(40px,7.2vw,88px)}
+.ht.md{font-size:clamp(28px,4.2vw,52px)}
+.htsub{font-size:clamp(14px,1.6vw,18px);color:rgba(236,236,239,.55);margin-top:14px;max-width:440px;line-height:1.55}
+em.cy{color:var(--cyan);font-style:italic}
+em.em{color:var(--e2);font-style:italic}
+
+/* ── PHASE DOTS ── */
+#dots{position:absolute;right:3.5vw;top:50%;transform:translateY(-50%);z-index:30;display:flex;flex-direction:column;gap:10px}
+.dot{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,.14);transition:background .4s,transform .4s}
+.dot.on{background:var(--e2);transform:scale(1.5)}
+
+/* ── SCROLL CUE ── */
+#scue{position:absolute;bottom:6vh;left:50%;transform:translateX(-50%);z-index:30;display:flex;align-items:center;gap:12px;transition:opacity .6s}
+#scue.gone{opacity:0}
+#scue span{font-size:10px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.28)}
+.sbar{width:38px;height:1px;background:rgba(255,255,255,.1);overflow:hidden;position:relative}
+.sbar::after{content:"";position:absolute;inset:0;width:45%;background:var(--e2);animation:sb 2s ease-in-out infinite}
+@keyframes sb{0%{transform:translateX(-110%)}100%{transform:translateX(240%)}}
+
+/* ── AFTER HERO ── */
+#ah{background:var(--bg);padding:90px 40px;text-align:center;border-top:1px solid rgba(255,255,255,.06)}
+#ah p{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.18)}
+</style>
+</head>
+<body>
+
+<div id="pbar"></div>
+
+<!-- TRACK -->
+<div id="track">
+<div id="stage">
+
+  <!-- BG -->
+  <div class="bl" id="bg0"></div>
+  <div class="bl" id="bg1"></div>
+  <div class="bl" id="bg2"></div>
+  <div class="bl" id="bg3">
+    <div class="slot-box">
+      <p>SLOT — CENA LITORAL<br>Vídeo LTX 2.3 + Assets GPT Image 2<br>A ser integrado após produção audiovisual</p>
+    </div>
+  </div>
+
+  <!-- PARTICLES -->
+  <svg id="psvg"></svg>
+
+  <!-- PRODUTO SVG 3/4 -->
+  <div id="svgwrap">
+  <svg id="psv" viewBox="0 0 820 570" xmlns="http://www.w3.org/2000/svg" overflow="visible">
+  <defs>
+    <!-- Blueprint grids -->
+    <pattern id="gm" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M40 0L0 0 0 40" fill="none" stroke="#0a2030" stroke-width=".75"/>
+    </pattern>
+    <pattern id="gs" width="8" height="8" patternUnits="userSpaceOnUse">
+      <path d="M8 0L0 0 0 8" fill="none" stroke="#071525" stroke-width=".3"/>
+    </pattern>
+    <!-- Inox gradients -->
+    <linearGradient id="gf" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#eceef2"/>
+      <stop offset="30%" stop-color="#cbced5"/>
+      <stop offset="65%" stop-color="#8d9098"/>
+      <stop offset="100%" stop-color="#6a6d74"/>
+    </linearGradient>
+    <linearGradient id="gl" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#7e818a"/>
+      <stop offset="55%" stop-color="#555860"/>
+      <stop offset="100%" stop-color="#3c3f45"/>
+    </linearGradient>
+    <linearGradient id="gt" x1="0%" y1="100%" x2="0%" y2="0%">
+      <stop offset="0%" stop-color="#9a9da5"/>
+      <stop offset="100%" stop-color="#d5d8de"/>
+    </linearGradient>
+    <!-- Ember bg -->
+    <radialGradient id="ge" cx="35%" cy="90%" r="65%">
+      <stop offset="0%" stop-color="rgba(255,110,0,.48)"/>
+      <stop offset="55%" stop-color="rgba(255,69,0,.12)"/>
+      <stop offset="100%" stop-color="rgba(255,69,0,0)"/>
+    </radialGradient>
+    <!-- Filters -->
+    <filter id="fg" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="2.2" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="fe" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="7" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <!-- Clips -->
+    <clipPath id="ct"><polygon points="155,162 262,100 565,100 458,162"/></clipPath>
+    <clipPath id="cf"><polygon points="155,162 458,162 458,402 155,402"/></clipPath>
+    <clipPath id="cla"><polygon points="458,162 565,100 565,342 458,402"/></clipPath>
+  </defs>
+
+  <!-- Grid BG (blueprint) -->
+  <rect id="gs-r" width="820" height="570" fill="url(#gs)" opacity="0"/>
+  <rect id="gm-r" width="820" height="570" fill="url(#gm)" opacity="0"/>
+  <!-- Ember rect BG -->
+  <rect id="er" width="820" height="570" fill="url(#ge)" opacity="0"/>
+
+  <!-- ════ FILLS INOX ════ -->
+  <!-- Topo -->
+  <polygon id="ft" points="155,162 262,100 565,100 458,162" fill="url(#gt)" opacity="0"/>
+  <!-- Lateral -->
+  <polygon id="fla" points="458,162 565,100 565,342 458,402" fill="url(#gl)" opacity="0"/>
+  <!-- Frontal -->
+  <polygon id="ff" points="155,162 458,162 458,402 155,402" fill="url(#gf)" opacity="0"/>
+
+  <!-- Vents fill (escuro, dentro da frontal) -->
+  <g id="vf" clip-path="url(#cf)" opacity="0">
+    <rect x="197" y="248" width="11" height="72" rx="4" fill="#070707" opacity=".7"/>
+    <rect x="229" y="248" width="11" height="72" rx="4" fill="#070707" opacity=".7"/>
+    <rect x="261" y="248" width="11" height="72" rx="4" fill="#070707" opacity=".7"/>
+    <rect x="293" y="248" width="11" height="72" rx="4" fill="#070707" opacity=".7"/>
+    <rect x="325" y="248" width="11" height="72" rx="4" fill="#070707" opacity=".7"/>
+    <rect x="357" y="248" width="11" height="72" rx="4" fill="#070707" opacity=".7"/>
+  </g>
+
+  <!-- Grill fill (topo) -->
+  <g id="grf" clip-path="url(#ct)" opacity="0">
+    <rect width="820" height="570" fill="#141418"/>
+    <g stroke="#4a4d56" stroke-width="9" stroke-linecap="round">
+      <line x1="172" y1="162" x2="279" y2="100"/><line x1="202" y1="162" x2="309" y2="100"/>
+      <line x1="232" y1="162" x2="339" y2="100"/><line x1="262" y1="162" x2="369" y2="100"/>
+      <line x1="292" y1="162" x2="399" y2="100"/><line x1="322" y1="162" x2="429" y2="100"/>
+      <line x1="352" y1="162" x2="459" y2="100"/><line x1="382" y1="162" x2="489" y2="100"/>
+      <line x1="412" y1="162" x2="519" y2="100"/><line x1="442" y1="162" x2="549" y2="100"/>
+    </g>
+  </g>
+
+  <!-- Pega fill (lateral) -->
+  <g id="pgf" clip-path="url(#cla)" opacity="0">
+    <rect x="492" y="210" width="22" height="52" rx="11" fill="#070707" opacity=".6"/>
+  </g>
+
+  <!-- Tabs encaixe fill -->
+  <g id="tbf" opacity="0" fill="#c2c5cc">
+    <rect x="218" y="155" width="15" height="9" rx="2"/>
+    <rect x="258" y="155" width="15" height="9" rx="2"/>
+    <rect x="358" y="155" width="15" height="9" rx="2"/>
+    <rect x="398" y="155" width="15" height="9" rx="2"/>
+  </g>
+
+  <!-- Reflexo especular -->
+  <g id="spc" opacity="0">
+    <polygon points="155,162 280,162 240,230 155,265" fill="rgba(255,255,255,.055)"/>
+    <polygon points="458,162 480,162 480,195 458,192" fill="rgba(255,255,255,.09)"/>
+    <line x1="300" y1="162" x2="350" y2="162" stroke="rgba(255,255,255,.22)" stroke-width="1.5"/>
+  </g>
+
+  <!-- Pernas inox -->
+  <g id="lgsx" opacity="0" stroke="#7a7d85" stroke-width="1.1" fill="none">
+    <line x1="194" y1="402" x2="177" y2="460"/><line x1="216" y1="402" x2="199" y2="460"/>
+    <line x1="420" y1="402" x2="403" y2="460"/><line x1="442" y1="402" x2="425" y2="460"/>
+    <line x1="476" y1="402" x2="489" y2="458"/><line x1="548" y1="340" x2="561" y2="395"/>
+  </g>
+
+  <!-- ════ STROKES BLUEPRINT ════ -->
+  <g id="sm" fill="none" stroke="var(--cyan)" stroke-width="1.4" filter="url(#fg)">
+    <polygon id="st" points="155,162 262,100 565,100 458,162" stroke-dasharray="1100" stroke-dashoffset="1100"/>
+    <polygon id="sf" points="155,162 458,162 458,402 155,402" stroke-dasharray="990" stroke-dashoffset="990"/>
+    <polygon id="sl" points="458,162 565,100 565,342 458,402" stroke-dasharray="810" stroke-dashoffset="810"/>
+  </g>
+
+  <!-- Detalhes blueprint stroke -->
+  <g id="sd" fill="none" stroke="var(--cyan)" stroke-width=".9" opacity="0" filter="url(#fg)">
+    <!-- Vents -->
+    <rect x="197" y="248" width="11" height="72" rx="4"/>
+    <rect x="229" y="248" width="11" height="72" rx="4"/>
+    <rect x="261" y="248" width="11" height="72" rx="4"/>
+    <rect x="293" y="248" width="11" height="72" rx="4"/>
+    <rect x="325" y="248" width="11" height="72" rx="4"/>
+    <rect x="357" y="248" width="11" height="72" rx="4"/>
+    <!-- Pega -->
+    <rect x="492" y="210" width="22" height="52" rx="11"/>
+    <!-- Grelha topo -->
+    <g stroke-width=".65" opacity=".5" clip-path="url(#ct)">
+      <line x1="190" y1="162" x2="297" y2="100"/><line x1="220" y1="162" x2="327" y2="100"/>
+      <line x1="250" y1="162" x2="357" y2="100"/><line x1="280" y1="162" x2="387" y2="100"/>
+      <line x1="310" y1="162" x2="417" y2="100"/><line x1="340" y1="162" x2="447" y2="100"/>
+      <line x1="370" y1="162" x2="477" y2="100"/><line x1="400" y1="162" x2="507" y2="100"/>
+      <line x1="430" y1="162" x2="537" y2="100"/>
+    </g>
+    <!-- Tabs -->
+    <rect x="218" y="155" width="15" height="9" rx="2"/>
+    <rect x="258" y="155" width="15" height="9" rx="2"/>
+    <rect x="358" y="155" width="15" height="9" rx="2"/>
+    <rect x="398" y="155" width="15" height="9" rx="2"/>
+    <!-- Pernas -->
+    <line x1="194" y1="402" x2="177" y2="460"/><line x1="216" y1="402" x2="199" y2="460"/>
+    <line x1="420" y1="402" x2="403" y2="460"/><line x1="442" y1="402" x2="425" y2="460"/>
+    <line x1="476" y1="402" x2="489" y2="458"/><line x1="548" y1="340" x2="561" y2="395"/>
+  </g>
+
+  <!-- Inox strokes (fase materialização) -->
+  <g id="si" fill="none" stroke="#9a9da5" stroke-width="1.2" opacity="0">
+    <polygon points="155,162 262,100 565,100 458,162"/>
+    <polygon points="155,162 458,162 458,402 155,402"/>
+    <polygon points="458,162 565,100 565,342 458,402"/>
+    <line x1="458" y1="162" x2="458" y2="402" stroke="#7a7d85" stroke-width="1.6"/>
+    <line x1="155" y1="162" x2="458" y2="162" stroke="#7a7d85" stroke-width="1.6"/>
+    <line x1="262" y1="100" x2="565" y2="100" stroke="#9a9da5" stroke-width="1.2"/>
+  </g>
+  <!-- Inox detail strokes -->
+  <g id="sid" fill="none" stroke="#555860" stroke-width=".8" opacity="0">
+    <rect x="197" y="248" width="11" height="72" rx="4"/>
+    <rect x="229" y="248" width="11" height="72" rx="4"/>
+    <rect x="261" y="248" width="11" height="72" rx="4"/>
+    <rect x="293" y="248" width="11" height="72" rx="4"/>
+    <rect x="325" y="248" width="11" height="72" rx="4"/>
+    <rect x="357" y="248" width="11" height="72" rx="4"/>
+    <rect x="492" y="210" width="22" height="52" rx="11"/>
+  </g>
+
+  <!-- Brasa glow -->
+  <g id="bg-br" opacity="0">
+    <ellipse cx="305" cy="358" rx="132" ry="28" fill="rgba(255,130,0,.28)" filter="url(#fe)"/>
+    <ellipse cx="305" cy="392" rx="98" ry="16" fill="rgba(255,69,0,.55)" filter="url(#fe)"/>
+  </g>
+  <!-- Grelha quente -->
+  <g id="grhot" clip-path="url(#ct)" opacity="0">
+    <g stroke="rgba(255,120,0,.38)" stroke-width="10" stroke-linecap="round" filter="url(#fe)">
+      <line x1="172" y1="162" x2="279" y2="100"/><line x1="232" y1="162" x2="339" y2="100"/>
+      <line x1="292" y1="162" x2="399" y2="100"/><line x1="352" y1="162" x2="459" y2="100"/>
+      <line x1="412" y1="162" x2="519" y2="100"/>
+    </g>
+  </g>
+
+  <!-- ════ LABELS BLUEPRINT ════ -->
+  <g font-family="Archivo,sans-serif">
+
+    <!-- INOX 304 — esquerda -->
+    <g class="lb" id="lb0" opacity="0">
+      <line x1="155" y1="295" x2="82" y2="295" stroke="var(--cyan)" stroke-width=".8"/>
+      <line x1="82" y1="260" x2="82" y2="332" stroke="var(--cyan)" stroke-width=".8"/>
+      <text x="76" y="257" text-anchor="end" fill="var(--cyan)" font-size="11.5" font-weight="800" letter-spacing=".1em">INOX 304</text>
+      <text x="76" y="272" text-anchor="end" fill="var(--cyan-dim)" font-size="9.5" letter-spacing=".05em">Anti-maresia · Litoral</text>
+    </g>
+
+    <!-- Nervura — topo esq -->
+    <g class="lb" id="lb1" opacity="0">
+      <line x1="185" y1="162" x2="146" y2="112" stroke="var(--cyan)" stroke-width=".8"/>
+      <line x1="96" y1="112" x2="144" y2="112" stroke="var(--cyan)" stroke-width=".8"/>
+      <text x="90" y="109" text-anchor="end" fill="var(--cyan)" font-size="10" font-weight="800" letter-spacing=".07em">Nervura anti-empeno</text>
+    </g>
+
+    <!-- Grelha ajustável — topo centro -->
+    <g class="lb" id="lb2" opacity="0">
+      <line x1="358" y1="124" x2="358" y2="70" stroke="var(--cyan)" stroke-width=".8"/>
+      <text x="358" y="64" text-anchor="middle" fill="var(--cyan)" font-size="10" font-weight="800" letter-spacing=".07em">Grelha ajustável · 3 níveis</text>
+    </g>
+
+    <!-- Encaixe laser — baixo centro-esq -->
+    <g class="lb" id="lb3" opacity="0">
+      <line x1="280" y1="320" x2="280" y2="362" stroke="var(--cyan)" stroke-width=".8"/>
+      <text x="280" y="376" text-anchor="middle" fill="var(--cyan)" font-size="10" font-weight="800" letter-spacing=".07em">Encaixe precisão laser</text>
+    </g>
+
+    <!-- Flat-pack — abaixo -->
+    <g class="lb" id="lb4" opacity="0">
+      <line x1="306" y1="460" x2="306" y2="504" stroke="var(--cyan)" stroke-width=".8"/>
+      <text x="306" y="516" text-anchor="middle" fill="var(--cyan)" font-size="10" font-weight="800" letter-spacing=".07em">Flat-pack · Logística D2C</text>
+    </g>
+
+    <!-- Pega — direita -->
+    <g class="lb" id="lb5" opacity="0">
+      <line x1="514" y1="235" x2="596" y2="235" stroke="var(--cyan)" stroke-width=".8"/>
+      <text x="602" y="239" fill="var(--cyan)" font-size="10" font-weight="800" letter-spacing=".07em">Pega integrada</text>
+    </g>
+
+    <!-- Cota altura — esq -->
+    <g class="lb" id="lb6" opacity="0" fill="var(--cyan)">
+      <line x1="128" y1="162" x2="128" y2="402" stroke="var(--cyan)" stroke-width=".8"/>
+      <polygon points="128,160 124,170 132,170"/>
+      <polygon points="128,404 124,394 132,394"/>
+      <text x="122" y="288" text-anchor="middle" fill="var(--cyan)" font-size="9"
+        transform="rotate(-90,122,288)" letter-spacing=".1em">H 240mm</text>
+    </g>
+
+  </g><!-- /labels -->
+  </svg>
+  </div><!-- /svgwrap -->
+
+  <!-- TEXTOS POR FASE -->
+  <div class="pt" id="t1" style="bottom:9vh;left:6vw">
+    <span class="kk cy">Especificação Técnica</span>
+    <h2 class="ht md">Cada detalhe<br><em class="cy">calculado.</em></h2>
+  </div>
+
+  <div class="pt" id="t2" style="bottom:9vh;left:6vw">
+    <span class="kk cy">Inox 304 · Anti-maresia</span>
+    <h2 class="ht lg">Engenharia<br>de <em class="cy">verdade.</em></h2>
+    <p class="htsub">Da precisão industrial ao produto que não enferruja, não empena e não envergonha.</p>
+  </div>
+
+  <div class="pt" id="t3" style="bottom:0;left:0;right:0;text-align:center;padding-bottom:9vh">
+    <span class="kk em" style="display:block">A brasa acende</span>
+    <h2 class="ht lg">Feita para <em class="em">o litoral.</em></h2>
+    <p class="htsub" style="margin:14px auto 0;text-align:center">Boa para o Brasil inteiro.</p>
+  </div>
+
+  <div class="pt" id="t4" style="bottom:0;left:0;right:0;text-align:center;padding-bottom:9vh">
+    <span class="kk em" style="display:block">Vision Inox × Everton Stedile</span>
+    <h2 class="ht lg">A marca<br>começa aqui.</h2>
+  </div>
+
+  <!-- PHASE DOTS -->
+  <div id="dots">
+    <div class="dot"></div><div class="dot"></div>
+    <div class="dot"></div><div class="dot"></div>
+  </div>
+
+  <!-- SCROLL CUE -->
+  <div id="scue"><div class="sbar"></div><span>Role para explorar</span></div>
+
+</div><!-- /stage -->
+</div><!-- /track -->
+
+<!-- AFTER HERO -->
+<div id="ah">
+  <p>↓ &nbsp; Proposta Estratégica Completa — continua abaixo</p>
+</div>
+
+<script>
+// ── UTILS ──
+const C=(id)=>document.getElementById(id);
+const cl=(v,a,b)=>Math.max(a,Math.min(b,v));
+const mp=(v,a,b,c,d)=>c+(d-c)*cl((v-a)/(b-a),0,1);
+const ez=(t)=>t<.5?2*t*t:-1+(4-2*t)*t;
+const op=(el,v)=>{if(el)el.style.opacity=v};
+const dash=(el,L,t)=>{if(el)el.style.strokeDashoffset=L*(1-t)};
+const lerp=(a,b,t)=>a+(b-a)*t;
+
+// ── ELEMENTS ──
+const track=C('track'), pbar=C('pbar');
+const bg1=C('bg1'),bg2=C('bg2'),bg3=C('bg3');
+const gsr=C('gs-r'),gmr=C('gm-r'),ER=C('er');
+const sm=C('sm'),sd=C('sd'),si=C('si'),sid=C('sid');
+const st=C('st'),sf=C('sf'),sl=C('sl');
+const ft=C('ft'),fla=C('fla'),ff=C('ff');
+const vf=C('vf'),grf=C('grf'),pgf=C('pgf'),tbf=C('tbf'),spc=C('spc'),lgsx=C('lgsx');
+const bgBr=C('bg-br'),grhot=C('grhot');
+const dots=[...document.querySelectorAll('.dot')];
+const lbs=[...document.querySelectorAll('.lb')];
+const t1=C('t1'),t2=C('t2'),t3=C('t3'),t4=C('t4');
+const scue=C('scue'),psvg=C('psvg');
+
+// ── PATH LENGTHS ──
+let Lt,Lf,Ll;
+function initL(){
+  try{
+    Lt=st.getTotalLength();Lf=sf.getTotalLength();Ll=sl.getTotalLength();
+    st.style.strokeDasharray=Lt;st.style.strokeDashoffset=Lt;
+    sf.style.strokeDasharray=Lf;sf.style.strokeDashoffset=Lf;
+    sl.style.strokeDasharray=Ll;sl.style.strokeDashoffset=Ll;
+  }catch(e){Lt=1100;Lf=990;Ll=810}
+}
+
+// ── PARTICLES ──
+let particles=[], pfiring=false, praf=null;
+
+function mkPart(){
+  const ns='http://www.w3.org/2000/svg';
+  const stage=C('stage').getBoundingClientRect();
+  const sw=C('svgwrap').getBoundingClientRect();
+  // Area da grelha: topo do SVG, centro-horizontal
+  const x=lerp(sw.left+sw.width*.18, sw.left+sw.width*.74, Math.random());
+  const y=sw.top+sw.height*.23+(Math.random()-.5)*22;
+  const c=document.createElementNS(ns,'circle');
+  const r=1.8+Math.random()*3.2;
+  const h=10+Math.random()*22; // laranja-vermelho
+  c.setAttribute('cx',x); c.setAttribute('cy',y); c.setAttribute('r',r);
+  c.setAttribute('fill',`hsl(${h},95%,60%)`); c.setAttribute('opacity','.9');
+  psvg.appendChild(c);
+  return{el:c,x,y,vx:(Math.random()-.5)*.5,vy:-(1.2+Math.random()*1.8),r,life:0,maxLife:700+Math.random()*1100,t0:performance.now()};
+}
+
+function tickParticles(){
+  const now=performance.now();
+  if(pfiring&&particles.length<25&&Math.random()<.38){try{particles.push(mkPart())}catch(e){}}
+  particles=particles.filter(p=>{
+    const age=now-p.t0, life=age/p.maxLife;
+    if(life>=1){p.el.remove();return false}
+    p.x+=p.vx; p.y+=p.vy*1.1;
+    p.el.setAttribute('cx',p.x); p.el.setAttribute('cy',p.y);
+    const o=life<.55?.9:lerp(.9,0,(life-.55)/.45);
+    const rs=life<.65?p.r:lerp(p.r,0,(life-.65)/.35);
+    p.el.setAttribute('opacity',o); p.el.setAttribute('r',rs);
+    return true;
+  });
+  praf=requestAnimationFrame(tickParticles);
+}
+
+function startP(){if(!pfiring){pfiring=true;if(!praf)tickParticles()}}
+function stopP(){pfiring=false}
+
+// ── MAIN UPDATE ──
+let curPhase=-1,pStarted=false;
+
+function update(p){
+  // Progress bar
+  pbar.style.width=(p*100)+'%';
+  if(p>.04)scue.classList.add('gone'); else scue.classList.remove('gone');
+
+  // ── P1: Blueprint (0 → 0.22) ──
+  const gOp=ez(mp(p,0,.08,0,1));
+  op(gsr,gOp*.65); op(gmr,gOp); op(bg1,gOp);
+
+  // Strokes 3/4 em sequência
+  dash(st,Lt,ez(mp(p,.04,.14,0,1)));
+  dash(sf,Lf,ez(mp(p,.08,.18,0,1)));
+  dash(sl,Ll,ez(mp(p,.13,.22,0,1)));
+
+  // Detalhes e labels
+  const dOp=ez(mp(p,.17,.27,0,1));
+  op(sd,dOp);
+
+  // Labels individuais escalonados
+  const lbT=[.20,.22,.24,.26,.28,.29,.31];
+  lbs.forEach((l,i)=>{
+    const a=lbT[i]||.28, b=a+.08;
+    op(l,ez(mp(p,a,b,0,1)));
+  });
+
+  // Text 1
+  op(t1,ez(mp(p,.12,.22,0,1))*(1-ez(mp(p,.38,.44,0,1))));
+
+  // ── P2: Materialização (0.38 → 0.58) ──
+  const matP=ez(mp(p,.38,.57,0,1));
+  const bpFade=1-ez(mp(p,.38,.52,0,1));
+  const gFade=lerp(1,.2,ez(mp(p,.40,.54,0,1)));
+
+  op(bg1,gOp*gFade);
+  op(gsr,gOp*.65*gFade);
+  op(gmr,gOp*gFade);
+  op(sm,bpFade);
+  op(sd,dOp*bpFade);
+  lbs.forEach(l=>op(l,(parseFloat(l.style.opacity)||0)*bpFade));
+
+  op(ff,matP); op(fla,matP); op(ft,matP);
+  op(vf,matP); op(grf,matP); op(pgf,matP); op(tbf,matP);
+  op(spc,matP*.75); op(si,matP); op(sid,matP); op(lgsx,matP);
+
+  op(t2,ez(mp(p,.42,.52,0,1))*(1-ez(mp(p,.59,.66,0,1))));
+
+  // ── P3: Brasa (0.60 → 0.82) ──
+  const brasP=ez(mp(p,.60,.78,0,1));
+  op(bgBr,brasP); op(grhot,brasP); op(bg2,brasP*.9); op(ER,brasP*.55);
+
+  if(brasP>.28&&!pStarted){pStarted=true;startP()}
+  if(brasP<.08&&pStarted){pStarted=false;stopP()}
+
+  op(t3,ez(mp(p,.62,.74,0,1))*(1-ez(mp(p,.81,.87,0,1))));
+
+  // ── P4: Praia / Final (0.83 → 1.0) ──
+  const praP=ez(mp(p,.83,.96,0,1));
+  op(bg3,praP);
+  op(t4,ez(mp(p,.86,.96,0,1)));
+
+  // ── DOTS ──
+  let ph=p<.24?0:p<.46?1:p<.65?2:3;
+  if(ph!==curPhase){dots.forEach((d,i)=>d.classList.toggle('on',i===ph));curPhase=ph}
+}
+
+// ── SCROLL ──
+let ticking=false;
+function onScroll(){
+  if(!ticking){
+    requestAnimationFrame(()=>{
+      const r=track.getBoundingClientRect();
+      const prog=cl(-r.top/(r.height-window.innerHeight),0,1);
+      update(prog); ticking=false;
+    });
+    ticking=true;
+  }
+}
+
+// ── RESIZE particles SVG viewBox ──
+function resizePSVG(){
+  psvg.setAttribute('viewBox',`0 0 ${window.innerWidth} ${window.innerHeight}`);
+}
+
+// ── INIT ──
+document.addEventListener('DOMContentLoaded',()=>{
+  initL(); update(0); resizePSVG();
+  window.addEventListener('resize',resizePSVG,{passive:true});
+});
+window.addEventListener('scroll',onScroll,{passive:true});
+onScroll();
+</script>
+</body>
+</html>
