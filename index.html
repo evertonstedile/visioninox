@@ -60,6 +60,7 @@ body::before{content:"";position:fixed;inset:0;z-index:1;pointer-events:none;
 /* papel + esbocos + desenho final: cover sobre mesa escura warm */
 #kf-paper,#kf-sk1,#kf-sk2,#kf-sk3,#kf-draw{background:radial-gradient(ellipse 118% 96% at 50% 52%,#1c140b,#080503 80%)}
 #kf-paper img,#kf-sk1 img,#kf-sk2 img,#kf-sk3 img,#kf-draw img{object-fit:cover;object-position:center 44%}
+@media(min-width:761px){#kf-draw img{object-fit:contain;object-position:center}}
 /* blueprints: contain (prancha inteira) sobre azul profundo */
 #kf-btec,#kf-bren{background:radial-gradient(ellipse 96% 88% at 50% 48%,#0b1622,#060a0f 74%)}
 #kf-btec .media,#kf-bren .media{display:flex;align-items:center;justify-content:center;padding:4vh 4vw}
@@ -630,7 +631,7 @@ section.sec,section.manifesto,section.pos,section.evo,section.cw,section.pclose,
   <div class="kf" id="kf-sk1"><div class="media"><picture><source media="(max-width:760px)" srcset="assets/sketch1-mobile.png"><img src="assets/sketch1.png" alt="Primeiro esboço"></picture></div></div>
   <div class="kf" id="kf-sk2"><div class="media"><picture><source media="(max-width:760px)" srcset="assets/sketch2-mobile.png"><img src="assets/sketch2.png" alt="Esboço em evolução"></picture></div></div>
   <div class="kf" id="kf-sk3"><div class="media"><picture><source media="(max-width:760px)" srcset="assets/sketch3-mobile.png"><img src="assets/sketch3.png" alt="Esboço refinado com a marca"></picture></div></div>
-  <div class="kf" id="kf-draw"><div class="media"><picture><source media="(max-width:760px)" srcset="assets/blueprint_desenho_final-mobile.png"><img src="assets/blueprint_desenho_final-mobile.png" alt="Blueprint desenhada à mão — o projeto definido"></picture></div></div>
+  <div class="kf" id="kf-draw"><div class="media"><picture><source media="(max-width:760px)" srcset="assets/blueprint_desenho_final-mobile.png"><img src="assets/blueprint_desenho_final.png" alt="Blueprint desenhada à mão — o projeto definido"></picture></div></div>
   <div class="kf" id="kf-btec"><div class="media"><picture><source media="(max-width:760px)" srcset="assets/blueprint_render-mobile.png"><img src="assets/blueprint_render.png" alt="Blueprint — linha técnica em ciano"></picture></div></div>
   <div class="kf" id="kf-bren"><div class="media"><picture><source media="(max-width:760px)" srcset="assets/blueprint_tec-mobile.png"><img src="assets/blueprint_tec.png" alt="Blueprint — render em inox 304"></picture></div></div>
   <div class="kf" id="kf-denc"><div class="media"><picture><source media="(max-width:760px)" srcset="assets/det_encaixe-mobile.png"><img src="assets/det_encaixe.png" alt="Encaixe a laser"></picture></div></div>
