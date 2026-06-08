@@ -37,9 +37,10 @@ body::before{content:"";position:fixed;inset:0;z-index:1;pointer-events:none;
 .kf{position:absolute;inset:0;opacity:0;will-change:opacity}
 .kf .media{position:absolute;inset:0;width:100%;height:100%}
 .kf img,.kf video{width:100%;height:100%;display:block;will-change:transform}
-/* papel + esbocos: cover sobre mesa escura warm */
-#kf-paper,#kf-sk1,#kf-sk2,#kf-sk3{background:radial-gradient(ellipse 118% 96% at 50% 52%,#1c140b,#080503 80%)}
-#kf-paper img,#kf-sk1 img,#kf-sk2 img,#kf-sk3 img{object-fit:cover;object-position:center 44%}
+.kf .media picture{display:contents}
+/* papel + esbocos + desenho final: cover sobre mesa escura warm */
+#kf-paper,#kf-sk1,#kf-sk2,#kf-sk3,#kf-draw{background:radial-gradient(ellipse 118% 96% at 50% 52%,#1c140b,#080503 80%)}
+#kf-paper img,#kf-sk1 img,#kf-sk2 img,#kf-sk3 img,#kf-draw img{object-fit:cover;object-position:center 44%}
 /* blueprints: contain (prancha inteira) sobre azul profundo */
 #kf-btec,#kf-bren{background:radial-gradient(ellipse 96% 88% at 50% 48%,#0b1622,#060a0f 74%)}
 #kf-btec .media,#kf-bren .media{display:flex;align-items:center;justify-content:center;padding:4vh 4vw}
@@ -287,6 +288,19 @@ footer p{font-size:12px;color:var(--faint);letter-spacing:.04em}
 .rv[data-rv="slide-l"].in{transform:none}
 .rv[data-rv="slide-r"]{transform:translateX(46px)}
 .rv[data-rv="slide-r"].in{transform:none}
+/* N2 — tratamento cinematografico-agressivo (cortina + cascata + parallax), escopado em .n2 */
+.n2 .rv{transform:translateY(46px);transition:opacity 1.15s cubic-bezier(.2,.7,.2,1),transform 1.15s cubic-bezier(.2,.7,.2,1)}
+.n2 .rv.in{transform:none}
+.n2 h2.rv{opacity:1;transform:none;overflow:hidden;padding-bottom:4px}
+.n2 h2.rv .n2hl{display:block;transform:translateY(108%);transition:transform 1.2s cubic-bezier(.2,.7,.2,1) .18s}
+.n2 h2.rv.in .n2hl{transform:none}
+.n2 .stat{position:relative}
+.n2 .stat.climax .v{transition:text-shadow 1s ease 1s}
+.n2 .stat.climax.in .v{text-shadow:0 0 40px rgba(255,90,20,.5)}
+.n2 .ignite{position:absolute;left:30px;right:30px;bottom:0;height:3px;border-radius:2px;transform:scaleX(0);transform-origin:left;background:linear-gradient(90deg,var(--e1),var(--e2) 60%,transparent);transition:transform 1.1s cubic-bezier(.2,.7,.2,1) 1.05s}
+.n2 .stat.climax.in .ignite{transform:scaleX(1)}
+.n2 [data-px]{will-change:transform}
+@media(max-width:760px){.n2 .rv{transform:translateY(30px)}.n2 [data-px]{transform:none!important}}
 
 /* ===== SHOWROOM DE PRODUTOS — palco com profundidade ===== */
 .line-grid.showroom{position:relative;align-items:center}
@@ -321,6 +335,9 @@ footer p{font-size:12px;color:var(--faint);letter-spacing:.04em}
 html{scroll-snap-type:y proximity}
 #track,#stage,.kf{scroll-snap-align:none}
 section.sec,section.manifesto,section.pos,section.evo,section.cw,section.pclose,section.close{scroll-snap-align:start;scroll-snap-stop:normal}
+/* M1 — reveal a partir do preto: cobre a cena no inicio e dissolve apos a intro */
+#darkrise{position:fixed;inset:0;z-index:50;background:#070707;opacity:1;pointer-events:none;transition:opacity 1.0s cubic-bezier(.2,.7,.2,1)}
+#darkrise.gone{opacity:0}
 
 </style>
 </head>
@@ -337,24 +354,26 @@ section.sec,section.manifesto,section.pos,section.evo,section.cw,section.pclose,
   <div class="intro-cue">Toque para começar</div>
   <button class="intro-skip" id="introSkip">continuar sem som</button>
 </div>
+<div id="darkrise"></div>
 <button id="sndBtn" aria-label="Som"><svg class="ic-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg><svg class="ic-on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4V5z"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg></button>
 <div id="track">
 <div id="stage">
-  <div class="kf" id="kf-paper"><div class="media"><img src="assets/paper.png" alt="Folha em branco"></div></div>
-  <div class="kf" id="kf-sk1"><div class="media"><img src="assets/sketch1.png" alt="Primeiro esboço"></div></div>
-  <div class="kf" id="kf-sk2"><div class="media"><img src="assets/sketch2.png" alt="Esboço em evolução"></div></div>
-  <div class="kf" id="kf-sk3"><div class="media"><img src="assets/sketch3.png" alt="Esboço refinado com a marca"></div></div>
-  <div class="kf" id="kf-btec"><div class="media"><img src="assets/blueprint_tec.png" alt="Blueprint técnica"></div></div>
-  <div class="kf" id="kf-bren"><div class="media"><img src="assets/blueprint_render.png" alt="Blueprint em render"></div></div>
-  <div class="kf" id="kf-denc"><div class="media"><img src="assets/det_encaixe.png" alt="Encaixe a laser"></div></div>
-  <div class="kf" id="kf-dgre"><div class="media"><img src="assets/det_grelha.png" alt="Grelha em inox 304"></div></div>
-  <div class="kf" id="kf-inox"><div class="media"><img src="assets/inox_hero.png" alt="Vision Inox — produto em inox 304"></div></div>
+  <div class="kf" id="kf-paper"><div class="media"><picture><source media="(max-width:760px)" srcset="assets/paper-mobile.png"><img src="assets/paper.png" alt="Folha em branco"></picture></div></div>
+  <div class="kf" id="kf-sk1"><div class="media"><picture><source media="(max-width:760px)" srcset="assets/sketch1-mobile.png"><img src="assets/sketch1.png" alt="Primeiro esboço"></picture></div></div>
+  <div class="kf" id="kf-sk2"><div class="media"><picture><source media="(max-width:760px)" srcset="assets/sketch2-mobile.png"><img src="assets/sketch2.png" alt="Esboço em evolução"></picture></div></div>
+  <div class="kf" id="kf-sk3"><div class="media"><picture><source media="(max-width:760px)" srcset="assets/sketch3-mobile.png"><img src="assets/sketch3.png" alt="Esboço refinado com a marca"></picture></div></div>
+  <div class="kf" id="kf-draw"><div class="media"><picture><source media="(max-width:760px)" srcset="assets/blueprint_desenho_final-mobile.png"><img src="assets/blueprint_desenho_final.png" alt="Blueprint desenhada à mão — o projeto definido"></picture></div></div>
+  <div class="kf" id="kf-btec"><div class="media"><picture><source media="(max-width:760px)" srcset="assets/blueprint_render-mobile.png"><img src="assets/blueprint_render.png" alt="Blueprint — linha técnica em ciano"></picture></div></div>
+  <div class="kf" id="kf-bren"><div class="media"><picture><source media="(max-width:760px)" srcset="assets/blueprint_tec-mobile.png"><img src="assets/blueprint_tec.png" alt="Blueprint — render em inox 304"></picture></div></div>
+  <div class="kf" id="kf-denc"><div class="media"><picture><source media="(max-width:760px)" srcset="assets/det_encaixe-mobile.png"><img src="assets/det_encaixe.png" alt="Encaixe a laser"></picture></div></div>
+  <div class="kf" id="kf-dgre"><div class="media"><picture><source media="(max-width:760px)" srcset="assets/det_grelha-mobile.png"><img src="assets/det_grelha.png" alt="Grelha em inox 304"></picture></div></div>
+  <div class="kf" id="kf-inox"><div class="media"><picture><source media="(max-width:760px)" srcset="assets/inox_hero-mobile.png"><img src="assets/inox_hero.png" alt="Vision Inox — produto em inox 304"></picture></div></div>
   <div class="kf" id="kf-praia"><div class="media"><video id="heroVid" muted playsinline preload="auto" poster="assets/hero-poster.jpg"><source src="assets/hero-wan.webm" type="video/webm"><source src="assets/hero-wan-web.mp4" type="video/mp4"></video></div></div>
-  <div class="kf" id="kf-praiaimg"><div class="media"><img id="praiaImg" src="assets/praia_final.png" alt="Vision Inox no litoral — 4K"></div></div>
-  <div class="kf" id="kf-camp"><div class="media"><img src="assets/amb_camping.png" alt="Vision Inox no camping"></div></div>
-  <div class="kf" id="kf-pisc"><div class="media"><img src="assets/amb_piscina.png" alt="Vision Inox na beira da piscina"></div></div>
-  <div class="kf" id="kf-mont"><div class="media"><img src="assets/amb_montanha.png" alt="Vision Inox na montanha"></div></div>
-  <div class="kf" id="kf-cam"><div class="media"><img src="assets/amb_caminhonete.png" alt="Vision Inox na caminhonete"></div></div>
+  <div class="kf" id="kf-praiaimg"><div class="media"><picture><source media="(max-width:760px)" srcset="assets/praia_final-mobile.png"><img id="praiaImg" src="assets/praia_final.png" alt="Vision Inox no litoral"></picture></div></div>
+  <div class="kf" id="kf-camp"><div class="media"><picture><source media="(max-width:760px)" srcset="assets/amb_camping.png"><img src="assets/amb_camping.png" alt="Vision Inox no camping"></picture></div></div>
+  <div class="kf" id="kf-pisc"><div class="media"><picture><source media="(max-width:760px)" srcset="assets/amb_piscina-mobile.png"><img src="assets/amb_piscina.png" alt="Vision Inox na beira da piscina"></picture></div></div>
+  <div class="kf" id="kf-mont"><div class="media"><picture><source media="(max-width:760px)" srcset="assets/amb_montanha-mobile.png"><img src="assets/amb_montanha.png" alt="Vision Inox na montanha"></picture></div></div>
+  <div class="kf" id="kf-cam"><div class="media"><picture><source media="(max-width:760px)" srcset="assets/amb_caminhonete-mobile.png"><img src="assets/amb_caminhonete.png" alt="Vision Inox na caminhonete"></picture></div></div>
   <div class="hero-scrim"></div>
   <audio id="auMusic" loop preload="auto"><source src="assets/hero-music.mp3" type="audio/mpeg"></audio>
   <audio id="auEmber" loop preload="auto"><source src="assets/hero-embers.mp3" type="audio/mpeg"></audio>
@@ -375,17 +394,17 @@ section.sec,section.manifesto,section.pos,section.evo,section.cw,section.pclose,
 </div>
 
 <!-- ════════════ SEÇÃO 01 — O MOMENTO ════════════ -->
-<section class="sec">
+<section class="sec n2">
   <div class="wrap">
-    <div class="sec-head">
+    <div class="sec-head" data-px="-24">
       <span class="kicker steel rv"><span class="num-tag">01</span>O momento</span>
       <h2 class="rv d1">A Vision já tem o mais difícil. <span class="steel-grad">Falta traduzir.</span></h2>
       <p class="lead rv d2">A Vision Inox fabrica para gigantes da indústria. Domina o aço, o corte a laser e a engenharia num nível que pouquíssimos alcançam. O problema nunca foi capacidade técnica — é que <em class="f">nada disso chega ao consumidor final hoje.</em></p>
     </div>
-    <div class="stats">
+    <div class="stats" data-px="18">
       <div class="stat rv d1"><div class="v">20<span class="u">+</span></div><div class="k">anos de domínio técnico em desenvolvimento de produto em inox</div></div>
       <div class="stat rv d2"><div class="v">0</div><div class="k">presença digital institucional à altura do que a empresa realmente é</div></div>
-      <div class="stat rv d3"><div class="v">R$<span data-count="10" data-suffix="M+">0</span></div><div class="k">gerados em e-commerce pela consultoria que conduz este projeto</div></div>
+      <div class="stat rv d3 climax"><div class="v">R$<span data-count="10" data-suffix="M+" data-delay="950">0</span></div><div class="k">gerados em e-commerce pela consultoria que conduz este projeto</div><div class="ignite"></div></div>
     </div>
   </div>
 </section>
@@ -400,7 +419,7 @@ section.sec,section.manifesto,section.pos,section.evo,section.cw,section.pclose,
 </section>
 
 <!-- ════════════ SEÇÃO 03 — O MERCADO ════════════ -->
-<section class="sec">
+<section class="sec n2">
   <div class="wrap">
     <div class="sec-head">
       <span class="kicker steel rv"><span class="num-tag">03</span>O mercado</span>
@@ -416,7 +435,7 @@ section.sec,section.manifesto,section.pos,section.evo,section.cw,section.pclose,
 </section>
 
 <!-- ════════════ SEÇÃO 04 — DIFERENCIAÇÃO ════════════ -->
-<section class="sec diff">
+<section class="sec diff n2">
   <div class="wrap">
     <div class="sec-head">
       <span class="kicker rv"><span class="num-tag">04</span>Diferenciação de produto</span>
@@ -687,7 +706,7 @@ section.sec,section.manifesto,section.pos,section.evo,section.cw,section.pclose,
 </section>
 
 <!-- ════════════ SEÇÃO 07 — O SISTEMA ════════════ -->
-<section class="sec">
+<section class="sec n2">
   <div class="wrap">
     <div class="sec-head">
       <span class="kicker steel rv"><span class="num-tag">06</span>O sistema</span>
@@ -704,7 +723,7 @@ section.sec,section.manifesto,section.pos,section.evo,section.cw,section.pclose,
 </section>
 
 <!-- ════════════ SEÇÃO 08 — OS NÚMEROS ════════════ -->
-<section class="sec numbers">
+<section class="sec numbers n2">
   <div class="wrap">
     <div class="sec-head">
       <span class="kicker rv"><span class="num-tag">07</span>Os números</span>
@@ -1127,16 +1146,17 @@ const SC=[
  ['kf-paper',.000,.050,0,1,'s'],
  ['kf-sk1',  .050,.097,1,1,'s'],
  ['kf-sk2',  .097,.143,1,1,'s'],
- ['kf-sk3',  .143,.200,1,1,'s'],
- ['kf-btec', .200,.268,1,1,'s'],
- ['kf-bren', .268,.328,1,1,'s'],
- ['kf-denc', .328,.380,1,1,'s'],
- ['kf-dgre', .380,.432,1,1,'s'],
- ['kf-inox', .432,.500,1,1,'s'],
+ ['kf-sk3',  .143,.188,1,1,'s'],
+ ['kf-draw', .188,.242,1,1,'s'],
+ ['kf-btec', .242,.295,1,1,'s'],
+ ['kf-bren', .295,.345,1,1,'s'],
+ ['kf-denc', .345,.392,1,1,'s'],
+ ['kf-dgre', .392,.438,1,1,'s'],
+ ['kf-inox', .438,.500,1,1,'s'],
  ['kf-camp', .651,.733,1,1,'out'],
  ['kf-pisc', .733,.814,1,1,'in'],
  ['kf-mont', .814,.895,1,1,'out'],
- ['kf-cam',  .895,1.00,1,0,'in']
+ ['kf-cam',  .895,1.00,1,0,'out']
 ];
 const SCE=SC.map(function(s){var el=C(s[0]);return {el:el,img:el?el.querySelector('img'):null,a:s[1],b:s[2],fin:s[3],fout:s[4],z:s[5]};});
 function update(p){
@@ -1153,6 +1173,8 @@ function update(p){
     else sc=1.045-seg(p,s.a,s.b)*0.045;
     if(s.img)s.img.style.transform='scale('+sc.toFixed(3)+')';
   }
+  // M6: caminhonete some em fade-out no fim (.95-1.0), por cima a headline final sobre o preto
+  var _cam=C('kf-cam');if(_cam)op(_cam,seg(p,.875,.915)*(1-seg(p,.95,1.0)));
   // PRAIA: video forward(.515-.575) + reverse(.575-.610) -> img4K(.600-.625) -> zoom-in logo(.620-.651)
   op(kfPraia, seg(p,.480,.520)*(1-seg(p,.600,.625)));
   if(heroVid&&vdur){var vt; if(p<.575){vt=mp(p,.515,.575,0,vdur);}else{vt=mp(p,.575,.610,vdur,0);} vt=cl(vt,0,vdur); if(Math.abs((heroVid.currentTime||0)-vt)>.04){try{heroVid.currentTime=vt}catch(e){}}}
@@ -1160,25 +1182,27 @@ function update(p){
   if(praiaImg)praiaImg.style.transform='scale('+(1+seg(p,.620,.651)*(window.innerWidth<760?0.45:1.12)).toFixed(3)+')';
   // TEXTOS (escala e posicao variam por cena)
   op(t1, seg(p,.012,.04)*(1-seg(p,.072,.10)));
-  op(t2, seg(p,.105,.14)*(1-seg(p,.178,.20)));
-  op(t3, seg(p,.215,.25)*(1-seg(p,.308,.328)));
-  op(t4, seg(p,.335,.36)*(1-seg(p,.41,.432)));
-  op(t5, seg(p,.443,.47)*(1-seg(p,.495,.50)));
+  op(t2, seg(p,.105,.14)*(1-seg(p,.168,.188)));
+  op(t3, seg(p,.203,.233)*(1-seg(p,.325,.345)));
+  op(t4, seg(p,.355,.385)*(1-seg(p,.418,.438)));
+  op(t5, seg(p,.450,.478)*(1-seg(p,.502,.516)));
   op(t6, seg(p,.515,.55)*(1-seg(p,.585,.61)));
-  op(t6b, seg(p,.668,.690)*(1-seg(p,.715,.728)));
-  op(t7, seg(p,.748,.770)*(1-seg(p,.793,.806)));
-  op(t7b, seg(p,.830,.852)*(1-seg(p,.875,.888)));
-  op(t7c, seg(p,.905,.920)*(1-seg(p,.938,.950)));
-  op(t8, seg(p,.956,.966)*(1-seg(p,.990,1.0)));
+  op(t6b, seg(p,.664,.682)*(1-seg(p,.700,.713)));
+  op(t7, seg(p,.745,.763)*(1-seg(p,.781,.794)));
+  op(t7b, seg(p,.827,.845)*(1-seg(p,.862,.875)));
+  op(t7c, seg(p,.908,.924)*(1-seg(p,.930,.942)));
+  op(t8, seg(p,.940,.965));
   var ph=p<.20?0:p<.432?1:p<.651?2:3;
   if(ph!==curPh){dots.forEach((d,i)=>d.classList.toggle('on',i===ph));curPh=ph}
 }
 function applyAudio(pr){
   if(!sndOn)return;
-  // musica forte no build-up (atos 1-4), sai na lifestyle (.47-.57), volta baixa nas secoes (pr>1)
-  auMusic.volume=cl(0.78*cl(1-seg(pr,.47,.57),0,1)+0.34*seg(pr,1.0,1.12),0,1);
-  // brasa entra na praia (.50-.60), fica na lifestyle, some nas secoes (pr>1)
-  auEmber.volume=cl(0.85*seg(pr,.50,.60)*(1-seg(pr,1.0,1.08)),0,1);
+  // M4: musica NAO zera no video — piso ~0.12 no fundo; volta a 0.50 nas cenas terrestres; assenta 0.34 nas secoes
+  var mUp=0.78*(1-seg(pr,.47,.57));
+  var mb=Math.max(mUp,0.12)+seg(pr,.66,.72)*(0.50-0.12)+seg(pr,1.0,1.12)*(0.34-0.50);
+  auMusic.volume=cl(mb,0,1);
+  // M4: brasa (fogo+mar) entra na praia (.50-.60) e some nas terrestres (.62-.72), cruzando com a volta da musica
+  auEmber.volume=cl(0.85*seg(pr,.50,.60)*(1-seg(pr,.62,.72)),0,1);
 }
 let tick=false;
 function onScroll(){if(!tick){requestAnimationFrame(function(){if(track){var r=track.getBoundingClientRect();var rng=r.height-window.innerHeight;var pr=(rng>0?-r.top/rng:0);lastPr=pr;update(cl(pr,0,1));applyAudio(pr);}tick=false});tick=true}}
@@ -1199,6 +1223,7 @@ function enterExperience(withSound){
   if(withSound)setSound(true);
   if(sndBtn)sndBtn.style.display='flex';
   if(intro)intro.classList.add('gone');
+  var _dr=C('darkrise');if(_dr)setTimeout(function(){_dr.classList.add('gone');},850);
   unlockScroll();
   setTimeout(function(){if(intro)intro.style.display='none';},1200);
 }
@@ -1209,7 +1234,23 @@ if(intro){lockScroll();}
 var _pcl=C('pclose');
 if(_pcl&&'IntersectionObserver' in window){new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){_pcl.classList.add('lit');}})},{threshold:.32}).observe(_pcl);}
 
-function applyScenes(){document.querySelectorAll('section h2.rv').forEach(function(h){if(!h.hasAttribute('data-rv'))h.setAttribute('data-rv','depth');});document.querySelectorAll('.big.rv').forEach(function(e){e.setAttribute('data-rv','mask');});document.querySelectorAll('.pos-shot.rv, .evo-compare.rv').forEach(function(e){e.setAttribute('data-rv','mask');});document.querySelectorAll('.tagline.rv').forEach(function(e){e.setAttribute('data-rv','depth');});var SEL='.diff-row,.stat,.ecard,.scen-card,.cw-front,.cw-phase,.evo-card,.ue';document.querySelectorAll(SEL).forEach(function(el){var sibs=[].slice.call(el.parentElement.children).filter(function(x){return x.matches&&x.matches(SEL);});var i=Math.max(0,sibs.indexOf(el));el.style.transitionDelay=(0.05+i*0.07)+'s';});}
+function applyScenes(){document.querySelectorAll('section h2.rv').forEach(function(h){if(!h.hasAttribute('data-rv'))h.setAttribute('data-rv','depth');});document.querySelectorAll('.big.rv').forEach(function(e){e.setAttribute('data-rv','mask');});document.querySelectorAll('.pos-shot.rv, .evo-compare.rv').forEach(function(e){e.setAttribute('data-rv','mask');});document.querySelectorAll('.tagline.rv').forEach(function(e){e.setAttribute('data-rv','depth');});var SEL='.diff-row,.stat,.ecard,.scen-card,.cw-front,.cw-phase,.evo-card,.ue';document.querySelectorAll(SEL).forEach(function(el){var sibs=[].slice.call(el.parentElement.children).filter(function(x){return x.matches&&x.matches(SEL);});var i=Math.max(0,sibs.indexOf(el));el.style.transitionDelay=(0.05+i*0.07)+'s';});
+  // N2: tratamento teatral automatico em cada secao .n2 (headline cortina + cascata + parallax)
+  document.querySelectorAll('.n2').forEach(function(sec){
+    var hl=sec.querySelector('h2.rv');
+    if(hl && !hl.querySelector('.n2hl')){
+      hl.removeAttribute('data-rv');
+      var w=document.createElement('span'); w.className='n2hl';
+      while(hl.firstChild) w.appendChild(hl.firstChild);
+      hl.appendChild(w);
+    }
+    var kf=sec.querySelector('.kicker'); if(kf)kf.style.transitionDelay='0s';
+    var ld=sec.querySelector('.lead'); if(ld)ld.style.transitionDelay='.40s';
+    sec.querySelectorAll('.stat,.diff-row,.pcard,.ue,.scen-card,.ecard,.ramp,.premise').forEach(function(c,i){c.style.transitionDelay=(0.50+i*0.16)+'s';});
+    var hd=sec.querySelector('.sec-head'); if(hd&&!hd.hasAttribute('data-px'))hd.setAttribute('data-px','-22');
+    var gr=sec.querySelector('.stats'); if(gr&&!gr.hasAttribute('data-px'))gr.setAttribute('data-px','16');
+  });
+}
 // ── PROPOSTA: REVEAL + COUNT + BARS ──
 const io=new IntersectionObserver(entries=>{
   entries.forEach(e=>{
@@ -1218,10 +1259,12 @@ const io=new IntersectionObserver(entries=>{
     el.querySelectorAll('[data-count]').forEach(c=>{
       if(c.dataset.done)return;c.dataset.done=1;
       const tgt=parseFloat(c.dataset.count);const suf=c.dataset.suffix||'';
-      const dur=1300;const t0=performance.now();
-      const tick=t=>{const p=Math.min((t-t0)/dur,1);const ease=1-Math.pow(1-p,3);
-        c.textContent=Math.round(tgt*ease)+suf;if(p<1)requestAnimationFrame(tick)};
-      requestAnimationFrame(tick);
+      const dly=parseInt(c.dataset.delay||'0',10);
+      const run=()=>{const dur=1300;const t0=performance.now();
+        const tick=t=>{const p=Math.min((t-t0)/dur,1);const ease=1-Math.pow(1-p,3);
+          c.textContent=Math.round(tgt*ease)+suf;if(p<1)requestAnimationFrame(tick)};
+        requestAnimationFrame(tick);};
+      dly>0?setTimeout(run,dly):run();
     });
     el.querySelectorAll('[data-w]').forEach(b=>{if(b.dataset.done)return;b.dataset.done=1;setTimeout(()=>{b.style.width=b.dataset.w+'%'},120)});
     io.unobserve(el);
@@ -1233,6 +1276,16 @@ document.addEventListener('DOMContentLoaded',()=>{
   update(0);initHeroVideo();
   applyScenes();
   document.querySelectorAll('.rv').forEach(el=>io.observe(el));
+  // N2 — parallax leve (so transform; escopo .n2; off <760)
+  var m7px=[].slice.call(document.querySelectorAll('.n2 [data-px]'));
+  if(m7px.length){var m7raf=0;
+    var m7ap=function(){m7raf=0;var sm=innerWidth<760,vh=innerHeight;
+      m7px.forEach(function(e){if(sm){e.style.transform='';return;}
+        var r=e.getBoundingClientRect();var pr=((r.top+r.height/2)-vh/2)/vh;
+        e.style.transform='translateY('+(pr*(parseFloat(e.dataset.px)||0)).toFixed(1)+'px)';});};
+    addEventListener('scroll',function(){if(!m7raf)m7raf=requestAnimationFrame(m7ap);},{passive:true});
+    addEventListener('resize',function(){if(!m7raf)m7raf=requestAnimationFrame(m7ap);},{passive:true});
+    m7ap();}
   window.addEventListener('resize',onScroll,{passive:true});
 });
 window.addEventListener('scroll',onScroll,{passive:true});
