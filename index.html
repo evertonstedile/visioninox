@@ -163,11 +163,11 @@ em.f{font-style:italic;font-family:var(--fd)}
 .diff{background:var(--bg-2)}
 .diff-row{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--line);border-radius:16px;overflow:hidden;margin-bottom:22px;background:var(--bg)}
 .diff-pain{padding:34px;border-right:1px solid var(--line)}
-.diff-sol{padding:34px;background:linear-gradient(180deg,rgba(255,69,0,.05),rgba(255,69,0,.01))}
+.diff-sol{padding:34px;background:linear-gradient(180deg,rgba(255,69,0,.05),rgba(255,69,0,.01));box-shadow:inset 3px 0 0 #2fd98a}
 .diff-tag{font-size:11px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;margin-bottom:16px;display:flex;align-items:center;gap:9px}
 .diff-pain .diff-tag{color:var(--s3)}.diff-sol .diff-tag{color:var(--e2)}
 .diff-tag .dot2{width:7px;height:7px;border-radius:50%}
-.diff-pain .dot2{background:var(--s3)}.diff-sol .dot2{background:var(--e1);box-shadow:0 0 10px var(--eg)}
+.diff-pain .dot2{background:var(--s3)}.diff-sol .dot2{background:#2fd98a;box-shadow:0 0 10px rgba(47,217,138,.5)}
 .diff-row h3{font-size:21px;font-weight:500;margin-bottom:12px;letter-spacing:-.01em}
 .diff-row p{font-size:15px;color:var(--dim);line-height:1.6}
 .diff-row p .hl{color:var(--s1);font-weight:600}
@@ -435,7 +435,7 @@ section.sec,section.manifesto,section.pos,section.evo,section.cw,section.pclose,
 
 /* ── BOTÃO CHAMA (formato de chama; preenche no hover; acende no clique) ── */
 .flame-btn{background:none;border:none;outline:none;-webkit-tap-highlight-color:transparent;cursor:pointer;display:inline-flex;flex-direction:column;align-items:center;gap:16px;margin-top:54px;padding:8px;transition:transform .4s cubic-bezier(.2,.7,.2,1)}
-.flame-btn:focus,.flame-btn:focus-visible{outline:none;box-shadow:none}
+.flame-btn:focus,.flame-btn:focus-visible,.flame-btn:active{outline:0!important;box-shadow:none!important;border:none!important}
 .flame-btn:hover{transform:translateY(-4px)}
 .flame-svg{width:78px;height:100px;display:block;overflow:visible}
 .flame-outer{fill:rgba(255,122,26,.06);stroke:var(--e2);stroke-width:2.4;transition:fill .55s ease,stroke .55s ease,filter .55s ease}
@@ -491,7 +491,11 @@ section.sec,section.manifesto,section.pos,section.evo,section.cw,section.pclose,
 /* adicionais */
 .p-addons{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 @media(max-width:560px){.p-addons{grid-template-columns:1fr}}
-.p-addon{display:flex;justify-content:space-between;align-items:center;border:1px solid var(--line);border-radius:8px;padding:18px 20px;transition:border-color .3s,background .3s}
+.p-addon{display:flex;flex-direction:column;align-items:stretch;border:1px solid var(--line);border-radius:8px;padding:18px 20px;transition:border-color .3s,background .3s}
+.p-addon-head{display:flex;justify-content:space-between;align-items:center}
+.p-addon-more{max-height:0;opacity:0;overflow:hidden;font-size:12px;line-height:1.5;color:var(--text-dim);margin-top:0;transition:max-height .5s cubic-bezier(.2,.7,.2,1),opacity .4s ease,margin-top .5s cubic-bezier(.2,.7,.2,1)}
+@media(hover:hover) and (min-width:641px){.p-addon:hover{border-color:rgba(255,122,26,.4)}.p-addon:hover .p-addon-more{max-height:90px;opacity:1;margin-top:12px}}
+@media(hover:none),(max-width:640px){.p-addon-more{max-height:none;opacity:.85;margin-top:10px}}
 .p-addon:hover{border-color:var(--line-2);background:rgba(255,255,255,.02)}
 .p-addon-name{font-family:var(--fs);font-size:15px;color:var(--text);font-weight:600}
 .p-addon-price{font-family:var(--fd);font-size:22px;font-weight:400;color:var(--e2);white-space:nowrap}
@@ -553,8 +557,8 @@ section.sec,section.manifesto,section.pos,section.evo,section.cw,section.pclose,
 .diff-x-body strong{color:var(--text);font-weight:600}
 
 /* ── PALAVRAS DE ANTECIPAÇÃO (entre cenas lifestyle) ── */
-.antic{position:fixed;left:0;right:0;top:50%;transform:translateY(-50%);text-align:center;z-index:8;pointer-events:none;opacity:0}
-.antic span{font-family:var(--fd);font-weight:300;font-size:clamp(48px,11vw,150px);letter-spacing:.04em;color:var(--text);text-transform:uppercase;text-shadow:0 4px 60px rgba(0,0,0,.6)}
+#antic{position:fixed;left:0;right:0;top:50%;transform:translateY(-50%);text-align:center;z-index:24;pointer-events:none;opacity:0}
+#antic span{display:inline-block;font-family:var(--fd);font-weight:300;font-size:clamp(48px,11vw,150px);letter-spacing:.04em;color:var(--text);text-transform:uppercase;text-shadow:0 4px 60px rgba(0,0,0,.75)}
 
 </style>
 </head>
@@ -663,6 +667,7 @@ section.sec,section.manifesto,section.pos,section.evo,section.cw,section.pclose,
         <div class="comp-tier"><span class="comp-range">R$ 2.500–5.000</span><span class="comp-names">MoviNox, Caixa de Fogo, Grill Land</span><span class="comp-label">Inox de nicho · baixo volume</span></div>
         <div class="comp-tier tier-vision"><span class="comp-range">R$ 590–990</span><span class="comp-names"><strong>Vision Inox ✦</strong> — a Portátil herói</span><span class="comp-label">Premium acessível · espaço vazio →</span></div>
         <div class="comp-tier"><span class="comp-range">R$ 100–400</span><span class="comp-names">Tramontina, Mor, genéricos de marketplace</span><span class="comp-label">Esmaltado · enferruja no litoral</span></div>
+        <p style="font-size:13px;color:#65686f;margin-top:18px;max-width:62ch;line-height:1.6;font-family:var(--fs)">A linha pode subir até a faixa premium alta — parrilla, kits gourmet — conforme a marca ganha tração. Mas a entrada é pela Portátil, no espaço acessível que ninguém ocupa hoje.</p>
       </div>
     </div>
   </div>
@@ -1444,10 +1449,10 @@ section.sec,section.manifesto,section.pos,section.evo,section.cw,section.pclose,
 
     <div class="p-panel" data-panel="addons">
       <div class="p-addons">
-        <div class="p-addon"><span class="p-addon-name">Social Media</span><span class="p-addon-price">R$ 4.000<small>/mês</small></span></div>
-        <div class="p-addon"><span class="p-addon-name">Design Recorrente</span><span class="p-addon-price">R$ 3.000<small>/mês</small></span></div>
-        <div class="p-addon"><span class="p-addon-name">Edição de Vídeo</span><span class="p-addon-price">R$ 3.500<small>/mês</small></span></div>
-        <div class="p-addon"><span class="p-addon-name">Criativos UGC</span><span class="p-addon-price">R$ 4.000<small>/mês</small></span></div>
+        <div class="p-addon"><div class="p-addon-head"><span class="p-addon-name">Social Media</span><span class="p-addon-price">R$ 4.000<small>/mês</small></span></div><div class="p-addon-more">Pauta, calendário editorial, copy e publicação — presença constante e on-brand nas redes.</div></div>
+        <div class="p-addon"><div class="p-addon-head"><span class="p-addon-name">Design Recorrente</span><span class="p-addon-price">R$ 3.000<small>/mês</small></span></div><div class="p-addon-more">Banco de criativos sob demanda: posts, banners, peças de campanha e materiais de apoio.</div></div>
+        <div class="p-addon"><div class="p-addon-head"><span class="p-addon-name">Edição de Vídeo</span><span class="p-addon-price">R$ 3.500<small>/mês</small></span></div><div class="p-addon-more">Cortes para Reels e YouTube, motion e legendas — o vídeo que o algoritmo premia.</div></div>
+        <div class="p-addon"><div class="p-addon-head"><span class="p-addon-name">Criativos UGC</span><span class="p-addon-price">R$ 4.000<small>/mês</small></span></div><div class="p-addon-more">Roteiro e produção de vídeos estilo creator para anúncios — o formato que mais converte.</div></div>
         <div class="p-combo">
           <div class="p-combo-lab">Combo Conteúdo Premium</div>
           <div class="p-combo-price">os quatro juntos por <em>R$ 12.500</em>/mês</div>
@@ -1504,9 +1509,10 @@ const t1=C('t1'),t2=C('t2'),t3=C('t3'),t4=C('t4'),t5=C('t5'),t6=C('t6'),t6b=C('t
 const scue=C('scue'),dots=[...document.querySelectorAll('#dots .dot')];
 const auMusic=C('auMusic'),auEmber=C('auEmber'),sndBtn=C('sndBtn');
 const intro=C('intro'),introBtn=C('introBtn'),introSkip=C('introSkip');
-let vdur=0,curPh=-1,lastPr=0,sndOn=false;
+let vdur=0,curPh=-1,lastPr=0,sndOn=false,SCROLL_READY=false;
 const MS=114; // musica inicia em 1:54
 const seg=(p,a,b)=>ez(cl((p-a)/(b-a),0,1));
+const frz=t=>{t=cl(t,0,1);return t<.30?t/.30*.5:t>.70?.5+(t-.70)/.30*.5:.5;};
 const W=.020; // meia-largura do crossfade alinhado
 // cenas genericas: [id, inicio, fim, fadeIn, fadeOut, zoom]
 const SC=[
@@ -1535,8 +1541,8 @@ function update(p){
     if(s.fout)o*=(1-seg(p,s.b-W,s.b+W));
     op(s.el,o);
     var sc,ZA=(window.innerWidth<760?0.45:1.12);
-    if(s.z==='in')sc=1+seg(p,s.a,s.b)*ZA;
-    else if(s.z==='out')sc=(1+ZA)-seg(p,s.a,s.b)*ZA;
+    if(s.z==='in')sc=1+frz(seg(p,s.a,s.b))*ZA;
+    else if(s.z==='out')sc=(1+ZA)-frz(seg(p,s.a,s.b))*ZA;
     else sc=1.045-seg(p,s.a,s.b)*0.045;
     if(s.img)s.img.style.transform='scale('+sc.toFixed(3)+')';
   }
@@ -1569,7 +1575,9 @@ function applyAudio(pr){
   var mb=Math.max(mUp,0.18)+seg(pr,.66,.72)*(0.50-0.18)+seg(pr,1.0,1.12)*(0.34-0.50);
   auMusic.volume=cl(mb,0,1);
   // M4: brasa (fogo+mar) entra na praia (.50-.60) e some nas terrestres (.62-.72), cruzando com a volta da musica
-  auEmber.volume=cl(0.72*seg(pr,.50,.60)*(1-seg(pr,.62,.72)),0,1);
+  var emb=0.72*seg(pr,.50,.60)*(1-seg(pr,.62,.72));
+  if(innerWidth<760)emb*=0.5;
+  auEmber.volume=cl(emb,0,1);
 }
 let tick=false;
 function onScroll(){if(!tick){requestAnimationFrame(function(){if(track){var r=track.getBoundingClientRect();var rng=r.height-window.innerHeight;var pr=(rng>0?-r.top/rng:0);lastPr=pr;update(cl(pr,0,1));applyAudio(pr);}tick=false});tick=true}}
@@ -1592,11 +1600,12 @@ function enterExperience(withSound){
   if(intro)intro.classList.add('gone');
   var _dr=C('darkrise');if(_dr)setTimeout(function(){_dr.classList.add('gone');},850);
   unlockScroll();
+  window.scrollTo(0,0);SCROLL_READY=true;
   setTimeout(function(){if(intro)intro.style.display='none';},1200);
 }
 if(introBtn)introBtn.addEventListener('click',function(){enterExperience(true);});
 if(introSkip)introSkip.addEventListener('click',function(){enterExperience(false);});
-if(intro){lockScroll();}
+if(intro){lockScroll();window.scrollTo(0,0);}
 // acende o retrato do fecho quando entra na viewport
 var _pcl=C('pclose');
 if(_pcl&&'IntersectionObserver' in window){new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){_pcl.classList.add('lit');}})},{threshold:.32}).observe(_pcl);}
@@ -1669,6 +1678,60 @@ document.addEventListener('DOMContentLoaded',()=>{
 window.addEventListener('scroll',onScroll,{passive:true});
 onScroll();
 
+/* ═══ SMOOTH SCROLL (desktop/roda) — inércia cinematográfica; touch usa nativo ═══ */
+(function(){
+  var fine=matchMedia('(hover:hover) and (pointer:fine)').matches;
+  var reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
+  if(!fine||reduce)return;
+  var target=0,current=0,running=false;
+  function maxY(){return Math.max(0,document.documentElement.scrollHeight-innerHeight);}
+  function frame(){
+    var d=target-current;
+    if(Math.abs(d)<0.5){current=target;window.scrollTo(0,Math.round(current));running=false;return;}
+    current+=d*0.115;
+    window.scrollTo(0,Math.round(current));
+    requestAnimationFrame(frame);
+  }
+  function kick(){if(!running){running=true;current=window.scrollY;requestAnimationFrame(frame);}}
+  addEventListener('wheel',function(e){
+    if(!SCROLL_READY||e.ctrlKey)return;
+    e.preventDefault();
+    if(!running)target=window.scrollY;
+    var d=e.deltaY; if(e.deltaMode===1)d*=16; else if(e.deltaMode===2)d*=innerHeight;
+    target=Math.max(0,Math.min(target+d,maxY()));
+    kick();
+  },{passive:false});
+  addEventListener('scroll',function(){if(!running){target=current=window.scrollY;}},{passive:true});
+  addEventListener('resize',function(){target=Math.max(0,Math.min(target,maxY()));});
+  document.addEventListener('click',function(e){
+    var a=e.target.closest&&e.target.closest('a[href^="#"]');if(!a)return;
+    var h=a.getAttribute('href');if(!h||h.length<2)return;
+    var el=document.querySelector(h);if(!el)return;
+    e.preventDefault();
+    target=Math.max(0,Math.min(el.getBoundingClientRect().top+window.scrollY,maxY()));kick();
+  });
+})();
+
+/* ═══ ÁUDIO: pausa ao ocultar/bloquear · reset total ao reabrir ═══ */
+if('scrollRestoration' in history)history.scrollRestoration='manual';
+(function(){
+  var wasPlaying=false;
+  document.addEventListener('visibilitychange',function(){
+    if(document.hidden){wasPlaying=sndOn;auMusic.pause();auEmber.pause();}
+    else if(wasPlaying&&sndOn){var a=auMusic.play(),e=auEmber.play();if(a&&a.catch)a.catch(function(){});if(e&&e.catch)e.catch(function(){});}
+  });
+  addEventListener('pagehide',function(){auMusic.pause();auEmber.pause();});
+  addEventListener('pageshow',function(ev){
+    if(ev.persisted){
+      sndOn=false;auMusic.pause();auEmber.pause();try{auMusic.currentTime=MS;}catch(e){}
+      SCROLL_READY=false;window.scrollTo(0,0);
+      if(intro){intro.style.display='';intro.classList.remove('gone');lockScroll();}
+      if(sndBtn){sndBtn.classList.remove('on');sndBtn.style.display='none';}
+      var _dr=C('darkrise');if(_dr)_dr.classList.remove('gone');
+    }
+  });
+})();
+
 /* ═══ VIDEO MOBILE SWAP ═══ */
 (function(){
   if(window.innerWidth<760){
@@ -1700,8 +1763,10 @@ onScroll();
   if(fb&&modal){
     fb.addEventListener('click',function(){
       fb.classList.add('lit');
+      try{fb.blur();}catch(e){}
       setTimeout(function(){modal.classList.add('open');},420);
     });
+    fb.addEventListener('mousedown',function(e){e.preventDefault();});
   }
   document.querySelectorAll('.p-tab').forEach(function(t){
     t.addEventListener('click',function(){
