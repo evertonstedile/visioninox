@@ -405,9 +405,15 @@ section.sec,section.manifesto,section.pos,section.evo,section.cw,section.pclose,
 
 /* ═══ SEÇÃO PESQUISA ═══ */
 .sec-pesquisa{}
-.pesq-tramontina{border-left:3px solid var(--e1);padding:28px 32px;background:rgba(0,229,255,.04);margin:48px 0;border-radius:0 6px 6px 0}
-.pesq-tramontina blockquote{font-family:var(--fs);font-size:clamp(14px,1.6vw,17px);font-style:italic;color:var(--text);line-height:1.7;margin:0 0 12px}
-.pesq-tramontina cite{font-family:var(--fs);font-size:11px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--dim)}
+.tramontina-exhibit{position:relative;margin:56px 0;padding:46px 44px 40px;border:1px solid rgba(0,229,255,.3);border-radius:18px;background:linear-gradient(165deg,rgba(0,229,255,.07),rgba(13,13,17,.45));box-shadow:0 30px 80px -42px rgba(0,229,255,.4);overflow:hidden}
+.tramontina-exhibit::before{content:'';position:absolute;left:0;top:0;width:5px;height:100%;background:var(--e1);box-shadow:0 0 26px var(--e1)}
+.tx-badge{display:inline-flex;align-items:center;gap:9px;font-family:var(--fs);font-size:11px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--e1);margin-bottom:24px}
+.tx-badge::before{content:'';width:8px;height:8px;border-radius:50%;background:var(--e1);box-shadow:0 0 12px var(--e1)}
+.tx-quote{font-family:var(--fd);font-weight:300;font-size:clamp(23px,3.5vw,38px);line-height:1.3;letter-spacing:-.015em;color:var(--text)}
+.tx-mark{font-family:var(--fd);font-size:2.2em;line-height:0;color:rgba(0,229,255,.45);vertical-align:-.3em;margin-right:.04em}
+.tx-hl{color:var(--e1);font-style:italic}
+.tx-cite{font-family:var(--fs);font-size:12px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--dim);margin-top:26px}
+@media(max-width:760px){.tramontina-exhibit{padding:34px 26px 30px;margin:44px 0}}
 .pesq-janela{font-family:var(--fd);font-size:clamp(28px,4.5vw,54px);font-weight:400;color:var(--e1);letter-spacing:-.02em;margin-top:40px;line-height:1.1}
 .comp-map{margin-top:52px;display:flex;flex-direction:column;gap:2px}
 .comp-tier{display:flex;align-items:center;gap:16px;padding:16px 20px;border:1px solid var(--line);border-radius:6px;transition:background .25s}
@@ -421,6 +427,18 @@ section.sec,section.manifesto,section.pos,section.evo,section.cw,section.pclose,
 
 /* ═══ SEÇÃO PRICING ═══ */
 .pricing-sec{text-align:center;padding:120px 5vw 140px}
+.calc-cta{text-align:center;padding:110px 5vw 120px;border-top:1px solid var(--line)}
+.cc-wrap{max-width:740px;margin:0 auto}
+.cc-kk{font-family:var(--fs);font-size:11px;font-weight:800;letter-spacing:.28em;text-transform:uppercase;color:var(--e2)}
+.cc-h{font-family:var(--fd);font-weight:300;font-size:clamp(34px,5.5vw,60px);line-height:1.04;letter-spacing:-.03em;margin:22px 0 20px}
+.cc-h em{font-style:italic;color:var(--e2)}
+.cc-sub{font-size:clamp(15px,2vw,18px);color:var(--dim);line-height:1.65;max-width:600px;margin:0 auto}
+.cc-btn{display:inline-flex;align-items:center;gap:15px;margin-top:42px;padding:23px 40px;border-radius:10px;background:linear-gradient(135deg,#ff8a2a,#ff5a14);color:#140a03;font-family:var(--fs);font-size:15px;font-weight:800;letter-spacing:.03em;text-decoration:none;box-shadow:0 20px 60px -18px rgba(255,90,20,.65);transition:transform .4s cubic-bezier(.2,.7,.2,1),box-shadow .4s cubic-bezier(.2,.7,.2,1);animation:ccPulse 3s ease-in-out infinite}
+.cc-btn:hover{transform:translateY(-4px) scale(1.015);box-shadow:0 30px 80px -16px rgba(255,90,20,.9);animation:none}
+@keyframes ccPulse{0%,100%{box-shadow:0 18px 55px -18px rgba(255,90,20,.55)}50%{box-shadow:0 24px 72px -14px rgba(255,90,20,.82)}}
+.cc-btn svg{width:19px;height:19px;stroke:#140a03;stroke-width:2.6;fill:none;flex-shrink:0}
+@media(prefers-reduced-motion:reduce){.cc-btn{animation:none}}
+@media(max-width:760px){.calc-cta{padding:80px 24px 90px}.cc-btn{padding:20px 30px;font-size:14px}}
 .flame-btn{margin-top:56px;display:inline-flex;align-items:center;gap:14px;background:transparent;border:1px solid rgba(255,122,26,.45);color:var(--e2);font-family:var(--fs);font-size:13px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;padding:20px 36px;border-radius:4px;cursor:pointer;transition:background .35s,border-color .35s,transform .35s cubic-bezier(.2,.7,.2,1);position:relative;overflow:hidden}
 .flame-btn::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 100% at 50% 100%,rgba(255,69,0,.18),transparent 70%);opacity:0;transition:opacity .35s}
 .flame-btn:hover{background:rgba(255,69,0,.08);border-color:rgba(255,122,26,.85);transform:translateY(-2px)}
@@ -498,6 +516,7 @@ section.sec,section.manifesto,section.pos,section.evo,section.cw,section.pclose,
 .p-pay{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;margin-top:22px;padding:15px 18px;border:1px solid var(--line);border-radius:8px;background:rgba(255,255,255,.02)}
 .p-pay-lab{font-family:var(--fs);font-size:10px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--dim)}
 .p-pay-methods{font-size:13px;color:var(--text-dim)}
+.p-pay-note{font-size:11.5px;color:var(--faint);margin-top:10px;line-height:1.5;font-style:italic}
 /* CTA contato no rodapé do modal */
 .p-modal-cta{margin-top:30px;padding-top:26px;border-top:1px solid var(--line);display:flex;flex-direction:column;align-items:center;gap:12px}
 .p-cta-note{font-size:12.5px;color:var(--dim)}
@@ -553,11 +572,11 @@ section.sec,section.manifesto,section.pos,section.evo,section.cw,section.pclose,
 
 /* ── DOR × VISION (muito mais peso) ── */
 .diff-clash{margin-top:48px}
-.diff-vs{display:grid;grid-template-columns:1fr auto 1fr;gap:0;align-items:stretch;border-radius:18px;overflow:hidden;border:1px solid var(--line)}
+.diff-vs{display:grid;grid-template-columns:1fr 1fr;gap:0;align-items:stretch;border-radius:18px;overflow:hidden;border:1px solid rgba(255,122,26,.28);box-shadow:0 30px 80px -40px rgba(255,90,20,.35)}
 @media(max-width:760px){.diff-vs{grid-template-columns:1fr}}
 .diff-side{padding:44px 38px}
-.diff-pain-x{background:linear-gradient(180deg,rgba(120,40,30,.10),rgba(20,20,24,.4))}
-.diff-sol-x{background:linear-gradient(180deg,rgba(255,69,0,.10),rgba(255,69,0,.02))}
+.diff-pain-x{background:linear-gradient(180deg,rgba(120,40,30,.08),rgba(16,16,20,.55))}
+.diff-sol-x{background:linear-gradient(155deg,rgba(255,90,20,.20),rgba(255,69,0,.05))}
 .diff-mid{display:flex;align-items:center;justify-content:center;padding:0 4px;background:var(--line);position:relative}
 @media(max-width:760px){.diff-mid{padding:16px 0}}
 .diff-mid span{font-family:var(--fd);font-style:italic;font-size:20px;color:var(--dim);background:var(--bg-2);padding:10px 4px;border-radius:999px}
@@ -567,7 +586,7 @@ section.sec,section.manifesto,section.pos,section.evo,section.cw,section.pclose,
 .diff-x-tag::before{content:'';width:8px;height:8px;border-radius:50%;background:currentColor}
 .diff-sol-x .diff-x-tag::before{box-shadow:0 0 12px var(--eg)}
 /* leitura instantânea: acento verde no lado Vision */
-.diff-sol-x{position:relative;box-shadow:inset 3px 0 0 #2fd98a}
+.diff-sol-x{position:relative;box-shadow:inset 4px 0 0 #2fd98a,inset 0 0 90px -32px rgba(255,150,50,.8)}
 .diff-resolved{position:absolute;top:20px;right:22px;display:inline-flex;align-items:center;gap:7px;font-family:var(--fs);font-size:10px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:#2fd98a;border:1px solid rgba(47,217,138,.35);border-radius:999px;padding:6px 12px;background:rgba(47,217,138,.08)}
 .diff-resolved svg{width:12px;height:12px;stroke:#2fd98a;stroke-width:3;fill:none}
 @media(max-width:760px){.diff-resolved{top:16px;right:16px}}
@@ -700,9 +719,10 @@ section.sec,section.manifesto,section.pos,section.evo,section.cw,section.pclose,
       <div class="crow rv" style="--fill:.70"><div class="crow-top"><span class="crow-val">50M+</span><span class="crow-lab">em cidades litorâneas — sem resposta premium de verdade</span></div><div class="crow-track"><i></i></div></div>
     </div>
 
-    <div class="pesq-tramontina rv" style="margin-top:64px">
-      <blockquote>"Em ambiente com maresia e umidade excessiva, a estrutura poderá apresentar corrosão de forma acelerada. Recomendamos que os cuidados sejam redobrados."</blockquote>
-      <cite>— Tramontina, sobre sua própria churrasqueira. No próprio anúncio de produto.</cite>
+    <div class="tramontina-exhibit rv" style="margin-top:64px">
+      <div class="tx-badge">A confissão do líder de mercado</div>
+      <div class="tx-quote"><span class="tx-mark">“</span>Em ambiente com maresia e umidade excessiva, a estrutura poderá apresentar <span class="tx-hl">corrosão de forma acelerada</span>. Recomendamos que os cuidados sejam redobrados.”</div>
+      <div class="tx-cite">— Tramontina, no próprio anúncio do seu produto</div>
     </div>
     <p class="pesq-janela rv">O líder admite a falha.<br>São 7.400 km de costa esperando uma marca.</p>
 
@@ -750,7 +770,6 @@ section.sec,section.manifesto,section.pos,section.evo,section.cw,section.pclose,
           <div class="diff-x-quote">"Enferruja perto do mar."</div>
           <p class="diff-x-body">Boa parte do mercado usa inox 430 ou aço galvanizado. No litoral, <strong>mancha e enferruja em meses</strong>. O cliente compra duas vezes — e culpa a categoria inteira.</p>
         </div>
-        <div class="diff-mid"><span>vs</span></div>
         <div class="diff-side diff-sol-x">
           <span class="diff-resolved"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Resolvido</span>
           <div class="diff-x-tag">O que a Vision faz</div>
@@ -1478,7 +1497,8 @@ section.sec,section.manifesto,section.pos,section.evo,section.cw,section.pclose,
         <div class="p-tier"><span class="p-tier-pct">5%</span><span class="p-tier-range">sobre a faixa R$ 150k–350k/mês</span></div>
         <div class="p-tier"><span class="p-tier-pct">7%</span><span class="p-tier-range">acima de R$ 350k/mês</span></div>
       </div>
-      <div class="p-pay"><span class="p-pay-lab">Formas de pagamento</span><span class="p-pay-methods">Pix · Transferência bancária · Boleto · Cartão (parcelável)</span></div>
+      <div class="p-pay"><span class="p-pay-lab">Formas de pagamento</span><span class="p-pay-methods">Pix · Transferência bancária · Boleto · Cartão parcelado</span></div>
+      <p class="p-pay-note">No cartão, o parcelamento está sujeito às taxas de parcelamento da operadora, por conta do contratante. Pix, transferência e boleto não têm acréscimo.</p>
       <p class="p-carencia">Carência de 3 meses a partir do go-live · base: faturamento líquido da loja gerenciada</p>
     </div>
 
@@ -1512,7 +1532,22 @@ section.sec,section.manifesto,section.pos,section.evo,section.cw,section.pclose,
       <button class="p-cta-btn" onclick="document.getElementById('pricingModal').classList.remove('open');setTimeout(function(){var c=document.getElementById('contato');if(c)c.scrollIntoView({behavior:'smooth'});},320);">Conversar sobre a proposta<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
     </div>
   </div>
-</div><section class="pclose" id="pclose">
+</div>
+
+<section class="sec calc-cta">
+  <div class="cc-wrap rv">
+    <span class="cc-kk">A conta que fecha</span>
+    <h2 class="cc-h">E em quanto tempo<br><em>isso se paga?</em></h2>
+    <p class="cc-sub">Já fizemos a conta. Abra a calculadora interativa e veja, com os seus próprios números, em quantos meses o investimento volta — e o que ele gera depois disso.</p>
+    <a class="cc-btn" href="retorno.html" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24"><polyline points="3 17 9 11 13 15 21 6"/><polyline points="21 11 21 6 16 6"/></svg>
+      Abrir a calculadora de retorno
+      <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+    </a>
+  </div>
+</section>
+
+<section class="pclose" id="pclose">
   <div class="pcwrap">
     <div class="pc-photo rv"><img loading="lazy" decoding="async" src="assets/retrato.jpg" alt="Everton Stedile"></div>
     <div class="pc-text">
