@@ -1791,16 +1791,17 @@ onScroll();
   var fine=matchMedia('(hover:hover) and (pointer:fine)').matches;
   var reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
   if(!fine||reduce)return;
-  var target=0,current=0,running=false;
+  var target=0,current=0,running=false,lastT=0;
   function maxY(){return Math.max(0,document.documentElement.scrollHeight-innerHeight);}
-  function frame(){
+  function frame(now){
+    var dt=lastT?(now-lastT):16.667;lastT=now;if(dt>64)dt=64;
     var d=target-current;
-    if(Math.abs(d)<0.5){current=target;window.scrollTo(0,Math.round(current));running=false;return;}
-    current+=d*0.16;
+    if(Math.abs(d)<0.4){current=target;window.scrollTo(0,Math.round(current));running=false;lastT=0;return;}
+    current+=d*(1-Math.pow(0.70,dt/16.667));
     window.scrollTo(0,Math.round(current));
     requestAnimationFrame(frame);
   }
-  function kick(){if(!running){running=true;current=window.scrollY;requestAnimationFrame(frame);}}
+  function kick(){if(!running){running=true;current=window.scrollY;lastT=0;requestAnimationFrame(frame);}}
   addEventListener('wheel',function(e){
     if(!SCROLL_READY||e.ctrlKey)return;
     // touchpad (pixel + delta pequeno) = scroll NATIVO (ja e fluido). smooth so na roda do mouse.
