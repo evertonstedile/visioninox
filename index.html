@@ -397,7 +397,7 @@ section.sec,section.manifesto,section.pos,section.evo,section.cw,section.pclose,
 #darkrise{position:fixed;inset:0;z-index:50;background:#070707;opacity:1;pointer-events:none;transition:opacity 1.0s cubic-bezier(.2,.7,.2,1)}
 #darkrise.gone{opacity:0}
 /* ═══ INTERSTICIAL EMBER (hero → seção 01) ═══ */
-#ember-door{position:fixed;inset:0;z-index:60;background:var(--e2);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transform:translateY(100%);transition:transform .0s,opacity .0s}
+#ember-door{position:fixed;inset:0;z-index:60;background:var(--e2);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transform:translateY(100%);will-change:transform,opacity;transition:transform .0s,opacity .0s}
 #ember-door.entering{transform:translateY(0);opacity:1;transition:transform .55s cubic-bezier(.16,1,.3,1),opacity .4s ease}
 #ember-door.leaving{transform:translateY(-100%);opacity:0;transition:transform .65s cubic-bezier(.7,0,.8,.5),opacity .4s ease .2s}
 #ember-door h3{font-family:var(--fd);font-size:clamp(38px,8vw,108px);font-weight:300;color:#090909;line-height:1.05;letter-spacing:-.03em;text-align:center;padding:0 6vw;max-width:900px}
@@ -657,7 +657,7 @@ section.sec,section.manifesto,section.pos,section.evo,section.cw,section.pclose,
   <div class="kf" id="kf-dgre"><div class="media"><picture><source media="(max-width:760px)" srcset="assets/det_grelha-mobile.png"><img decoding="async" src="assets/det_grelha.png" alt="Grelha em inox 304"></picture></div></div>
   <div class="kf" id="kf-inox"><div class="media"><picture><source media="(max-width:760px)" srcset="assets/inox_hero-mobile.png"><img decoding="async" src="assets/inox_hero.png" alt="Vision Inox — produto em inox 304"></picture></div></div>
   <div class="kf" id="kf-praia"><div class="media"><video id="heroVid" muted playsinline preload="auto" poster="assets/hero-poster.jpg"><source id="heroSrcMp4" src="assets/hero-wan-web.mp4" type="video/mp4"></video></div></div>
-  <div class="kf" id="kf-praiaimg"><div class="media"><picture><source media="(max-width:760px)" srcset="assets/praia_final-mobile.png"><img decoding="async" id="praiaImg" src="assets/praia_final.png" alt="Vision Inox no litoral"></picture></div></div>
+  <div class="kf" id="kf-praiaimg"><div class="media"><picture><source media="(max-width:760px)" srcset="assets/praia_final-mobile.webp"><img decoding="async" id="praiaImg" src="assets/praia_final.webp" alt="Vision Inox no litoral"></picture></div></div>
   <div class="kf" id="kf-camp"><div class="media"><picture><source media="(max-width:760px)" srcset="assets/amb_camping-mobile.png"><img decoding="async" src="assets/amb_camping.png" alt="Vision Inox no camping"></picture></div></div>
   <div class="kf" id="kf-pisc"><div class="media"><picture><source media="(max-width:760px)" srcset="assets/amb_piscina-mobile.png"><img decoding="async" src="assets/amb_piscina.png" alt="Vision Inox na beira da piscina"></picture></div></div>
   <div class="kf" id="kf-mont"><div class="media"><picture><source media="(max-width:760px)" srcset="assets/amb_montanha-mobile.png"><img decoding="async" src="assets/amb_montanha.png" alt="Vision Inox na montanha"></picture></div></div>
@@ -1036,7 +1036,7 @@ section.sec,section.manifesto,section.pos,section.evo,section.cw,section.pclose,
     <span class="kicker rv">O posicionamento</span>
     <p class="tagline rv d1" style="margin-top:30px">Feita para o litoral.<br><em>Boa para o Brasil inteiro.</em></p>
     <p class="alt rv d3">Território: <b>brasa, casa, litoral, durabilidade, família e experiência.</b><br>Não "uma fábrica de inox vendendo no digital" — uma <b>marca especialista, premium e confiável.</b></p>
-    <div class="pos-shot rv d2"><img loading="lazy" decoding="async" src="assets/praia_final.png" alt="Vision Inox no litoral ao pôr do sol"><span class="pos-cap">Conceito de direção · o produto no seu território</span></div>
+    <div class="pos-shot rv d2"><img loading="lazy" decoding="async" src="assets/praia_final.webp" alt="Vision Inox no litoral ao pôr do sol"><span class="pos-cap">Conceito de direção · o produto no seu território</span></div>
   </div>
 </section>
 
@@ -1620,11 +1620,13 @@ function update(p){
     if(s.fin)o*=seg(p,s.a-W,s.a+W);
     if(s.fout)o*=(1-seg(p,s.b-W,s.b+W));
     op(s.el,o);
-    var sc,ZA=(window.innerWidth<760?0.45:1.12);
-    if(s.z==='in')sc=1+seg(p,s.a,s.b)*ZA;
-    else if(s.z==='out')sc=(1+ZA)-seg(p,s.a,s.b)*ZA;
-    else sc=1.045-seg(p,s.a,s.b)*0.045;
-    if(s.img)s.img.style.transform='scale('+sc.toFixed(3)+')';
+    if(s.img&&(o>0.001||s.el.id==='kf-cam')){
+      var sc,ZA=(window.innerWidth<760?0.45:1.12);
+      if(s.z==='in')sc=1+seg(p,s.a,s.b)*ZA;
+      else if(s.z==='out')sc=(1+ZA)-seg(p,s.a,s.b)*ZA;
+      else sc=1.045-seg(p,s.a,s.b)*0.045;
+      s.img.style.transform='scale('+sc.toFixed(3)+')';
+    }
   }
   // M6: caminhonete some em fade-out no fim (.95-1.0), por cima a headline final sobre o preto
   var _cam=C('kf-cam');if(_cam)op(_cam,seg(p,.875,.915)*(1-seg(p,.95,1.0)));
